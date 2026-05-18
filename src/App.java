@@ -62,6 +62,10 @@ public class App {
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
         gestorCartas.show(contenedorPantallas, "login");
 
+        registerFrame register = new registerFrame(contenedorPantallas, gestorCartas);
+        contenedorPantallas.add(register, "register");
+        bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
+
         jf.setContentPane(bgPanel);
 
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
