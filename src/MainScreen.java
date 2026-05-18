@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class MainScreen extends JPanel {
 
-    public MainScreen() {
+    public MainScreen(JPanel contenedorPrincipal, CardLayout gestorCartas) {
         setOpaque(false);
         setLayout(new BorderLayout());
 
@@ -16,8 +16,10 @@ public class MainScreen extends JPanel {
         bottomBar.setPreferredSize(new Dimension(402, 65));
         bottomBar.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(200, 200, 200)));
 
-        bottomBar.add(createNavButton("src/assets/bottomBar/homeSelected.png"));
-        bottomBar.add(createNavButton("src/assets/bottomBar/search.png"));
+        JButton btnHome = createNavButton("src/assets/bottomBar/homeSelected.png");
+        btnHome.addActionListener(e -> gestorCartas.show(contenedorPrincipal, "Main"));
+        bottomBar.add(btnHome);
+
         bottomBar.add(createNavButton("src/assets/bottomBar/cart.png"));
         bottomBar.add(createNavButton("src/assets/bottomBar/history.png"));
         bottomBar.add(createNavButton("src/assets/bottomBar/account.png"));

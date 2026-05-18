@@ -95,7 +95,6 @@ public class LoginFrame extends JPanel {
         lblRegister.setForeground(new Color(100, 150, 255));
         lblRegister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         gbc.gridy = 8;
-        lblRegister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lblRegister.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {

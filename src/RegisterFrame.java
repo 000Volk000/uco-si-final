@@ -79,8 +79,10 @@ public class RegisterFrame extends JPanel {
         // Crear Cuenta
         gbc.insets = new Insets(40, 0, 15, 0);
         roundedButton btnLogin = new roundedButton("Crear Cuenta");
+        btnLogin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnLogin.setPreferredSize(new Dimension(220, 45));
         btnLogin.setFont(inikaFont.deriveFont(Font.PLAIN, 20f));
+        btnLogin.addActionListener(e -> gestorCartas.show(contenedorPrincipal, "main"));
         gbc.gridy = 7;
         gbc.anchor = GridBagConstraints.CENTER;
         add(btnLogin, gbc);

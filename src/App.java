@@ -56,7 +56,7 @@ public class App {
         LoginFrame login = new LoginFrame(gestorCartas, contenedorPantallas);
         contenedorPantallas.add(login, "login");
 
-        MainScreen mainScreen = new MainScreen();
+        MainScreen mainScreen = new MainScreen(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(mainScreen, "main");
 
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
