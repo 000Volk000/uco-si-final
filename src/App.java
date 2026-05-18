@@ -2,14 +2,18 @@ import javax.swing.*;
 import java.awt.*;
 
 class BackgroundPanel extends JPanel {
-    private Image topLeft;
-    private Image lowLeft;
-    private Image topRight;
+    private Image scaleTopLeft;
+    private Image scaleLowLeft;
+    private Image scaleTopRight;
+    private Image koi;
+
 
     public BackgroundPanel() {
-        topLeft = new ImageIcon("src/assets/topLeft.png").getImage();
-        lowLeft = new ImageIcon("src/assets/bottomLeft.png").getImage();
-        topRight = new ImageIcon("src/assets/topRight.png").getImage();
+        int scaletl= 220, scalell=200,scaletr=145, koi=200;
+        scaleTopLeft = new ImageIcon("src/assets/topLeft.png").getImage().getScaledInstance(scaletl, -1, Image.SCALE_SMOOTH);
+        scaleLowLeft = new ImageIcon("src/assets/bottomLeft.png").getImage().getScaledInstance(scalell, -1, Image.SCALE_SMOOTH);
+        scaleTopRight = new ImageIcon("src/assets/topRight.png").getImage().getScaledInstance(scaletr, -1, Image.SCALE_SMOOTH);
+        this.koi= new ImageIcon("src/assets/koi.png").getImage().getScaledInstance(koi, -1, Image.SCALE_SMOOTH);
     }
 
     @Override
@@ -18,12 +22,14 @@ class BackgroundPanel extends JPanel {
         int width = getWidth();
         int height = getHeight();
 
-        if (topLeft != null)
-            g.drawImage(topLeft, 0, 0, this);
-        if (lowLeft != null)
-            g.drawImage(lowLeft, 0, height - lowLeft.getHeight(this), this);
-        if (topRight != null)
-            g.drawImage(topRight, width - topRight.getWidth(this), 0, this);
+        if (scaleTopLeft != null)
+            g.drawImage(scaleTopLeft, 0, 0, this);
+        if (scaleLowLeft != null)
+            g.drawImage(scaleLowLeft, 0, height - scaleLowLeft.getHeight(this), this);
+        if (scaleTopRight != null)
+            g.drawImage(scaleTopRight, width - scaleTopRight.getWidth(this), 0, this);
+        if (koi != null)
+            g.drawImage(koi, 175, 580, this);
     }
 }
 
@@ -39,6 +45,16 @@ public class App {
         // Background
         BackgroundPanel bgPanel = new BackgroundPanel();
         bgPanel.setBackground(Color.decode("#B0C2DB"));
+
+        bgPanel.setLayout(new BorderLayout());
+        CardLayout gestorCartas = new CardLayout();
+        JPanel contenedorPantallas = new JPanel(gestorCartas);
+        contenedorPantallas.setOpaque(false);
+
+        loginFrame login = new loginFrame();
+        contenedorPantallas.add(login, "login");
+        bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
+        gestorCartas.show(contenedorPantallas, "login");
 
         jf.setContentPane(bgPanel);
 
