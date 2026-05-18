@@ -51,10 +51,14 @@ public class App {
         JPanel contenedorPantallas = new JPanel(gestorCartas);
         contenedorPantallas.setOpaque(false);
 
-        loginFrame login = new loginFrame();
+        loginFrame login = new loginFrame(contenedorPantallas,gestorCartas);
         contenedorPantallas.add(login, "login");
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
         gestorCartas.show(contenedorPantallas, "login");
+
+        registerFrame register = new registerFrame(contenedorPantallas,gestorCartas);
+        contenedorPantallas.add(register, "register");
+        bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
 
         jf.setContentPane(bgPanel);
 

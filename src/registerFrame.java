@@ -3,11 +3,11 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class loginFrame extends JPanel {
+public class registerFrame extends JPanel {
 
     private Font inikaFont;
 
-    public loginFrame(JPanel contenedorPrincipal, CardLayout gestorCartas){
+    public registerFrame(JPanel contenedorPrincipal, CardLayout gestorCartas){
 
         setOpaque(false);
         chargeFont();
@@ -60,50 +60,33 @@ public class loginFrame extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         add(txtPass, gbc);
 
-        //cambiar contraseña
-        gbc.insets = new Insets(0, 0, 30, 0);
-        JLabel lblForgot = new JLabel("<html><u>Cambiar contraseña</u></html>");
-        lblForgot.setFont(inikaFont.deriveFont(Font.PLAIN, 14f));
-        lblForgot.setForeground(new Color(80, 90, 120));
-        lblForgot.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); 
+        //Confirmar Contraseña
+        gbc.insets = new Insets(35, 25, 2, 0);
+        JLabel lblConfirmPass = new JLabel("Confirmar Contraseña");
+        lblConfirmPass.setFont(inikaFont.deriveFont(Font.PLAIN, 18f));
         gbc.gridy = 5;
-        gbc.anchor = GridBagConstraints.EAST;
-        add(lblForgot, gbc);
+        gbc.anchor = GridBagConstraints.WEST;
+        add(lblConfirmPass, gbc);
 
-        //Iniciar Sesion
+        //campo3
+        gbc.insets = new Insets(0, 0, 5, 0);
+        passwordText txtConfirmPass = new passwordText(0);
+        txtConfirmPass.setPreferredSize(new Dimension(320, 40));
+        gbc.gridy = 6;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(txtConfirmPass, gbc);
+
+        //Crear Cuenta
         gbc.insets = new Insets(40, 0, 15, 0);
-        roundedButton btnLogin = new roundedButton("Iniciar sesión");
+        roundedButton btnLogin = new roundedButton("Crear Cuenta");
         btnLogin.setPreferredSize(new Dimension(220, 45));
         btnLogin.setFont(inikaFont.deriveFont(Font.PLAIN, 20f));
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         gbc.anchor = GridBagConstraints.CENTER;
         add(btnLogin, gbc);
 
-        //Aun no tienes cuenta?
-        gbc.insets = new Insets(10, 0, 0, 0);
-        JLabel lblNoAccount = new JLabel("¿Aún no tienes cuenta?");
-        lblNoAccount.setFont(inikaFont.deriveFont(Font.PLAIN, 14f));
-        gbc.gridy = 7;
-        add(lblNoAccount, gbc);
-
-        //Registrate
-        gbc.insets = new Insets(2, 0, 0, 0);
-        JLabel lblRegister = new JLabel("<html><u>Regístrate</u></html>");
-        lblRegister.setFont(inikaFont.deriveFont(Font.PLAIN, 14f));
-        lblRegister.setForeground(new Color(100, 150, 255));
-        lblRegister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        gbc.gridy = 8;
-        lblRegister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        lblRegister.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                gestorCartas.show(contenedorPrincipal, "register");
-            }
-        });
-        add(lblRegister, gbc);
-
         //Guarrada para hacer que todo este mas arriba
-        gbc.gridy = 9;
+        gbc.gridy = 8;
         gbc.weighty = 1.0;
         add(Box.createVerticalGlue(), gbc);
     }
