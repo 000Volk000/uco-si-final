@@ -3,11 +3,11 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class loginFrame extends JPanel {
+public class LoginFrame extends JPanel {
 
     private Font inikaFont;
 
-    public loginFrame() {
+    public LoginFrame(CardLayout layout, JPanel parentPanel) {
 
         setOpaque(false);
         chargeFont();
@@ -73,10 +73,12 @@ public class loginFrame extends JPanel {
         // Iniciar Sesion
         gbc.insets = new Insets(40, 0, 15, 0);
         roundedButton btnLogin = new roundedButton("Iniciar sesión");
+        btnLogin.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.setPreferredSize(new Dimension(220, 45));
         btnLogin.setFont(inikaFont.deriveFont(Font.PLAIN, 20f));
         gbc.gridy = 6;
         gbc.anchor = GridBagConstraints.CENTER;
+        btnLogin.addActionListener(e -> layout.show(parentPanel, "main"));
         add(btnLogin, gbc);
 
         // Aun no tienes cuenta?

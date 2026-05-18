@@ -53,8 +53,12 @@ public class App {
         JPanel contenedorPantallas = new JPanel(gestorCartas);
         contenedorPantallas.setOpaque(false);
 
-        loginFrame login = new loginFrame();
+        LoginFrame login = new LoginFrame(gestorCartas, contenedorPantallas);
         contenedorPantallas.add(login, "login");
+
+        MainScreen mainScreen = new MainScreen();
+        contenedorPantallas.add(mainScreen, "main");
+
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
         gestorCartas.show(contenedorPantallas, "login");
 
