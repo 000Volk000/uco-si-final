@@ -7,13 +7,15 @@ class BackgroundPanel extends JPanel {
     private Image scaleTopRight;
     private Image koi;
 
-
     public BackgroundPanel() {
-        int scaletl= 220, scalell=200,scaletr=145, koi=200;
-        scaleTopLeft = new ImageIcon("src/assets/topLeft.png").getImage().getScaledInstance(scaletl, -1, Image.SCALE_SMOOTH);
-        scaleLowLeft = new ImageIcon("src/assets/bottomLeft.png").getImage().getScaledInstance(scalell, -1, Image.SCALE_SMOOTH);
-        scaleTopRight = new ImageIcon("src/assets/topRight.png").getImage().getScaledInstance(scaletr, -1, Image.SCALE_SMOOTH);
-        this.koi= new ImageIcon("src/assets/koi.png").getImage().getScaledInstance(koi, -1, Image.SCALE_SMOOTH);
+        scaleTopLeft = new ImageIcon("src/assets/background/topLeft.png").getImage().getScaledInstance(247, 201,
+                Image.SCALE_SMOOTH);
+        scaleLowLeft = new ImageIcon("src/assets/background/bottomLeft.png").getImage().getScaledInstance(195, 192,
+                Image.SCALE_SMOOTH);
+        scaleTopRight = new ImageIcon("src/assets/background/topRight.png").getImage().getScaledInstance(147, 186,
+                Image.SCALE_SMOOTH);
+        this.koi = new ImageIcon("src/assets/background/koi.png").getImage().getScaledInstance(221, 248,
+                Image.SCALE_SMOOTH);
     }
 
     @Override
@@ -29,7 +31,7 @@ class BackgroundPanel extends JPanel {
         if (scaleTopRight != null)
             g.drawImage(scaleTopRight, width - scaleTopRight.getWidth(this), 0, this);
         if (koi != null)
-            g.drawImage(koi, 175, 580, this);
+            g.drawImage(koi, 176, 589, this);
     }
 }
 
@@ -51,12 +53,16 @@ public class App {
         JPanel contenedorPantallas = new JPanel(gestorCartas);
         contenedorPantallas.setOpaque(false);
 
-        loginFrame login = new loginFrame(contenedorPantallas,gestorCartas);
+        LoginFrame login = new LoginFrame(gestorCartas, contenedorPantallas);
         contenedorPantallas.add(login, "login");
+
+        MainScreen mainScreen = new MainScreen();
+        contenedorPantallas.add(mainScreen, "main");
+
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
         gestorCartas.show(contenedorPantallas, "login");
 
-        registerFrame register = new registerFrame(contenedorPantallas,gestorCartas);
+        registerFrame register = new registerFrame(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(register, "register");
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
 
