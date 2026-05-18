@@ -99,7 +99,7 @@ public class LoginFrame extends JPanel {
         lblRegister.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                gestorCartas.show(contenedorPrincipal, "register");
+                layout.show(parentPanel, "register");
             }
         });
         add(lblRegister, gbc);

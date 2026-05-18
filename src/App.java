@@ -62,7 +62,7 @@ public class App {
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
         gestorCartas.show(contenedorPantallas, "login");
 
-        registerFrame register = new registerFrame(contenedorPantallas, gestorCartas);
+        RegisterFrame register = new RegisterFrame(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(register, "register");
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
 

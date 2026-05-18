@@ -3,11 +3,11 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class registerFrame extends JPanel {
+public class RegisterFrame extends JPanel {
 
     private Font inikaFont;
 
-    public registerFrame(JPanel contenedorPrincipal, CardLayout gestorCartas){
+    public RegisterFrame(JPanel contenedorPrincipal, CardLayout gestorCartas) {
 
         setOpaque(false);
         chargeFont();
@@ -17,18 +17,18 @@ public class registerFrame extends JPanel {
         gbc.insets = new Insets(120, 0, 20, 0);
 
         JLabel title = new JLabel("Bienvenido!");
-        if(inikaFont !=null){
+        if (inikaFont != null) {
             title.setFont(inikaFont.deriveFont(Font.PLAIN, 36f));
         } else {
             title.setFont(new Font("Serif", Font.PLAIN, 36));
         }
-        
+
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.CENTER;
         add(title, gbc);
 
-        //nombre correo
+        // nombre correo
         gbc.insets = new Insets(30, 25, 2, 0);
         JLabel lblUser = new JLabel("Nombre o correo electronico");
         lblUser.setFont(inikaFont.deriveFont(Font.PLAIN, 18f));
@@ -36,7 +36,7 @@ public class registerFrame extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         add(lblUser, gbc);
 
-        //campo1
+        // campo1
         gbc.insets = new Insets(0, 0, 15, 0);
         roundedText txtUser = new roundedText(0);
         txtUser.setPreferredSize(new Dimension(320, 40));
@@ -44,7 +44,7 @@ public class registerFrame extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         add(txtUser, gbc);
 
-        //Contraseña
+        // Contraseña
         gbc.insets = new Insets(30, 25, 2, 0);
         JLabel lblPass = new JLabel("Contraseña");
         lblPass.setFont(inikaFont.deriveFont(Font.PLAIN, 18f));
@@ -52,7 +52,7 @@ public class registerFrame extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         add(lblPass, gbc);
 
-        //campo2
+        // campo2
         gbc.insets = new Insets(0, 0, 5, 0);
         passwordText txtPass = new passwordText(0);
         txtPass.setPreferredSize(new Dimension(320, 40));
@@ -60,7 +60,7 @@ public class registerFrame extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         add(txtPass, gbc);
 
-        //Confirmar Contraseña
+        // Confirmar Contraseña
         gbc.insets = new Insets(35, 25, 2, 0);
         JLabel lblConfirmPass = new JLabel("Confirmar Contraseña");
         lblConfirmPass.setFont(inikaFont.deriveFont(Font.PLAIN, 18f));
@@ -68,7 +68,7 @@ public class registerFrame extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         add(lblConfirmPass, gbc);
 
-        //campo3
+        // campo3
         gbc.insets = new Insets(0, 0, 5, 0);
         passwordText txtConfirmPass = new passwordText(0);
         txtConfirmPass.setPreferredSize(new Dimension(320, 40));
@@ -76,7 +76,7 @@ public class registerFrame extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         add(txtConfirmPass, gbc);
 
-        //Crear Cuenta
+        // Crear Cuenta
         gbc.insets = new Insets(40, 0, 15, 0);
         roundedButton btnLogin = new roundedButton("Crear Cuenta");
         btnLogin.setPreferredSize(new Dimension(220, 45));
@@ -85,7 +85,7 @@ public class registerFrame extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         add(btnLogin, gbc);
 
-        //Guarrada para hacer que todo este mas arriba
+        // Guarrada para hacer que todo este mas arriba
         gbc.gridy = 8;
         gbc.weighty = 1.0;
         add(Box.createVerticalGlue(), gbc);
@@ -97,6 +97,7 @@ public class registerFrame extends JPanel {
             setOpaque(false);
             setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
         }
+
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D) g.create();
@@ -108,13 +109,13 @@ public class registerFrame extends JPanel {
         }
     }
 
-
     class passwordText extends JPasswordField {
         public passwordText(int columns) {
             super(columns);
             setOpaque(false);
             setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
         }
+
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D) g.create();
@@ -134,6 +135,7 @@ public class registerFrame extends JPanel {
             setBorderPainted(false);
             setForeground(Color.WHITE);
         }
+
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D) g.create();
@@ -145,8 +147,6 @@ public class registerFrame extends JPanel {
         }
     }
 
-    
-
     private void chargeFont() {
         try {
             File archivoFuente = new File("src/assets/fonts/Inika-Regular.ttf");
@@ -154,7 +154,7 @@ public class registerFrame extends JPanel {
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(fuenteBase);
             inikaFont = fuenteBase;
-            
+
         } catch (FontFormatException | IOException e) {
             System.err.println(e.getMessage());
             inikaFont = null;
