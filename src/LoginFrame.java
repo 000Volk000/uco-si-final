@@ -7,8 +7,7 @@ public class LoginFrame extends JPanel {
 
     private Font inikaFont;
 
-    public LoginFrame(CardLayout layout, JPanel parentPanel) {
-
+    public LoginFrame(JPanel contenedorPrincipal,CardLayout gestorCarta) {
         setOpaque(false);
         chargeFont();
 
@@ -80,7 +79,7 @@ public class LoginFrame extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         btnLogin.addActionListener(e -> {
             App.setNavBarVisibility(true);
-            layout.show(parentPanel, "main");
+            gestorCarta.show(contenedorPrincipal, "main");
         });
         add(btnLogin, gbc);
 
@@ -101,7 +100,7 @@ public class LoginFrame extends JPanel {
         lblRegister.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                layout.show(parentPanel, "register");
+                gestorCarta.show(contenedorPrincipal, "register");
             }
         });
         add(lblRegister, gbc);

@@ -40,6 +40,15 @@ class BackgroundPanel extends JPanel {
 public class App {
     private static ResourceBundle bundle;
     private static JPanel bottomBar;
+    private static String username;
+
+    public static String getName(){
+        return username;
+    }
+
+    public static void setName(String newUsername){
+        username=newUsername;
+    }
 
     public static ResourceBundle getBundle(){
         return bundle;
@@ -48,9 +57,14 @@ public class App {
     public static void setNavBarVisibility(boolean state){
         bottomBar.setVisible(state);
     }
+
+    
+    public static void setLocale(Locale newLocale) {
+        bundle= ResourceBundle.getBundle("assets.bundle.Bundle", newLocale);
+    }
     public static void main(String[] args) {
         // Canva creation
-        bundle =language();
+        bundle =Deflanguage();
         JFrame jf = new JFrame("Pezqueñín");
 
         jf.setSize(402, 874);
@@ -81,14 +95,16 @@ public class App {
 
         bottomBar.add(wrapButton(createNavButton("src/assets/bottomBar/cart.png")));
         bottomBar.add(wrapButton(createNavButton("src/assets/bottomBar/history.png")));
-        bottomBar.add(wrapButton(createNavButton("src/assets/bottomBar/account.png")));
 
+        JButton btnAccount = createNavButton("src/assets/bottomBar/accountSelected.png");
+        btnAccount.addActionListener(e -> gestorCartas.show(contenedorPantallas, "account"));
+        bottomBar.add(wrapButton(btnAccount));
         //Main
         MainScreen mainScreen = new MainScreen(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(mainScreen, "main");
         
         //Login
-        LoginFrame login = new LoginFrame(gestorCartas, contenedorPantallas);
+        LoginFrame login = new LoginFrame(contenedorPantallas,gestorCartas);
         contenedorPantallas.add(login, "login");
 
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
@@ -99,7 +115,9 @@ public class App {
         contenedorPantallas.add(register, "register");
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
 
-
+        Account account = new Account(contenedorPantallas, gestorCartas);
+        contenedorPantallas.add(account,"account");
+        bgPanel.add(contenedorPantallas,BorderLayout.CENTER);
 
         bgPanel.add(bottomBar, BorderLayout.SOUTH);
         setNavBarVisibility(false);
@@ -109,8 +127,9 @@ public class App {
         jf.setVisible(true);
     }
 
-    public static ResourceBundle language(){
+    public static ResourceBundle Deflanguage(){
         Locale currentLocale = Locale.getDefault();
+        //currentLocale= Locale.of("en", "GB");
         if(! ((currentLocale.getLanguage().equals("es") && currentLocale.getCountry().equals("ES")) || (currentLocale.getLanguage().equals("en") && currentLocale.getCountry().equals("GB")))){
             currentLocale =  Locale.of("es", "ES");
         }
@@ -142,5 +161,24 @@ public class App {
         wrapper.setOpaque(false);
         wrapper.add(btn);
         return wrapper;
+    }
+
+    public static void refresh(JPanel contenedor, CardLayout gestor, String current) {
+        String[] names = {"account", "main", "login","register"};
+        Class[] classes= {Account.class, MainScreen.class, LoginFrame.class, RegisterFrame.class};
+        contenedor.removeAll();
+        try {
+            for (int i = 0; i < classes.length; i++) {
+                Object nuevoPanel = classes[i].getConstructor(JPanel.class, CardLayout.class).newInstance(contenedor, gestor);
+                contenedor.add((Component) nuevoPanel, names[i]);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        gestor.show(contenedor, current);
+        
+        contenedor.revalidate();
+        contenedor.repaint();
     }
 }
