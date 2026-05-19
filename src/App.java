@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
+import java.util.List;
 class BackgroundPanel extends JPanel {
     private Image scaleTopLeft;
     private Image scaleLowLeft;
@@ -165,11 +165,11 @@ public class App {
 
     public static void refresh(JPanel contenedor, CardLayout gestor, String current) {
         String[] names = {"account", "main", "login","register"};
-        Class[] classes= {Account.class, MainScreen.class, LoginFrame.class, RegisterFrame.class};
+        List<Class<? extends JPanel>> classes = List.of(Account.class, MainScreen.class, LoginFrame.class, RegisterFrame.class);
         contenedor.removeAll();
         try {
-            for (int i = 0; i < classes.length; i++) {
-                Object nuevoPanel = classes[i].getConstructor(JPanel.class, CardLayout.class).newInstance(contenedor, gestor);
+            for (int i = 0; i < classes.size(); i++) {
+                Object nuevoPanel = classes.get(i).getConstructor(JPanel.class, CardLayout.class).newInstance(contenedor, gestor);
                 contenedor.add((Component) nuevoPanel, names[i]);
             }
         } catch (Exception e) {
