@@ -78,7 +78,10 @@ public class LoginFrame extends JPanel {
         btnLogin.setFont(inikaFont.deriveFont(Font.PLAIN, 20f));
         gbc.gridy = 6;
         gbc.anchor = GridBagConstraints.CENTER;
-        btnLogin.addActionListener(e -> layout.show(parentPanel, "main"));
+        btnLogin.addActionListener(e -> {
+            App.setNavBarVisibility(true);
+            layout.show(parentPanel, "main");
+        });
         add(btnLogin, gbc);
 
         // Aun no tienes cuenta?

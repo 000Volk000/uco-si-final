@@ -8,9 +8,9 @@ public class MainScreen extends JPanel {
     private int carouselIndex = 0;
 
     private final String[] carouselTitles = {
-            "Caña de Pescar Volkswagen",
-            "Pez con cara de gilipollas",
-            "Anzuelo Gaming"
+            App.getBundle().getString("Volkswagen"),
+            App.getBundle().getString("AssholeFish"),
+            App.getBundle().getString("GamingHook")
     };
 
     private final String[] carouselImages = {
@@ -30,7 +30,10 @@ public class MainScreen extends JPanel {
         contentPanel.setOpaque(false);
         contentPanel.setLayout(null);
 
-        JLabel headerText = new JLabel("Destacados");
+
+        
+
+        JLabel headerText = new JLabel(App.getBundle().getString("Featured"));
         headerText.setFont(new Font("Inika", Font.BOLD, 24));
         headerText.setBounds(88, 130, 225, 51);
         headerText.setHorizontalAlignment(SwingConstants.CENTER);
@@ -79,20 +82,6 @@ public class MainScreen extends JPanel {
 
         add(contentPanel, BorderLayout.CENTER);
 
-        JPanel bottomBar = new JPanel(new GridLayout(1, 5));
-        bottomBar.setBackground(Color.WHITE);
-        bottomBar.setPreferredSize(new Dimension(402, 65));
-        bottomBar.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(200, 200, 200)));
-
-        JButton btnHome = createNavButton("src/assets/bottomBar/homeSelected.png");
-        btnHome.addActionListener(e -> gestorCartas.show(contenedorPrincipal, "Main"));
-        bottomBar.add(btnHome);
-
-        bottomBar.add(createNavButton("src/assets/bottomBar/cart.png"));
-        bottomBar.add(createNavButton("src/assets/bottomBar/history.png"));
-        bottomBar.add(createNavButton("src/assets/bottomBar/account.png"));
-
-        add(bottomBar, BorderLayout.SOUTH);
     }
 
     private void updateCarousel() {
@@ -115,20 +104,5 @@ public class MainScreen extends JPanel {
         imageLabel.setIcon(new ImageIcon(scaledImage));
     }
 
-    private JButton createNavButton(String iconPath) {
-        JButton btn = new JButton();
-        btn.setContentAreaFilled(false);
-        btn.setBorderPainted(false);
-        btn.setFocusPainted(false);
-        btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        try {
-            ImageIcon icon = new ImageIcon(iconPath);
-            Image img = icon.getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH);
-            btn.setIcon(new ImageIcon(img));
-        } catch (Exception e) {
-            System.err.println("No se pudo cargar el icono: " + iconPath);
-        }
-        return btn;
-    }
 }

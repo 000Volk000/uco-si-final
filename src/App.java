@@ -38,10 +38,15 @@ class BackgroundPanel extends JPanel {
 }
 
 public class App {
-    public static ResourceBundle bundle;
+    private static ResourceBundle bundle;
+    private static JPanel bottomBar;
 
     public static ResourceBundle getBundle(){
         return bundle;
+    }
+    
+    public static void setNavBarVisibility(boolean state){
+        bottomBar.setVisible(state);
     }
     public static void main(String[] args) {
         // Canva creation
@@ -57,23 +62,47 @@ public class App {
         bgPanel.setBackground(Color.decode("#B0C2DB"));
 
         bgPanel.setLayout(new BorderLayout());
+
+
         CardLayout gestorCartas = new CardLayout();
         JPanel contenedorPantallas = new JPanel(gestorCartas);
         contenedorPantallas.setOpaque(false);
 
-        LoginFrame login = new LoginFrame(gestorCartas, contenedorPantallas);
-        contenedorPantallas.add(login, "login");
 
+        //Navbar
+        bottomBar = new JPanel(new GridLayout(1, 4));
+        bottomBar.setBackground(Color.WHITE);
+        bottomBar.setPreferredSize(new Dimension(402, 65));
+        bottomBar.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(200, 200, 200)));
+
+        JButton btnHome = createNavButton("src/assets/bottomBar/homeSelected.png");
+        btnHome.addActionListener(e -> gestorCartas.show(contenedorPantallas, "main"));
+        bottomBar.add(wrapButton(btnHome));
+
+        bottomBar.add(wrapButton(createNavButton("src/assets/bottomBar/cart.png")));
+        bottomBar.add(wrapButton(createNavButton("src/assets/bottomBar/history.png")));
+        bottomBar.add(wrapButton(createNavButton("src/assets/bottomBar/account.png")));
+
+        //Main
         MainScreen mainScreen = new MainScreen(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(mainScreen, "main");
+        
+        //Login
+        LoginFrame login = new LoginFrame(gestorCartas, contenedorPantallas);
+        contenedorPantallas.add(login, "login");
 
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
         gestorCartas.show(contenedorPantallas, "login");
 
+        //Register
         RegisterFrame register = new RegisterFrame(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(register, "register");
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
 
+
+
+        bgPanel.add(bottomBar, BorderLayout.SOUTH);
+        setNavBarVisibility(false);
         jf.setContentPane(bgPanel);
 
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,5 +117,30 @@ public class App {
         ResourceBundle bundle_text = ResourceBundle.getBundle("assets.bundle.Bundle", currentLocale);
         return bundle_text;
 
+    }
+
+    private static JButton createNavButton(String iconPath) {
+        JButton btn = new JButton();
+        btn.setContentAreaFilled(false);
+        btn.setBorderPainted(false);
+        btn.setFocusPainted(false);
+        btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        try {
+            ImageIcon icon = new ImageIcon(iconPath);
+            Image img = icon.getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH);
+            btn.setIcon(new ImageIcon(img));
+        } catch (Exception e) {
+            System.err.println("No se pudo cargar el icono: " + iconPath);
+        }
+        return btn;
+    }
+
+    //warp para que no se cambie el raton en todo el navbar y solo en los iconos
+    private static JPanel wrapButton(JButton btn) {
+        JPanel wrapper = new JPanel(new GridBagLayout());
+        wrapper.setOpaque(false);
+        wrapper.add(btn);
+        return wrapper;
     }
 }
