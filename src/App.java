@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 class BackgroundPanel extends JPanel {
     private Image scaleTopLeft;
@@ -36,8 +38,14 @@ class BackgroundPanel extends JPanel {
 }
 
 public class App {
+    public static ResourceBundle bundle;
+
+    public static ResourceBundle getBundle(){
+        return bundle;
+    }
     public static void main(String[] args) {
         // Canva creation
+        bundle =language();
         JFrame jf = new JFrame("Pezqueñín");
 
         jf.setSize(402, 874);
@@ -70,5 +78,15 @@ public class App {
 
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setVisible(true);
+    }
+
+    public static ResourceBundle language(){
+        Locale currentLocale = Locale.getDefault();
+        if(! ((currentLocale.getLanguage().equals("es") && currentLocale.getCountry().equals("ES")) || (currentLocale.getLanguage().equals("en") && currentLocale.getCountry().equals("GB")))){
+            currentLocale =  Locale.of("es", "ES");
+        }
+        ResourceBundle bundle_text = ResourceBundle.getBundle("assets.bundle.Bundle", currentLocale);
+        return bundle_text;
+
     }
 }

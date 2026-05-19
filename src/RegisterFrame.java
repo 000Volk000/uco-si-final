@@ -16,7 +16,7 @@ public class RegisterFrame extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(120, 0, 20, 0);
 
-        JLabel title = new JLabel("Bienvenido!");
+        JLabel title = new JLabel(App.getBundle().getString("Welcome"));
         if (inikaFont != null) {
             title.setFont(inikaFont.deriveFont(Font.PLAIN, 36f));
         } else {
@@ -30,7 +30,7 @@ public class RegisterFrame extends JPanel {
 
         // nombre correo
         gbc.insets = new Insets(30, 25, 2, 0);
-        JLabel lblUser = new JLabel("Nombre o correo electronico");
+        JLabel lblUser = new JLabel(App.getBundle().getString("NameEmail"));
         lblUser.setFont(inikaFont.deriveFont(Font.PLAIN, 18f));
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.WEST;
@@ -46,7 +46,7 @@ public class RegisterFrame extends JPanel {
 
         // Contraseña
         gbc.insets = new Insets(30, 25, 2, 0);
-        JLabel lblPass = new JLabel("Contraseña");
+        JLabel lblPass = new JLabel(App.getBundle().getString("Password"));
         lblPass.setFont(inikaFont.deriveFont(Font.PLAIN, 18f));
         gbc.gridy = 3;
         gbc.anchor = GridBagConstraints.WEST;
@@ -62,7 +62,7 @@ public class RegisterFrame extends JPanel {
 
         // Confirmar Contraseña
         gbc.insets = new Insets(35, 25, 2, 0);
-        JLabel lblConfirmPass = new JLabel("Confirmar Contraseña");
+        JLabel lblConfirmPass = new JLabel(App.getBundle().getString("ChangePassword"));
         lblConfirmPass.setFont(inikaFont.deriveFont(Font.PLAIN, 18f));
         gbc.gridy = 5;
         gbc.anchor = GridBagConstraints.WEST;
@@ -78,7 +78,7 @@ public class RegisterFrame extends JPanel {
 
         // Crear Cuenta
         gbc.insets = new Insets(40, 0, 15, 0);
-        roundedButton btnLogin = new roundedButton("Crear Cuenta");
+        roundedButton btnLogin = new roundedButton(App.getBundle().getString("CreateAccount"));
         btnLogin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnLogin.setPreferredSize(new Dimension(220, 45));
         btnLogin.setFont(inikaFont.deriveFont(Font.PLAIN, 20f));
