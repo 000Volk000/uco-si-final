@@ -12,7 +12,6 @@ class BackgroundPanel extends JPanel {
     private Image scaleTopRight;
     private Image koi;
 
-
     public BackgroundPanel() {
         scaleTopLeft = new ImageIcon("src/assets/background/topLeft.png").getImage().getScaledInstance(247, 201,
                 Image.SCALE_SMOOTH);
@@ -54,12 +53,14 @@ public class App {
 
     private static Font inikaFont;
 
-    public static Font font(){
+    public static Font font() {
         return inikaFont;
     }
 
     public static Product product;
-    
+
+    public static SectionPanel sectionPanel;
+
     public static String getName() {
         return username;
     }
@@ -111,7 +112,6 @@ public class App {
         btnAccount = createNavButton("src/assets/bottomBar/account.png");
         btnSearch = createNavButton("src/assets/bottomBar/search.png");
 
-
         btnHome.addActionListener(e -> {
             gestorCartas.show(contenedorPantallas, "main");
             updateNavSelection("main");
@@ -119,12 +119,11 @@ public class App {
 
         btnSearch.addActionListener(e -> {
             product.setProductData(
-            "Sebastián",
-            "Se rumorea que este cebo está inspirado en un antiguo músico de la corte real submarina.\n\nLa leyenda cuenta que, cuando este cangrejo toca el agua, los peces sienten la necesidad de montar un número musical coreografiado.",
-            "15.99",
-            "src/assets/products/sebestian.png",
-            "src/assets/bottomBar/cart.png"
-            );
+                    "Sebastián",
+                    "Se rumorea que este cebo está inspirado en un antiguo músico de la corte real submarina.\n\nLa leyenda cuenta que, cuando este cangrejo toca el agua, los peces sienten la necesidad de montar un número musical coreografiado.",
+                    "15.99",
+                    "src/assets/products/sebestian.png",
+                    "src/assets/bottomBar/cart.png");
             gestorCartas.show(contenedorPantallas, "product");
             updateNavSelection("search");
         });
@@ -170,9 +169,12 @@ public class App {
         contenedorPantallas.add(account, "account");
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
 
-        //Producto
+        // Producto
         product = new Product(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(product, "product");
+
+        sectionPanel = new SectionPanel(contenedorPantallas, gestorCartas);
+        contenedorPantallas.add(sectionPanel, "sectionView");
 
         bgPanel.add(bottomBar, BorderLayout.SOUTH);
         setNavBarVisibility(false);
@@ -249,14 +251,12 @@ public class App {
         }
     }
 
-
     public static void updateNavSelection(String selectedTab) {
         updateButtonIcon(btnHome, "src/assets/bottomBar/home.png");
         updateButtonIcon(btnCart, "src/assets/bottomBar/cart.png");
         updateButtonIcon(btnHistory, "src/assets/bottomBar/history.png");
         updateButtonIcon(btnAccount, "src/assets/bottomBar/account.png");
         updateButtonIcon(btnSearch, "src/assets/bottomBar/search.png");
-
 
         switch (selectedTab) {
             case "main":
