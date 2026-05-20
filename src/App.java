@@ -3,6 +3,7 @@ import java.awt.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.List;
+
 class BackgroundPanel extends JPanel {
     private Image scaleTopLeft;
     private Image scaleLowLeft;
@@ -42,29 +43,29 @@ public class App {
     private static JPanel bottomBar;
     private static String username;
 
-    public static String getName(){
+    public static String getName() {
         return username;
     }
 
-    public static void setName(String newUsername){
-        username=newUsername;
+    public static void setName(String newUsername) {
+        username = newUsername;
     }
 
-    public static ResourceBundle getBundle(){
+    public static ResourceBundle getBundle() {
         return bundle;
     }
-    
-    public static void setNavBarVisibility(boolean state){
+
+    public static void setNavBarVisibility(boolean state) {
         bottomBar.setVisible(state);
     }
 
-    
     public static void setLocale(Locale newLocale) {
-        bundle= ResourceBundle.getBundle("assets.bundle.Bundle", newLocale);
+        bundle = ResourceBundle.getBundle("assets.bundle.Bundle", newLocale);
     }
+
     public static void main(String[] args) {
         // Canva creation
-        bundle =Deflanguage();
+        bundle = Deflanguage();
         JFrame jf = new JFrame("Pezqueñín");
 
         jf.setSize(402, 874);
@@ -77,13 +78,11 @@ public class App {
 
         bgPanel.setLayout(new BorderLayout());
 
-
         CardLayout gestorCartas = new CardLayout();
         JPanel contenedorPantallas = new JPanel(gestorCartas);
         contenedorPantallas.setOpaque(false);
 
-
-        //Navbar
+        // Navbar
         bottomBar = new JPanel(new GridLayout(1, 4));
         bottomBar.setBackground(Color.WHITE);
         bottomBar.setPreferredSize(new Dimension(402, 65));
@@ -99,25 +98,25 @@ public class App {
         JButton btnAccount = createNavButton("src/assets/bottomBar/accountSelected.png");
         btnAccount.addActionListener(e -> gestorCartas.show(contenedorPantallas, "account"));
         bottomBar.add(wrapButton(btnAccount));
-        //Main
+        // Main
         MainScreen mainScreen = new MainScreen(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(mainScreen, "main");
-        
-        //Login
-        LoginFrame login = new LoginFrame(contenedorPantallas,gestorCartas);
+
+        // Login
+        LoginFrame login = new LoginFrame(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(login, "login");
 
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
         gestorCartas.show(contenedorPantallas, "login");
 
-        //Register
+        // Register
         RegisterFrame register = new RegisterFrame(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(register, "register");
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
 
         Account account = new Account(contenedorPantallas, gestorCartas);
-        contenedorPantallas.add(account,"account");
-        bgPanel.add(contenedorPantallas,BorderLayout.CENTER);
+        contenedorPantallas.add(account, "account");
+        bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
 
         bgPanel.add(bottomBar, BorderLayout.SOUTH);
         setNavBarVisibility(false);
@@ -127,11 +126,12 @@ public class App {
         jf.setVisible(true);
     }
 
-    public static ResourceBundle Deflanguage(){
+    public static ResourceBundle Deflanguage() {
         Locale currentLocale = Locale.getDefault();
-        //currentLocale= Locale.of("en", "GB");
-        if(! ((currentLocale.getLanguage().equals("es") && currentLocale.getCountry().equals("ES")) || (currentLocale.getLanguage().equals("en") && currentLocale.getCountry().equals("GB")))){
-            currentLocale =  Locale.of("es", "ES");
+        // currentLocale= Locale.of("en", "GB");
+        if (!((currentLocale.getLanguage().equals("es") && currentLocale.getCountry().equals("ES"))
+                || (currentLocale.getLanguage().equals("en") && currentLocale.getCountry().equals("GB")))) {
+            currentLocale = new Locale.Builder().setLanguage("es").setRegion("ES").build();
         }
         ResourceBundle bundle_text = ResourceBundle.getBundle("assets.bundle.Bundle", currentLocale);
         return bundle_text;
@@ -155,7 +155,7 @@ public class App {
         return btn;
     }
 
-    //warp para que no se cambie el raton en todo el navbar y solo en los iconos
+    // warp para que no se cambie el raton en todo el navbar y solo en los iconos
     private static JPanel wrapButton(JButton btn) {
         JPanel wrapper = new JPanel(new GridBagLayout());
         wrapper.setOpaque(false);
@@ -164,12 +164,14 @@ public class App {
     }
 
     public static void refresh(JPanel contenedor, CardLayout gestor, String current) {
-        String[] names = {"account", "main", "login","register"};
-        List<Class<? extends JPanel>> classes = List.of(Account.class, MainScreen.class, LoginFrame.class, RegisterFrame.class);
+        String[] names = { "account", "main", "login", "register" };
+        List<Class<? extends JPanel>> classes = List.of(Account.class, MainScreen.class, LoginFrame.class,
+                RegisterFrame.class);
         contenedor.removeAll();
         try {
             for (int i = 0; i < classes.size(); i++) {
-                Object nuevoPanel = classes.get(i).getConstructor(JPanel.class, CardLayout.class).newInstance(contenedor, gestor);
+                Object nuevoPanel = classes.get(i).getConstructor(JPanel.class, CardLayout.class)
+                        .newInstance(contenedor, gestor);
                 contenedor.add((Component) nuevoPanel, names[i]);
             }
         } catch (Exception e) {
@@ -177,7 +179,7 @@ public class App {
         }
 
         gestor.show(contenedor, current);
-        
+
         contenedor.revalidate();
         contenedor.repaint();
     }

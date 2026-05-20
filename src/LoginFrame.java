@@ -7,7 +7,7 @@ public class LoginFrame extends JPanel {
 
     private Font inikaFont;
 
-    public LoginFrame(JPanel contenedorPrincipal,CardLayout gestorCarta) {
+    public LoginFrame(JPanel contenedorPrincipal, CardLayout gestorCarta) {
         setOpaque(false);
         chargeFont();
 
@@ -61,7 +61,7 @@ public class LoginFrame extends JPanel {
 
         // cambiar contraseña
         gbc.insets = new Insets(0, 0, 30, 0);
-        JLabel lblForgot = new JLabel("<html><u>"+App.getBundle().getString("ChangePassword")+"</u></html>");
+        JLabel lblForgot = new JLabel("<html><u>" + App.getBundle().getString("ChangePassword") + "</u></html>");
         lblForgot.setFont(inikaFont.deriveFont(Font.PLAIN, 14f));
         lblForgot.setForeground(new Color(80, 90, 120));
         lblForgot.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -92,7 +92,7 @@ public class LoginFrame extends JPanel {
 
         // Registrate
         gbc.insets = new Insets(2, 0, 0, 0);
-        JLabel lblRegister = new JLabel("<html><u>"+App.getBundle().getString("Register")+"</u></html>");
+        JLabel lblRegister = new JLabel("<html><u>" + App.getBundle().getString("Register") + "</u></html>");
         lblRegister.setFont(inikaFont.deriveFont(Font.PLAIN, 14f));
         lblRegister.setForeground(new Color(100, 150, 255));
         lblRegister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

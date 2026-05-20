@@ -35,9 +35,6 @@ public class MainScreen extends JPanel {
         contentPanel.setOpaque(false);
         contentPanel.setLayout(null);
 
-
-        
-
         JLabel headerText = new JLabel(App.getBundle().getString("Featured"));
         headerText.setFont(new Font("Inika", Font.BOLD, 24));
         headerText.setBounds(88, 130, 225, 51);
@@ -178,6 +175,5 @@ public class MainScreen extends JPanel {
         });
         snapTimer.start();
     }
-
 
 }
