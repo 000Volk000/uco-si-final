@@ -1,9 +1,44 @@
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.IOException;
+
+class VerticalScrollPanel extends JPanel implements Scrollable {
+    public VerticalScrollPanel() {
+        setOpaque(false);
+    }
+
+    @Override
+    public Dimension getPreferredScrollableViewportSize() {
+        return getPreferredSize();
+    }
+
+    @Override
+    public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction) {
+        return 16;
+    }
+
+    @Override
+    public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
+        return visibleRect.height;
+    }
+
+    @Override
+    public boolean getScrollableTracksViewportWidth() {
+        return true;
+    }
+
+    @Override
+    public boolean getScrollableTracksViewportHeight() {
+        return false;
+    }
+}
 
 class RoundedPanel extends JPanel {
     private Color backgroundColor;
@@ -25,14 +60,19 @@ class RoundedPanel extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g2.setColor(backgroundColor);
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
+        int offset = (borderColor != null && borderThickness > 0) ? borderThickness / 2 : 0;
+        int adjustedWidth = getWidth() - borderThickness;
+        int adjustedHeight = getHeight() - borderThickness;
+
+        if (backgroundColor != null) {
+            g2.setColor(backgroundColor);
+            g2.fillRoundRect(offset, offset, adjustedWidth, adjustedHeight, cornerRadius, cornerRadius);
+        }
 
         if (borderColor != null && borderThickness > 0) {
             g2.setColor(borderColor);
             g2.setStroke(new BasicStroke(borderThickness));
-            g2.drawRoundRect(borderThickness / 2, borderThickness / 2, getWidth() - borderThickness,
-                    getHeight() - borderThickness, cornerRadius, cornerRadius);
+            g2.drawRoundRect(offset, offset, adjustedWidth, adjustedHeight, cornerRadius, cornerRadius);
         }
     }
 }
@@ -43,7 +83,7 @@ public class Product extends JPanel {
 
     private JLabel imageLabel;
     private JLabel titleLabel;
-    private JTextArea descriptionArea;
+    private JTextPane descriptionArea;
     private JLabel priceLabel;
     private RoundedPanel cartButtonPanel;
 
@@ -52,7 +92,7 @@ public class Product extends JPanel {
         this.gestorCartas = gestorCartas;
 
         setOpaque(false);
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout());
 
         initializeComponents();
     }
@@ -61,24 +101,14 @@ public class Product extends JPanel {
         Color lightBlue = Color.decode("#DEECFF");
         Color textColor = Color.decode("#2F3640");
 
-        // --- Panel Superior (Botón de volver) ---
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
-        topPanel.setOpaque(false);
-        JButton btnBack = new JButton("\u2190");
-        btnBack.setFont(new Font("Arial", Font.PLAIN, 24));
-        btnBack.setForeground(textColor);
-        btnBack.setContentAreaFilled(false);
-        btnBack.setBorderPainted(false);
-        btnBack.setFocusPainted(false);
-        btnBack.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnBack.addActionListener(e -> gestorCartas.show(contenedorPantallas, "main")); // Volver a "main"
-        topPanel.add(btnBack);
-        add(topPanel);
+        VerticalScrollPanel contentPanel = new VerticalScrollPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        contentPanel.setOpaque(false);
 
-        add(Box.createVerticalStrut(20)); // Espaciado
+        contentPanel.add(Box.createVerticalStrut(150));
 
-        // --- Caja de Imagen del Producto (Recuadro blanco, borde verde) ---
-        RoundedPanel imageContainer = new RoundedPanel(40, Color.WHITE, lightBlue, 5);
+
+        RoundedPanel imageContainer = new RoundedPanel(40, Color.WHITE, lightBlue, 15);
         imageContainer.setLayout(new BorderLayout());
         imageContainer.setPreferredSize(new Dimension(300, 200));
         imageContainer.setMaximumSize(new Dimension(300, 200));
@@ -88,92 +118,115 @@ public class Product extends JPanel {
         imageLabel.setHorizontalAlignment(JLabel.CENTER);
         imageLabel.setVerticalAlignment(JLabel.CENTER);
         imageContainer.add(imageLabel, BorderLayout.CENTER);
-        add(imageContainer);
+        contentPanel.add(imageContainer);
 
-        add(Box.createVerticalStrut(20)); // Espaciado
-
-        // --- Título del Producto (Sebasnew Font("Inika", Font.BOLD, 14))tián) ---
+        contentPanel.add(Box.createVerticalStrut(20));
         titleLabel = new JLabel("Cargando...");
-        titleLabel.setFont(App.font().deriveFont(Font.PLAIN, 14f));
+        titleLabel.setFont(App.font().deriveFont(Font.PLAIN, 36f));
         titleLabel.setForeground(textColor);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(titleLabel);
+        contentPanel.add(titleLabel);
 
-        add(Box.createVerticalStrut(20)); // Espaciado
+        contentPanel.add(Box.createVerticalStrut(20));
 
-        // --- Panel de Información (Descripción y Precio en dos columnas) ---
+
         JPanel infoPanel = new JPanel(new GridLayout(1, 2, 20, 0));
         infoPanel.setOpaque(false);
-        infoPanel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 30)); // Márgenes laterales
+        infoPanel.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 15));
 
         // Columna Izquierda: Descripción
         JPanel descPanel = new JPanel();
         descPanel.setLayout(new BoxLayout(descPanel, BoxLayout.Y_AXIS));
         descPanel.setOpaque(false);
         JLabel descTitle = new JLabel("Descripción");
-        descTitle.setFont(App.font().deriveFont(Font.PLAIN, 18f));
+        descTitle.setFont(App.font().deriveFont(Font.PLAIN, 24f));
         descTitle.setForeground(textColor);
+        descTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         descPanel.add(descTitle);
         descPanel.add(Box.createVerticalStrut(10));
+        
+        RoundedPanel descriptionContainer = new RoundedPanel(20, Color.decode("#DEECFF"), lightBlue, 5);
+        descriptionContainer.setLayout(new BorderLayout());
+        descriptionContainer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        descriptionContainer.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        descriptionArea = new JTextArea();
+        descriptionArea = new JTextPane();
+        descriptionArea.setAlignmentX(Component.CENTER_ALIGNMENT);
         descriptionArea.setEditable(false);
         descriptionArea.setOpaque(false);
-        descriptionArea.setLineWrap(true);
-        descriptionArea.setWrapStyleWord(true);
         descriptionArea.setFont(App.font().deriveFont(Font.PLAIN, 14f));
         descriptionArea.setForeground(textColor);
-        descriptionArea.setMargin(new Insets(0, 5, 0, 0)); // Pequeño margen izquierdo
-        descPanel.add(descriptionArea);
+        descriptionArea.setMargin(new Insets(0, 5, 0, 0));
+
+        StyledDocument doc = descriptionArea.getStyledDocument();
+        SimpleAttributeSet center = new SimpleAttributeSet();
+        StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+        doc.setParagraphAttributes(0, doc.getLength(), center, false);
+        descriptionContainer.add(descriptionArea, BorderLayout.CENTER);
+        descPanel.add(descriptionContainer);
         infoPanel.add(descPanel);
 
+
+        Color green = Color.decode("#85BB65");
         // Columna Derecha: Precio y Carrito
         JPanel pricePanel = new JPanel();
         pricePanel.setLayout(new BoxLayout(pricePanel, BoxLayout.Y_AXIS));
         pricePanel.setOpaque(false);
         JLabel priceTitle = new JLabel("Precio");
-        priceTitle.setFont(App.font().deriveFont(Font.PLAIN, 18f));
+        priceTitle.setFont(App.font().deriveFont(Font.PLAIN, 24f));
         priceTitle.setForeground(textColor);
+        priceTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         pricePanel.add(priceTitle);
         pricePanel.add(Box.createVerticalStrut(10));
-
+        
         priceLabel = new JLabel();
-        priceLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        priceLabel.setForeground(lightBlue); // Color precio verde lima
+        priceLabel.setFont(App.font().deriveFont(Font.PLAIN, 24f));
+        priceLabel.setForeground(green);
+        priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         pricePanel.add(priceLabel);
         pricePanel.add(Box.createVerticalStrut(15));
 
-        // Botón de Carrito Ovalado Verde (RoundedPanel que actúa como botón)
-        cartButtonPanel = new RoundedPanel(50, lightBlue, null, 0);
+        cartButtonPanel = new RoundedPanel(50, green, null, 0);
         cartButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
         cartButtonPanel.setMaximumSize(new Dimension(100, 50));
+        cartButtonPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
         cartButtonPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
+        cartButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         // Acción al hacer clic
         cartButtonPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Añadido al carrito: " + titleLabel.getText());
-                // Implementa tu lógica de carrito aquí
             }
         });
-
+        
         JLabel plusIcon = new JLabel("\u002B"); // Icono + Unicode
         plusIcon.setFont(new Font("Arial", Font.PLAIN, 24));
         plusIcon.setForeground(Color.WHITE);
         cartButtonPanel.add(plusIcon);
-
+        
         // Icono Carrito (JLabel vacío, se actualizará en setData)
         JLabel cartIconLabel = new JLabel();
         cartButtonPanel.add(cartIconLabel);
-
+        
         pricePanel.add(cartButtonPanel);
         infoPanel.add(pricePanel);
 
-        add(infoPanel);
+        contentPanel.add(infoPanel);
 
-        add(Box.createVerticalStrut(30)); // Espaciado final para permitir la superposición del koi
+        contentPanel.add(Box.createVerticalStrut(30)); // Espaciado final para permitir la superposición del koi
 
+
+        JScrollPane scrollPane = new JScrollPane(contentPanel);
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false); // Hace el fondo del scroll invisible
+        scrollPane.setBorder(null); // Quita el borde gris por defecto
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16); // Hace que la rueda del ratón baje suavemente
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); // Bloquea el scroll horizontal
+
+        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+
+        add(scrollPane, BorderLayout.CENTER);
     }
 
     // --- Método clave para actualizar los datos de la pantalla ---
@@ -183,14 +236,11 @@ public class Product extends JPanel {
         descriptionArea.setText(description);
         priceLabel.setText(priceUnit + " €/ud");
 
-        // Actualizar imagen del producto
         updateIcon(imageLabel, productImagePath, 250, 150);
 
-        // Actualizar icono de carrito dentro del botón ovalado
         JLabel cartIconLabel = (JLabel) cartButtonPanel.getComponent(1);
         updateIcon(cartIconLabel, cartIconImagePath, 30, 30);
 
-        // Forzar repintado
         revalidate();
         repaint();
     }
