@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.List;
@@ -9,6 +11,7 @@ class BackgroundPanel extends JPanel {
     private Image scaleLowLeft;
     private Image scaleTopRight;
     private Image koi;
+
 
     public BackgroundPanel() {
         scaleTopLeft = new ImageIcon("src/assets/background/topLeft.png").getImage().getScaledInstance(247, 201,
@@ -49,6 +52,14 @@ public class App {
     private static JButton btnAccount;
     private static JButton btnSearch;
 
+    private static Font inikaFont;
+
+    public static Font font(){
+        return inikaFont;
+    }
+
+    public static Product product;
+    
     public static String getName() {
         return username;
     }
@@ -107,7 +118,14 @@ public class App {
         });
 
         btnSearch.addActionListener(e -> {
-            gestorCartas.show(contenedorPantallas, "search");
+            product.setProductData(
+            "Sebastián",
+            "Se rumorea que este cebo está inspirado en un antiguo músico de la corte real submarina.\n\nLa leyenda cuenta que, cuando este cangrejo toca el agua, los peces sienten la necesidad de montar un número musical coreografiado.",
+            "15.99",
+            "src/assets/products/sebestian.png",
+            "src/assets/bottomBar/cart.png"
+            );
+            gestorCartas.show(contenedorPantallas, "product");
             updateNavSelection("search");
         });
 
@@ -152,6 +170,10 @@ public class App {
         contenedorPantallas.add(account, "account");
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
 
+        //Producto
+        product = new Product(contenedorPantallas, gestorCartas);
+        contenedorPantallas.add(product, "product");
+
         bgPanel.add(bottomBar, BorderLayout.SOUTH);
         setNavBarVisibility(false);
         jf.setContentPane(bgPanel);
@@ -189,7 +211,6 @@ public class App {
         return btn;
     }
 
-    // warp para que no se cambie el raton en todo el navbar y solo en los iconos
     private static JPanel wrapButton(JButton btn) {
         JPanel wrapper = new JPanel(new GridBagLayout());
         wrapper.setOpaque(false);
@@ -253,6 +274,20 @@ public class App {
             case "search":
                 updateButtonIcon(btnSearch, "src/assets/bottomBar/searchSelected.png");
                 break;
+        }
+    }
+
+    public static void chargeFont() {
+        try {
+            File archivoFuente = new File("src/assets/fonts/Inika-Regular.ttf");
+            Font fuenteBase = Font.createFont(Font.TRUETYPE_FONT, archivoFuente);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(fuenteBase);
+            inikaFont = fuenteBase;
+
+        } catch (FontFormatException | IOException e) {
+            System.err.println(e.getMessage());
+            inikaFont = null;
         }
     }
 }
