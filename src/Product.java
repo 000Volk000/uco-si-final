@@ -141,18 +141,17 @@ public class Product extends JPanel {
         JLabel descTitle = new JLabel("Descripción");
         descTitle.setFont(App.font().deriveFont(Font.PLAIN, 24f));
         descTitle.setForeground(textColor);
-        descTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
-        descTitle.setBorder(BorderFactory.createEmptyBorder(0,18,0,0));
+        descTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         descPanel.add(descTitle);
         descPanel.add(Box.createVerticalStrut(10));
         
         RoundedPanel descriptionContainer = new RoundedPanel(20, Color.decode("#DEECFF"), lightBlue, 5);
         descriptionContainer.setLayout(new BorderLayout());
         descriptionContainer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        descriptionContainer.setAlignmentX(Component.LEFT_ALIGNMENT);
+        descriptionContainer.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         descriptionArea = new JTextPane();
-        descriptionArea.setAlignmentX(Component.LEFT_ALIGNMENT);
+        descriptionArea.setAlignmentX(Component.CENTER_ALIGNMENT);
         descriptionArea.setEditable(false);
         descriptionArea.setOpaque(false);
         descriptionArea.setFont(App.font().deriveFont(Font.PLAIN, 14f));
@@ -166,33 +165,38 @@ public class Product extends JPanel {
         descriptionContainer.add(descriptionArea, BorderLayout.CENTER);
         descPanel.add(descriptionContainer);
         infoPanel.add(descPanel);
+
+
+        Color green = Color.decode("#85BB65");
         // Columna Derecha: Precio y Carrito
         JPanel pricePanel = new JPanel();
         pricePanel.setLayout(new BoxLayout(pricePanel, BoxLayout.Y_AXIS));
         pricePanel.setOpaque(false);
         JLabel priceTitle = new JLabel("Precio");
-        priceTitle.setFont(App.font().deriveFont(Font.PLAIN, 18f));
+        priceTitle.setFont(App.font().deriveFont(Font.PLAIN, 24f));
         priceTitle.setForeground(textColor);
+        priceTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         pricePanel.add(priceTitle);
         pricePanel.add(Box.createVerticalStrut(10));
         
         priceLabel = new JLabel();
-        priceLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        priceLabel.setForeground(lightBlue); // Color precio verde lima
+        priceLabel.setFont(App.font().deriveFont(Font.PLAIN, 24f));
+        priceLabel.setForeground(green);
+        priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         pricePanel.add(priceLabel);
         pricePanel.add(Box.createVerticalStrut(15));
-        // Botón de Carrito Ovalado Verde (RoundedPanel que actúa como botón)
-        cartButtonPanel = new RoundedPanel(50, lightBlue, null, 0);
+
+        cartButtonPanel = new RoundedPanel(50, green, null, 0);
         cartButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
         cartButtonPanel.setMaximumSize(new Dimension(100, 50));
+        cartButtonPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
         cartButtonPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        
+        cartButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         // Acción al hacer clic
         cartButtonPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Añadido al carrito: " + titleLabel.getText());
-                // Implementa tu lógica de carrito aquí
             }
         });
         
