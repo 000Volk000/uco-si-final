@@ -49,7 +49,7 @@ public class MainScreen extends JPanel {
         contentPanel.setLayout(null);
 
         JLabel headerText = new JLabel(App.getBundle().getString("Featured"));
-        headerText.setFont(new Font("Inika", Font.PLAIN, 40));
+        headerText.setFont(App.font().deriveFont(Font.PLAIN, 40));
         headerText.setBounds(88, 130, 225, 51);
         headerText.setHorizontalAlignment(SwingConstants.CENTER);
         contentPanel.add(headerText);
@@ -116,7 +116,7 @@ public class MainScreen extends JPanel {
         contentPanel.add(carouselContainer);
 
         JLabel sectionsHeader = new JLabel(App.getBundle().getString("Sections"));
-        sectionsHeader.setFont(new Font("Inika", Font.PLAIN, 40));
+        sectionsHeader.setFont(App.font().deriveFont(Font.PLAIN, 40));
         sectionsHeader.setHorizontalAlignment(SwingConstants.CENTER);
         sectionsHeader.setBounds(0, 360, 401, 30);
         contentPanel.add(sectionsHeader);
@@ -201,7 +201,7 @@ public class MainScreen extends JPanel {
             }
 
             JLabel textLabel = new JLabel(App.getBundle().getString(cardName));
-            textLabel.setFont(new Font("Inika", Font.PLAIN, 20));
+            textLabel.setFont(App.font().deriveFont(Font.PLAIN, 20));
             textLabel.setHorizontalAlignment(SwingConstants.CENTER);
             textLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
 
@@ -260,7 +260,7 @@ public class MainScreen extends JPanel {
         }
 
         g2d.setColor(Color.BLACK);
-        g2d.setFont(new Font("Inika", Font.PLAIN, 20));
+        g2d.setFont(App.font().deriveFont(Font.PLAIN, 20));
         String text = carouselTitles[index];
         FontMetrics fm = g2d.getFontMetrics();
         int textWidth = fm.stringWidth(text);
