@@ -185,8 +185,33 @@ public class MainScreen extends JPanel {
             sectionCard.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    gestorCartas.show(contenedorPrincipal, cardName);
+                    String[][] dataToLoad;
+                    String translatedTitle = App.getBundle().getString(cardName);
+
+                    if (cardName.equals("fishHook")) {
+                        dataToLoad = new String[][] {
+                                { App.getBundle().getString("sebastian_name"), "8.99",
+                                        "src/assets/fishHook/sebastian.png" },
+                                { App.getBundle().getString("destructor_name"), "12.30",
+                                        "src/assets/fishHook/wildlifeDestructor.png" },
+                                { App.getBundle().getString("crazyEye_name"), "4.99",
+                                        "src/assets/fishHook/crazyEye.png" },
+                                { App.getBundle().getString("classicHook_name"), "2.10",
+                                        "src/assets/fishHook/hook?.png" },
+                                { App.getBundle().getString("ladyHook_name"), "5.75", "src/assets/fishHook/lady.png" },
+                                { App.getBundle().getString("gamingHook_name"), "9.50",
+                                        "src/assets/fishHook/gamingHook.png" },
+                                { App.getBundle().getString("joaquinCortes_name"), "15.00",
+                                        "src/assets/fishHook/joaquinCortes.png" }
+                        };
+                    } else {
+                        dataToLoad = new String[0][0];
+                    }
+
+                    App.sectionPanel.loadSectionData(translatedTitle, dataToLoad);
+                    gestorCartas.show(contenedorPrincipal, "sectionView");
                 }
+
             });
 
             JLabel imgLabel = new JLabel();

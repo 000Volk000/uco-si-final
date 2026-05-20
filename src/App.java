@@ -12,7 +12,6 @@ class BackgroundPanel extends JPanel {
     private Image scaleTopRight;
     private Image koi;
 
-
     public BackgroundPanel() {
         scaleTopLeft = new ImageIcon("src/assets/background/topLeft.png").getImage().getScaledInstance(247, 201,
                 Image.SCALE_SMOOTH);
@@ -54,12 +53,14 @@ public class App {
 
     private static Font inikaFont;
 
-    public static Font font(){
+    public static Font font() {
         return inikaFont;
     }
 
     public static Product product;
-    
+
+    public static SectionPanel sectionPanel;
+
     public static String getName() {
         return username;
     }
@@ -110,7 +111,6 @@ public class App {
         btnHistory = createNavButton("src/assets/bottomBar/history.png");
         btnAccount = createNavButton("src/assets/bottomBar/account.png");
         btnSearch = createNavButton("src/assets/bottomBar/search.png");
-
 
         btnHome.addActionListener(e -> {
             gestorCartas.show(contenedorPantallas, "main");
@@ -170,9 +170,12 @@ public class App {
         contenedorPantallas.add(account, "account");
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
 
-        //Producto
+        // Producto
         product = new Product(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(product, "product");
+
+        sectionPanel = new SectionPanel(contenedorPantallas, gestorCartas);
+        contenedorPantallas.add(sectionPanel, "sectionView");
 
         bgPanel.add(bottomBar, BorderLayout.SOUTH);
         setNavBarVisibility(false);
@@ -219,15 +222,24 @@ public class App {
     }
 
     public static void refresh(JPanel contenedor, CardLayout gestor, String current) {
-        String[] names = { "account", "main", "login", "register" };
-        List<Class<? extends JPanel>> classes = List.of(Account.class, MainScreen.class, LoginFrame.class,
-                RegisterFrame.class);
+        String[] names = { "account", "main", "login", "register", "product", "sectionView" };
+        List<Class<? extends JPanel>> classes = List.of(
+                Account.class, MainScreen.class, LoginFrame.class, RegisterFrame.class, Product.class,
+                SectionPanel.class);
+
         contenedor.removeAll();
+
         try {
             for (int i = 0; i < classes.size(); i++) {
                 Object nuevoPanel = classes.get(i).getConstructor(JPanel.class, CardLayout.class)
                         .newInstance(contenedor, gestor);
                 contenedor.add((Component) nuevoPanel, names[i]);
+
+                if (names[i].equals("product")) {
+                    product = (Product) nuevoPanel;
+                } else if (names[i].equals("sectionView")) {
+                    sectionPanel = (SectionPanel) nuevoPanel;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -249,14 +261,12 @@ public class App {
         }
     }
 
-
     public static void updateNavSelection(String selectedTab) {
         updateButtonIcon(btnHome, "src/assets/bottomBar/home.png");
         updateButtonIcon(btnCart, "src/assets/bottomBar/cart.png");
         updateButtonIcon(btnHistory, "src/assets/bottomBar/history.png");
         updateButtonIcon(btnAccount, "src/assets/bottomBar/account.png");
         updateButtonIcon(btnSearch, "src/assets/bottomBar/search.png");
-
 
         switch (selectedTab) {
             case "main":

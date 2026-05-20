@@ -90,7 +90,7 @@ public class Product extends JPanel {
     public Product(JPanel contenedorPantallas, CardLayout gestorCartas) {
         this.contenedorPantallas = contenedorPantallas;
         this.gestorCartas = gestorCartas;
-        
+
         setOpaque(false);
         setLayout(new BorderLayout());
 
@@ -113,7 +113,7 @@ public class Product extends JPanel {
         imageContainer.setPreferredSize(new Dimension(300, 200));
         imageContainer.setMaximumSize(new Dimension(300, 200));
         imageContainer.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
+
         imageLabel = new JLabel();
         imageLabel.setHorizontalAlignment(JLabel.CENTER);
         imageLabel.setVerticalAlignment(JLabel.CENTER);
@@ -230,7 +230,8 @@ public class Product extends JPanel {
     }
 
     // --- Método clave para actualizar los datos de la pantalla ---
-    public void setProductData(String title, String description, String priceUnit, String productImagePath, String cartIconImagePath) {
+    public void setProductData(String title, String description, String priceUnit, String productImagePath,
+            String cartIconImagePath) {
         titleLabel.setText(title);
         descriptionArea.setText(description);
         priceLabel.setText(priceUnit + " €/ud");
@@ -259,6 +260,5 @@ public class Product extends JPanel {
             System.err.println("Error al cargar imagen: " + imagePath);
         }
     }
-
 
 }
