@@ -106,6 +106,11 @@ public class App {
             updateNavSelection("main");
         });
 
+        btnSearch.addActionListener(e -> {
+            gestorCartas.show(contenedorPantallas, "search");
+            updateNavSelection("search");
+        });
+
         btnCart.addActionListener(e -> {
             gestorCartas.show(contenedorPantallas, "cart");
             updateNavSelection("cart");
@@ -122,6 +127,7 @@ public class App {
         });
 
         bottomBar.add(wrapButton(btnHome));
+        bottomBar.add(wrapButton(btnSearch));
         bottomBar.add(wrapButton(btnCart));
         bottomBar.add(wrapButton(btnHistory));
         bottomBar.add(wrapButton(btnAccount));
