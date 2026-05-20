@@ -43,6 +43,12 @@ public class App {
     private static JPanel bottomBar;
     private static String username;
 
+    private static JButton btnHome;
+    private static JButton btnCart;
+    private static JButton btnHistory;
+    private static JButton btnAccount;
+    private static JButton btnSearch;
+
     public static String getName() {
         return username;
     }
@@ -88,16 +94,38 @@ public class App {
         bottomBar.setPreferredSize(new Dimension(402, 65));
         bottomBar.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(200, 200, 200)));
 
-        JButton btnHome = createNavButton("src/assets/bottomBar/homeSelected.png");
-        btnHome.addActionListener(e -> gestorCartas.show(contenedorPantallas, "main"));
+        btnHome = createNavButton("src/assets/bottomBar/home.png");
+        btnCart = createNavButton("src/assets/bottomBar/cart.png");
+        btnHistory = createNavButton("src/assets/bottomBar/history.png");
+        btnAccount = createNavButton("src/assets/bottomBar/account.png");
+        btnSearch = createNavButton("src/assets/bottomBar/search.png");
+
+
+        btnHome.addActionListener(e -> {
+            gestorCartas.show(contenedorPantallas, "main");
+            updateNavSelection("main");
+        });
+
+        btnCart.addActionListener(e -> {
+            gestorCartas.show(contenedorPantallas, "cart");
+            updateNavSelection("cart");
+        });
+
+        btnHistory.addActionListener(e -> {
+            gestorCartas.show(contenedorPantallas, "history");
+            updateNavSelection("history");
+        });
+
+        btnAccount.addActionListener(e -> {
+            gestorCartas.show(contenedorPantallas, "account");
+            updateNavSelection("account");
+        });
+
         bottomBar.add(wrapButton(btnHome));
-
-        bottomBar.add(wrapButton(createNavButton("src/assets/bottomBar/cart.png")));
-        bottomBar.add(wrapButton(createNavButton("src/assets/bottomBar/history.png")));
-
-        JButton btnAccount = createNavButton("src/assets/bottomBar/accountSelected.png");
-        btnAccount.addActionListener(e -> gestorCartas.show(contenedorPantallas, "account"));
+        bottomBar.add(wrapButton(btnCart));
+        bottomBar.add(wrapButton(btnHistory));
         bottomBar.add(wrapButton(btnAccount));
+
         // Main
         MainScreen mainScreen = new MainScreen(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(mainScreen, "main");
@@ -182,5 +210,43 @@ public class App {
 
         contenedor.revalidate();
         contenedor.repaint();
+    }
+
+    private static void updateButtonIcon(JButton btn, String iconPath) {
+        try {
+            ImageIcon icon = new ImageIcon(iconPath);
+            Image img = icon.getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH);
+            btn.setIcon(new ImageIcon(img));
+        } catch (Exception e) {
+            System.err.println("No se pudo cargar el icono: " + iconPath);
+        }
+    }
+
+
+    public static void updateNavSelection(String selectedTab) {
+        updateButtonIcon(btnHome, "src/assets/bottomBar/home.png");
+        updateButtonIcon(btnCart, "src/assets/bottomBar/cart.png");
+        updateButtonIcon(btnHistory, "src/assets/bottomBar/history.png");
+        updateButtonIcon(btnAccount, "src/assets/bottomBar/account.png");
+        updateButtonIcon(btnSearch, "src/assets/bottomBar/search.png");
+
+
+        switch (selectedTab) {
+            case "main":
+                updateButtonIcon(btnHome, "src/assets/bottomBar/homeSelected.png");
+                break;
+            case "cart":
+                updateButtonIcon(btnCart, "src/assets/bottomBar/cartSelected.png");
+                break;
+            case "history":
+                updateButtonIcon(btnHistory, "src/assets/bottomBar/historySelected.png");
+                break;
+            case "account":
+                updateButtonIcon(btnAccount, "src/assets/bottomBar/accountSelected.png");
+                break;
+            case "search":
+                updateButtonIcon(btnSearch, "src/assets/bottomBar/searchSelected.png");
+                break;
+        }
     }
 }

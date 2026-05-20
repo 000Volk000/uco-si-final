@@ -80,6 +80,7 @@ public class LoginFrame extends JPanel {
         btnLogin.addActionListener(e -> {
             App.setNavBarVisibility(true);
             gestorCarta.show(contenedorPrincipal, "main");
+            App.updateNavSelection("main");
         });
         add(btnLogin, gbc);
 
