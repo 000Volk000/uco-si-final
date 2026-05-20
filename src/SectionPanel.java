@@ -22,7 +22,6 @@ public class SectionPanel extends JPanel {
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
         headerPanel.setOpaque(false);
 
-        // Este espaciador reemplaza tu setBounds y empuja el contenido hacia abajo
         headerPanel.add(Box.createVerticalStrut(80));
 
         titleLabel = new JLabel("");
@@ -41,11 +40,17 @@ public class SectionPanel extends JPanel {
 
         add(headerPanel, BorderLayout.NORTH);
 
-        gridPanel = new JPanel(new GridLayout(0, 2, 15, 15));
+        // Cambiamos a 1 columna
+        gridPanel = new JPanel(new GridLayout(0, 1, 15, 15));
         gridPanel.setOpaque(false);
         gridPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        scrollPane = new JScrollPane(gridPanel);
+        // Envoltura para evitar que el GridLayout estire las tarjetas verticalmente
+        JPanel wrapperPanel = new JPanel(new BorderLayout());
+        wrapperPanel.setOpaque(false);
+        wrapperPanel.add(gridPanel, BorderLayout.NORTH);
+
+        scrollPane = new JScrollPane(wrapperPanel);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
         scrollPane.setBorder(null);
@@ -72,41 +77,72 @@ public class SectionPanel extends JPanel {
     }
 
     private JPanel createItemCard(String name, String price, String imagePath) {
-        RoundedPanel card = new RoundedPanel(40, Color.decode("#DEECFF"), null, 0);
-        card.setLayout(new BorderLayout());
-        card.setPreferredSize(new Dimension(170, 220));
+        // Contenedor principal con el azul claro del diseño
+        RoundedPanel card = new RoundedPanel(40, Color.decode("#E1EFFF"), null, 0);
+        card.setLayout(new GridBagLayout());
+
+        // Forzamos tus dimensiones estrictas
+        card.setPreferredSize(new Dimension(367, 138));
+        card.setMinimumSize(new Dimension(367, 138));
+        card.setMaximumSize(new Dimension(367, 138));
         card.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        // Contenedor interior blanco para la imagen (175x105)
+        RoundedPanel imageContainer = new RoundedPanel(30, Color.WHITE, null, 0);
+        imageContainer.setLayout(new BorderLayout());
+        imageContainer.setPreferredSize(new Dimension(175, 105));
+        imageContainer.setMinimumSize(new Dimension(175, 105));
 
         JLabel imgLabel = new JLabel();
         imgLabel.setHorizontalAlignment(SwingConstants.CENTER);
         try {
             if (new File(imagePath).exists()) {
                 ImageIcon icon = new ImageIcon(imagePath);
-                Image img = icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+                // Escalamos a 140x85 para dejar un pequeño margen blanco interno
+                Image img = icon.getImage().getScaledInstance(140, 85, Image.SCALE_SMOOTH);
                 imgLabel.setIcon(new ImageIcon(img));
             }
         } catch (Exception e) {
             System.err.println("Fallo al cargar: " + imagePath);
         }
+        imageContainer.add(imgLabel, BorderLayout.CENTER);
 
-        JPanel infoPanel = new JPanel(new GridLayout(2, 1));
-        infoPanel.setOpaque(false);
+        // Posicionamiento de la imagen a la izquierda
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(0, 16, 0, 15);
+        gbc.anchor = GridBagConstraints.WEST;
+        card.add(imageContainer, gbc);
+
+        // Panel contenedor para alinear los textos
+        JPanel textPanel = new JPanel();
+        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
+        textPanel.setOpaque(false);
 
         JLabel nameLabel = new JLabel(name);
-        nameLabel.setFont(App.font().deriveFont(Font.PLAIN, 20));
-        nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        nameLabel.setFont(App.font().deriveFont(Font.PLAIN, 26)); // Fuente más grande y negra
+        nameLabel.setForeground(Color.BLACK);
+        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel priceLabel = new JLabel(price + " \u20AC");
-        priceLabel.setFont(App.font().deriveFont(Font.PLAIN, 20));
-        priceLabel.setForeground(Color.decode("#2F3640"));
-        priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        priceLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
+        priceLabel.setFont(App.font().deriveFont(Font.PLAIN, 24));
+        priceLabel.setForeground(Color.decode("#8DCA79")); // Tono verde exacto de tu captura
+        priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        infoPanel.add(nameLabel);
-        infoPanel.add(priceLabel);
+        textPanel.add(nameLabel);
+        textPanel.add(Box.createVerticalStrut(12)); // Separación exacta entre textos
+        textPanel.add(priceLabel);
 
-        card.add(imgLabel, BorderLayout.CENTER);
-        card.add(infoPanel, BorderLayout.SOUTH);
+        // Posicionamiento del texto a la derecha
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.insets = new Insets(0, 0, 0, 16);
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        card.add(textPanel, gbc);
 
         card.addMouseListener(new MouseAdapter() {
             @Override

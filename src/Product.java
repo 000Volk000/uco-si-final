@@ -31,7 +31,8 @@ class RoundedPanel extends JPanel {
         if (borderColor != null && borderThickness > 0) {
             g2.setColor(borderColor);
             g2.setStroke(new BasicStroke(borderThickness));
-            g2.drawRoundRect(borderThickness / 2, borderThickness / 2, getWidth() - borderThickness, getHeight() - borderThickness, cornerRadius, cornerRadius);
+            g2.drawRoundRect(borderThickness / 2, borderThickness / 2, getWidth() - borderThickness,
+                    getHeight() - borderThickness, cornerRadius, cornerRadius);
         }
     }
 }
@@ -49,7 +50,7 @@ public class Product extends JPanel {
     public Product(JPanel contenedorPantallas, CardLayout gestorCartas) {
         this.contenedorPantallas = contenedorPantallas;
         this.gestorCartas = gestorCartas;
-        
+
         setOpaque(false);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -59,7 +60,6 @@ public class Product extends JPanel {
     private void initializeComponents() {
         Color lightBlue = Color.decode("#DEECFF");
         Color textColor = Color.decode("#2F3640");
-
 
         // --- Panel Superior (Botón de volver) ---
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
@@ -83,7 +83,7 @@ public class Product extends JPanel {
         imageContainer.setPreferredSize(new Dimension(300, 200));
         imageContainer.setMaximumSize(new Dimension(300, 200));
         imageContainer.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
+
         imageLabel = new JLabel();
         imageLabel.setHorizontalAlignment(JLabel.CENTER);
         imageLabel.setVerticalAlignment(JLabel.CENTER);
@@ -106,69 +106,69 @@ public class Product extends JPanel {
         infoPanel.setOpaque(false);
         infoPanel.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 30)); // Márgenes laterales
 
-            // Columna Izquierda: Descripción
-            JPanel descPanel = new JPanel();
-            descPanel.setLayout(new BoxLayout(descPanel, BoxLayout.Y_AXIS));
-            descPanel.setOpaque(false);
-            JLabel descTitle = new JLabel("Descripción");
-            descTitle.setFont(App.font().deriveFont(Font.PLAIN, 18f));
-            descTitle.setForeground(textColor);
-            descPanel.add(descTitle);
-            descPanel.add(Box.createVerticalStrut(10));
-            
-            descriptionArea = new JTextArea();
-            descriptionArea.setEditable(false);
-            descriptionArea.setOpaque(false);
-            descriptionArea.setLineWrap(true);
-            descriptionArea.setWrapStyleWord(true);
-            descriptionArea.setFont(App.font().deriveFont(Font.PLAIN, 14f));
-            descriptionArea.setForeground(textColor);
-            descriptionArea.setMargin(new Insets(0, 5, 0, 0)); // Pequeño margen izquierdo
-            descPanel.add(descriptionArea);
-            infoPanel.add(descPanel);
+        // Columna Izquierda: Descripción
+        JPanel descPanel = new JPanel();
+        descPanel.setLayout(new BoxLayout(descPanel, BoxLayout.Y_AXIS));
+        descPanel.setOpaque(false);
+        JLabel descTitle = new JLabel("Descripción");
+        descTitle.setFont(App.font().deriveFont(Font.PLAIN, 18f));
+        descTitle.setForeground(textColor);
+        descPanel.add(descTitle);
+        descPanel.add(Box.createVerticalStrut(10));
 
-            // Columna Derecha: Precio y Carrito
-            JPanel pricePanel = new JPanel();
-            pricePanel.setLayout(new BoxLayout(pricePanel, BoxLayout.Y_AXIS));
-            pricePanel.setOpaque(false);
-            JLabel priceTitle = new JLabel("Precio");
-            priceTitle.setFont(App.font().deriveFont(Font.PLAIN, 18f));
-            priceTitle.setForeground(textColor);
-            pricePanel.add(priceTitle);
-            pricePanel.add(Box.createVerticalStrut(10));
-            
-            priceLabel = new JLabel();
-            priceLabel.setFont(new Font("Arial", Font.BOLD, 18));
-            priceLabel.setForeground(lightBlue); // Color precio verde lima
-            pricePanel.add(priceLabel);
-            pricePanel.add(Box.createVerticalStrut(15));
+        descriptionArea = new JTextArea();
+        descriptionArea.setEditable(false);
+        descriptionArea.setOpaque(false);
+        descriptionArea.setLineWrap(true);
+        descriptionArea.setWrapStyleWord(true);
+        descriptionArea.setFont(App.font().deriveFont(Font.PLAIN, 14f));
+        descriptionArea.setForeground(textColor);
+        descriptionArea.setMargin(new Insets(0, 5, 0, 0)); // Pequeño margen izquierdo
+        descPanel.add(descriptionArea);
+        infoPanel.add(descPanel);
 
-            // Botón de Carrito Ovalado Verde (RoundedPanel que actúa como botón)
-            cartButtonPanel = new RoundedPanel(50, lightBlue, null, 0);
-            cartButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
-            cartButtonPanel.setMaximumSize(new Dimension(100, 50));
-            cartButtonPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            
-            // Acción al hacer clic
-            cartButtonPanel.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    System.out.println("Añadido al carrito: " + titleLabel.getText());
-                    // Implementa tu lógica de carrito aquí
-                }
-            });
-            
-            JLabel plusIcon = new JLabel("\u002B"); // Icono + Unicode
-            plusIcon.setFont(new Font("Arial", Font.PLAIN, 24));
-            plusIcon.setForeground(Color.WHITE);
-            cartButtonPanel.add(plusIcon);
-            
-            // Icono Carrito (JLabel vacío, se actualizará en setData)
-            JLabel cartIconLabel = new JLabel();
-            cartButtonPanel.add(cartIconLabel);
-            
-            pricePanel.add(cartButtonPanel);
-            infoPanel.add(pricePanel);
+        // Columna Derecha: Precio y Carrito
+        JPanel pricePanel = new JPanel();
+        pricePanel.setLayout(new BoxLayout(pricePanel, BoxLayout.Y_AXIS));
+        pricePanel.setOpaque(false);
+        JLabel priceTitle = new JLabel("Precio");
+        priceTitle.setFont(App.font().deriveFont(Font.PLAIN, 18f));
+        priceTitle.setForeground(textColor);
+        pricePanel.add(priceTitle);
+        pricePanel.add(Box.createVerticalStrut(10));
+
+        priceLabel = new JLabel();
+        priceLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        priceLabel.setForeground(lightBlue); // Color precio verde lima
+        pricePanel.add(priceLabel);
+        pricePanel.add(Box.createVerticalStrut(15));
+
+        // Botón de Carrito Ovalado Verde (RoundedPanel que actúa como botón)
+        cartButtonPanel = new RoundedPanel(50, lightBlue, null, 0);
+        cartButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        cartButtonPanel.setMaximumSize(new Dimension(100, 50));
+        cartButtonPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        // Acción al hacer clic
+        cartButtonPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Añadido al carrito: " + titleLabel.getText());
+                // Implementa tu lógica de carrito aquí
+            }
+        });
+
+        JLabel plusIcon = new JLabel("\u002B"); // Icono + Unicode
+        plusIcon.setFont(new Font("Arial", Font.PLAIN, 24));
+        plusIcon.setForeground(Color.WHITE);
+        cartButtonPanel.add(plusIcon);
+
+        // Icono Carrito (JLabel vacío, se actualizará en setData)
+        JLabel cartIconLabel = new JLabel();
+        cartButtonPanel.add(cartIconLabel);
+
+        pricePanel.add(cartButtonPanel);
+        infoPanel.add(pricePanel);
 
         add(infoPanel);
 
@@ -177,7 +177,8 @@ public class Product extends JPanel {
     }
 
     // --- Método clave para actualizar los datos de la pantalla ---
-    public void setProductData(String title, String description, String priceUnit, String productImagePath, String cartIconImagePath) {
+    public void setProductData(String title, String description, String priceUnit, String productImagePath,
+            String cartIconImagePath) {
         titleLabel.setText(title);
         descriptionArea.setText(description);
         priceLabel.setText(priceUnit + " €/ud");
@@ -209,6 +210,5 @@ public class Product extends JPanel {
             System.err.println("Error al cargar imagen: " + imagePath);
         }
     }
-
 
 }
