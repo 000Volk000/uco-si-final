@@ -10,6 +10,7 @@ public class SectionPanel extends JPanel {
     private JScrollPane scrollPane;
     private CardLayout gestorCartas;
     private JPanel contenedorPrincipal;
+    private MouseAdapter dragScrollListener;
 
     public SectionPanel(JPanel contenedorPrincipal, CardLayout gestorCartas) {
         this.contenedorPrincipal = contenedorPrincipal;
@@ -40,12 +41,10 @@ public class SectionPanel extends JPanel {
 
         add(headerPanel, BorderLayout.NORTH);
 
-        // Cambiamos a 1 columna
         gridPanel = new JPanel(new GridLayout(0, 1, 15, 15));
         gridPanel.setOpaque(false);
         gridPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        // Envoltura para evitar que el GridLayout estire las tarjetas verticalmente
         JPanel wrapperPanel = new JPanel(new BorderLayout());
         wrapperPanel.setOpaque(false);
         wrapperPanel.add(gridPanel, BorderLayout.NORTH);
@@ -56,6 +55,32 @@ public class SectionPanel extends JPanel {
         scrollPane.setBorder(null);
         scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        dragScrollListener = new MouseAdapter() {
+            private Point origin;
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                origin = e.getLocationOnScreen();
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (origin != null) {
+                    Point current = e.getLocationOnScreen();
+                    int deltaY = origin.y - current.y;
+                    JScrollBar vBar = scrollPane.getVerticalScrollBar();
+                    vBar.setValue(vBar.getValue() + deltaY);
+                    origin = current;
+                }
+            }
+        };
+
+        scrollPane.getViewport().addMouseListener(dragScrollListener);
+        scrollPane.getViewport().addMouseMotionListener(dragScrollListener);
+        wrapperPanel.addMouseListener(dragScrollListener);
+        wrapperPanel.addMouseMotionListener(dragScrollListener);
+        gridPanel.addMouseListener(dragScrollListener);
+        gridPanel.addMouseMotionListener(dragScrollListener);
 
         add(scrollPane, BorderLayout.CENTER);
     }
@@ -77,11 +102,9 @@ public class SectionPanel extends JPanel {
     }
 
     private JPanel createItemCard(String name, String price, String imagePath) {
-        // Contenedor principal con el azul claro del diseño
         RoundedPanel card = new RoundedPanel(40, Color.decode("#E1EFFF"), null, 0);
         card.setLayout(new GridBagLayout());
 
-        // Forzamos tus dimensiones estrictas
         card.setPreferredSize(new Dimension(367, 138));
         card.setMinimumSize(new Dimension(367, 138));
         card.setMaximumSize(new Dimension(367, 138));
@@ -89,7 +112,6 @@ public class SectionPanel extends JPanel {
 
         GridBagConstraints gbc = new GridBagConstraints();
 
-        // Contenedor interior blanco para la imagen (175x105)
         RoundedPanel imageContainer = new RoundedPanel(30, Color.WHITE, null, 0);
         imageContainer.setLayout(new BorderLayout());
         imageContainer.setPreferredSize(new Dimension(175, 105));
@@ -100,7 +122,6 @@ public class SectionPanel extends JPanel {
         try {
             if (new File(imagePath).exists()) {
                 ImageIcon icon = new ImageIcon(imagePath);
-                // Escalamos a 140x85 para dejar un pequeño margen blanco interno
                 Image img = icon.getImage().getScaledInstance(140, 85, Image.SCALE_SMOOTH);
                 imgLabel.setIcon(new ImageIcon(img));
             }
@@ -109,33 +130,34 @@ public class SectionPanel extends JPanel {
         }
         imageContainer.add(imgLabel, BorderLayout.CENTER);
 
-        // Posicionamiento de la imagen a la izquierda
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.insets = new Insets(0, 16, 0, 15);
         gbc.anchor = GridBagConstraints.WEST;
         card.add(imageContainer, gbc);
 
-        // Panel contenedor para alinear los textos
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
         textPanel.setOpaque(false);
 
-        JLabel nameLabel = new JLabel(name);
-        nameLabel.setFont(App.font().deriveFont(Font.PLAIN, 26)); // Fuente más grande y negra
+        String htmlName = "<html><div style='text-align: center; width: 120px;'>" + name + "</div></html>";
+
+        JLabel nameLabel = new JLabel(htmlName);
+        nameLabel.setFont(App.font().deriveFont(Font.PLAIN, 18));
         nameLabel.setForeground(Color.BLACK);
+        nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel priceLabel = new JLabel(price + " \u20AC");
-        priceLabel.setFont(App.font().deriveFont(Font.PLAIN, 24));
-        priceLabel.setForeground(Color.decode("#8DCA79")); // Tono verde exacto de tu captura
+        priceLabel.setFont(App.font().deriveFont(Font.PLAIN, 20));
+        priceLabel.setForeground(Color.decode("#8DCA79"));
+        priceLabel.setHorizontalAlignment(SwingConstants.CENTER);
         priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         textPanel.add(nameLabel);
-        textPanel.add(Box.createVerticalStrut(12)); // Separación exacta entre textos
+        textPanel.add(Box.createVerticalStrut(12));
         textPanel.add(priceLabel);
 
-        // Posicionamiento del texto a la derecha
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.weightx = 1.0;
@@ -143,6 +165,9 @@ public class SectionPanel extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         card.add(textPanel, gbc);
+
+        card.addMouseListener(dragScrollListener);
+        card.addMouseMotionListener(dragScrollListener);
 
         card.addMouseListener(new MouseAdapter() {
             @Override
