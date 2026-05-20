@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.List;
@@ -9,6 +11,7 @@ class BackgroundPanel extends JPanel {
     private Image scaleLowLeft;
     private Image scaleTopRight;
     private Image koi;
+
 
     public BackgroundPanel() {
         scaleTopLeft = new ImageIcon("src/assets/background/topLeft.png").getImage().getScaledInstance(247, 201,
@@ -43,6 +46,20 @@ public class App {
     private static JPanel bottomBar;
     private static String username;
 
+    private static JButton btnHome;
+    private static JButton btnCart;
+    private static JButton btnHistory;
+    private static JButton btnAccount;
+    private static JButton btnSearch;
+
+    private static Font inikaFont;
+
+    public static Font font(){
+        return inikaFont;
+    }
+
+    public static Product product;
+    
     public static String getName() {
         return username;
     }
@@ -88,16 +105,51 @@ public class App {
         bottomBar.setPreferredSize(new Dimension(402, 65));
         bottomBar.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(200, 200, 200)));
 
-        JButton btnHome = createNavButton("src/assets/bottomBar/homeSelected.png");
-        btnHome.addActionListener(e -> gestorCartas.show(contenedorPantallas, "main"));
+        btnHome = createNavButton("src/assets/bottomBar/home.png");
+        btnCart = createNavButton("src/assets/bottomBar/cart.png");
+        btnHistory = createNavButton("src/assets/bottomBar/history.png");
+        btnAccount = createNavButton("src/assets/bottomBar/account.png");
+        btnSearch = createNavButton("src/assets/bottomBar/search.png");
+
+
+        btnHome.addActionListener(e -> {
+            gestorCartas.show(contenedorPantallas, "main");
+            updateNavSelection("main");
+        });
+
+        btnSearch.addActionListener(e -> {
+            product.setProductData(
+            "Sebastián",
+            "Se rumorea que este cebo está inspirado en un antiguo músico de la corte real submarina.\n\nLa leyenda cuenta que, cuando este cangrejo toca el agua, los peces sienten la necesidad de montar un número musical coreografiado.",
+            "15.99",
+            "src/assets/products/sebestian.png",
+            "src/assets/bottomBar/cart.png"
+            );
+            gestorCartas.show(contenedorPantallas, "product");
+            updateNavSelection("search");
+        });
+
+        btnCart.addActionListener(e -> {
+            gestorCartas.show(contenedorPantallas, "cart");
+            updateNavSelection("cart");
+        });
+
+        btnHistory.addActionListener(e -> {
+            gestorCartas.show(contenedorPantallas, "history");
+            updateNavSelection("history");
+        });
+
+        btnAccount.addActionListener(e -> {
+            gestorCartas.show(contenedorPantallas, "account");
+            updateNavSelection("account");
+        });
+
         bottomBar.add(wrapButton(btnHome));
-
-        bottomBar.add(wrapButton(createNavButton("src/assets/bottomBar/cart.png")));
-        bottomBar.add(wrapButton(createNavButton("src/assets/bottomBar/history.png")));
-
-        JButton btnAccount = createNavButton("src/assets/bottomBar/accountSelected.png");
-        btnAccount.addActionListener(e -> gestorCartas.show(contenedorPantallas, "account"));
+        bottomBar.add(wrapButton(btnSearch));
+        bottomBar.add(wrapButton(btnCart));
+        bottomBar.add(wrapButton(btnHistory));
         bottomBar.add(wrapButton(btnAccount));
+
         // Main
         MainScreen mainScreen = new MainScreen(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(mainScreen, "main");
@@ -117,6 +169,10 @@ public class App {
         Account account = new Account(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(account, "account");
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
+
+        //Producto
+        product = new Product(contenedorPantallas, gestorCartas);
+        contenedorPantallas.add(product, "product");
 
         bgPanel.add(bottomBar, BorderLayout.SOUTH);
         setNavBarVisibility(false);
@@ -155,7 +211,6 @@ public class App {
         return btn;
     }
 
-    // warp para que no se cambie el raton en todo el navbar y solo en los iconos
     private static JPanel wrapButton(JButton btn) {
         JPanel wrapper = new JPanel(new GridBagLayout());
         wrapper.setOpaque(false);
@@ -182,5 +237,57 @@ public class App {
 
         contenedor.revalidate();
         contenedor.repaint();
+    }
+
+    private static void updateButtonIcon(JButton btn, String iconPath) {
+        try {
+            ImageIcon icon = new ImageIcon(iconPath);
+            Image img = icon.getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH);
+            btn.setIcon(new ImageIcon(img));
+        } catch (Exception e) {
+            System.err.println("No se pudo cargar el icono: " + iconPath);
+        }
+    }
+
+
+    public static void updateNavSelection(String selectedTab) {
+        updateButtonIcon(btnHome, "src/assets/bottomBar/home.png");
+        updateButtonIcon(btnCart, "src/assets/bottomBar/cart.png");
+        updateButtonIcon(btnHistory, "src/assets/bottomBar/history.png");
+        updateButtonIcon(btnAccount, "src/assets/bottomBar/account.png");
+        updateButtonIcon(btnSearch, "src/assets/bottomBar/search.png");
+
+
+        switch (selectedTab) {
+            case "main":
+                updateButtonIcon(btnHome, "src/assets/bottomBar/homeSelected.png");
+                break;
+            case "cart":
+                updateButtonIcon(btnCart, "src/assets/bottomBar/cartSelected.png");
+                break;
+            case "history":
+                updateButtonIcon(btnHistory, "src/assets/bottomBar/historySelected.png");
+                break;
+            case "account":
+                updateButtonIcon(btnAccount, "src/assets/bottomBar/accountSelected.png");
+                break;
+            case "search":
+                updateButtonIcon(btnSearch, "src/assets/bottomBar/searchSelected.png");
+                break;
+        }
+    }
+
+    public static void chargeFont() {
+        try {
+            File archivoFuente = new File("src/assets/fonts/Inika-Regular.ttf");
+            Font fuenteBase = Font.createFont(Font.TRUETYPE_FONT, archivoFuente);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(fuenteBase);
+            inikaFont = fuenteBase;
+
+        } catch (FontFormatException | IOException e) {
+            System.err.println(e.getMessage());
+            inikaFont = null;
+        }
     }
 }

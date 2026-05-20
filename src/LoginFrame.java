@@ -1,23 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+
 
 public class LoginFrame extends JPanel {
 
-    private Font inikaFont;
-
     public LoginFrame(JPanel contenedorPrincipal, CardLayout gestorCarta) {
         setOpaque(false);
-        chargeFont();
+        App.chargeFont();
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(120, 0, 20, 0);
 
         JLabel title = new JLabel(App.getBundle().getString("Welcome"));
-        if (inikaFont != null) {
-            title.setFont(inikaFont.deriveFont(Font.PLAIN, 36f));
+        if (App.font() != null) {
+            title.setFont(App.font().deriveFont(Font.PLAIN, 36f));
         } else {
             title.setFont(new Font("Serif", Font.PLAIN, 36));
         }
@@ -30,7 +27,7 @@ public class LoginFrame extends JPanel {
         // nombre correo
         gbc.insets = new Insets(30, 25, 2, 0);
         JLabel lblUser = new JLabel(App.getBundle().getString("NameEmail"));
-        lblUser.setFont(inikaFont.deriveFont(Font.PLAIN, 18f));
+        lblUser.setFont(App.font().deriveFont(Font.PLAIN, 18f));
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.WEST;
         add(lblUser, gbc);
@@ -46,7 +43,7 @@ public class LoginFrame extends JPanel {
         // Contraseña
         gbc.insets = new Insets(30, 25, 2, 0);
         JLabel lblPass = new JLabel(App.getBundle().getString("Password"));
-        lblPass.setFont(inikaFont.deriveFont(Font.PLAIN, 18f));
+        lblPass.setFont(App.font().deriveFont(Font.PLAIN, 18f));
         gbc.gridy = 3;
         gbc.anchor = GridBagConstraints.WEST;
         add(lblPass, gbc);
@@ -62,7 +59,7 @@ public class LoginFrame extends JPanel {
         // cambiar contraseña
         gbc.insets = new Insets(0, 0, 30, 0);
         JLabel lblForgot = new JLabel("<html><u>" + App.getBundle().getString("ChangePassword") + "</u></html>");
-        lblForgot.setFont(inikaFont.deriveFont(Font.PLAIN, 14f));
+        lblForgot.setFont(App.font().deriveFont(Font.PLAIN, 14f));
         lblForgot.setForeground(new Color(80, 90, 120));
         lblForgot.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         gbc.gridy = 5;
@@ -74,26 +71,27 @@ public class LoginFrame extends JPanel {
         roundedButton btnLogin = new roundedButton(App.getBundle().getString("Login"));
         btnLogin.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.setPreferredSize(new Dimension(220, 45));
-        btnLogin.setFont(inikaFont.deriveFont(Font.PLAIN, 20f));
+        btnLogin.setFont(App.font().deriveFont(Font.PLAIN, 20f));
         gbc.gridy = 6;
         gbc.anchor = GridBagConstraints.CENTER;
         btnLogin.addActionListener(e -> {
             App.setNavBarVisibility(true);
             gestorCarta.show(contenedorPrincipal, "main");
+            App.updateNavSelection("main");
         });
         add(btnLogin, gbc);
 
         // Aun no tienes cuenta?
         gbc.insets = new Insets(10, 0, 0, 0);
         JLabel lblNoAccount = new JLabel(App.getBundle().getString("NoAccount"));
-        lblNoAccount.setFont(inikaFont.deriveFont(Font.PLAIN, 14f));
+        lblNoAccount.setFont(App.font().deriveFont(Font.PLAIN, 14f));
         gbc.gridy = 7;
         add(lblNoAccount, gbc);
 
         // Registrate
         gbc.insets = new Insets(2, 0, 0, 0);
         JLabel lblRegister = new JLabel("<html><u>" + App.getBundle().getString("Register") + "</u></html>");
-        lblRegister.setFont(inikaFont.deriveFont(Font.PLAIN, 14f));
+        lblRegister.setFont(App.font().deriveFont(Font.PLAIN, 14f));
         lblRegister.setForeground(new Color(100, 150, 255));
         lblRegister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         gbc.gridy = 8;
@@ -167,17 +165,5 @@ public class LoginFrame extends JPanel {
         }
     }
 
-    private void chargeFont() {
-        try {
-            File archivoFuente = new File("src/assets/fonts/Inika-Regular.ttf");
-            Font fuenteBase = Font.createFont(Font.TRUETYPE_FONT, archivoFuente);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(fuenteBase);
-            inikaFont = fuenteBase;
 
-        } catch (FontFormatException | IOException e) {
-            System.err.println(e.getMessage());
-            inikaFont = null;
-        }
-    }
 }

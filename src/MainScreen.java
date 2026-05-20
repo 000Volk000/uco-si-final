@@ -38,6 +38,7 @@ public class MainScreen extends JPanel {
     };
 
     public MainScreen(JPanel contenedorPrincipal, CardLayout gestorCartas) {
+        App.chargeFont();
         setOpaque(false);
         setLayout(new BorderLayout());
 
