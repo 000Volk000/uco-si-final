@@ -122,7 +122,7 @@ public class App {
             "Sebastián",
             "Se rumorea que este cebo está inspirado en un antiguo músico de la corte real submarina.\n\nLa leyenda cuenta que, cuando este cangrejo toca el agua, los peces sienten la necesidad de montar un número musical coreografiado.",
             "15.99",
-            "src/assets/products/sebestian.png",
+            "src/assets/Products/Sebastian.png",
             "src/assets/bottomBar/cart.png"
             );
             gestorCartas.show(contenedorPantallas, "product");
