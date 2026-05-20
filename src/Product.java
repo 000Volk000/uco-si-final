@@ -138,7 +138,8 @@ public class Product extends JPanel {
         JPanel descPanel = new JPanel();
         descPanel.setLayout(new BoxLayout(descPanel, BoxLayout.Y_AXIS));
         descPanel.setOpaque(false);
-        JLabel descTitle = new JLabel("Descripción");
+        descPanel.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 0));
+        JLabel descTitle = new JLabel(App.getBundle().getString("Description"));
         descTitle.setFont(App.font().deriveFont(Font.PLAIN, 24f));
         descTitle.setForeground(textColor);
         descTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -172,7 +173,7 @@ public class Product extends JPanel {
         JPanel pricePanel = new JPanel();
         pricePanel.setLayout(new BoxLayout(pricePanel, BoxLayout.Y_AXIS));
         pricePanel.setOpaque(false);
-        JLabel priceTitle = new JLabel("Precio");
+        JLabel priceTitle = new JLabel(App.getBundle().getString("Price"));
         priceTitle.setFont(App.font().deriveFont(Font.PLAIN, 24f));
         priceTitle.setForeground(textColor);
         priceTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
