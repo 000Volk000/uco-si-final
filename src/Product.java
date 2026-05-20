@@ -57,15 +57,14 @@ public class Product extends JPanel {
     }
 
     private void initializeComponents() {
-        // Colores y Fuentes
-        Color limeGreen = Color.decode("#DEECFF");
+        Color lightBlue = Color.decode("#DEECFF");
         Color textColor = Color.decode("#2F3640");
 
 
         // --- Panel Superior (Botón de volver) ---
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
         topPanel.setOpaque(false);
-        JButton btnBack = new JButton("\u2190"); // Usando ← Unicode para volver
+        JButton btnBack = new JButton("\u2190");
         btnBack.setFont(new Font("Arial", Font.PLAIN, 24));
         btnBack.setForeground(textColor);
         btnBack.setContentAreaFilled(false);
@@ -79,7 +78,7 @@ public class Product extends JPanel {
         add(Box.createVerticalStrut(20)); // Espaciado
 
         // --- Caja de Imagen del Producto (Recuadro blanco, borde verde) ---
-        RoundedPanel imageContainer = new RoundedPanel(40, Color.WHITE, limeGreen, 5);
+        RoundedPanel imageContainer = new RoundedPanel(40, Color.WHITE, lightBlue, 5);
         imageContainer.setLayout(new BorderLayout());
         imageContainer.setPreferredSize(new Dimension(300, 200));
         imageContainer.setMaximumSize(new Dimension(300, 200));
@@ -93,7 +92,7 @@ public class Product extends JPanel {
 
         add(Box.createVerticalStrut(20)); // Espaciado
 
-        // --- Título del Producto (Sebastián) ---
+        // --- Título del Producto (Sebasnew Font("Inika", Font.BOLD, 14))tián) ---
         titleLabel = new JLabel("Cargando...");
         titleLabel.setFont(App.font().deriveFont(Font.PLAIN, 14f));
         titleLabel.setForeground(textColor);
@@ -140,12 +139,12 @@ public class Product extends JPanel {
             
             priceLabel = new JLabel();
             priceLabel.setFont(new Font("Arial", Font.BOLD, 18));
-            priceLabel.setForeground(limeGreen); // Color precio verde lima
+            priceLabel.setForeground(lightBlue); // Color precio verde lima
             pricePanel.add(priceLabel);
             pricePanel.add(Box.createVerticalStrut(15));
 
             // Botón de Carrito Ovalado Verde (RoundedPanel que actúa como botón)
-            cartButtonPanel = new RoundedPanel(50, limeGreen, null, 0);
+            cartButtonPanel = new RoundedPanel(50, lightBlue, null, 0);
             cartButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
             cartButtonPanel.setMaximumSize(new Dimension(100, 50));
             cartButtonPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

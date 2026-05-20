@@ -5,6 +5,7 @@ import java.util.Locale;
 public class Account extends JPanel {
 
     public Account(JPanel contenedorPrincipal, CardLayout gestorCartas) {
+        App.chargeFont();
         setOpaque(false);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();

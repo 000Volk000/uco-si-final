@@ -8,7 +8,7 @@ public class RegisterFrame extends JPanel {
     private Font inikaFont;
 
     public RegisterFrame(JPanel contenedorPrincipal, CardLayout gestorCartas) {
-
+        App.chargeFont();
         setOpaque(false);
         chargeFont();
 
@@ -82,7 +82,11 @@ public class RegisterFrame extends JPanel {
         btnLogin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnLogin.setPreferredSize(new Dimension(220, 45));
         btnLogin.setFont(inikaFont.deriveFont(Font.PLAIN, 20f));
-        btnLogin.addActionListener(e -> gestorCartas.show(contenedorPrincipal, "main"));
+        btnLogin.addActionListener(e -> {
+            App.setNavBarVisibility(true);
+            gestorCartas.show(contenedorPrincipal, "main");
+            App.updateNavSelection("main");
+        });
         gbc.gridy = 7;
         gbc.anchor = GridBagConstraints.CENTER;
         add(btnLogin, gbc);

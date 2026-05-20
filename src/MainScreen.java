@@ -26,6 +26,7 @@ public class MainScreen extends JPanel {
     private JPanel carouselContainer;
 
     public MainScreen(JPanel contenedorPrincipal, CardLayout gestorCartas) {
+        App.chargeFont();
         setOpaque(false);
         setLayout(new BorderLayout());
 
