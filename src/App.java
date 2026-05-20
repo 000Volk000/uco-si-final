@@ -221,15 +221,24 @@ public class App {
     }
 
     public static void refresh(JPanel contenedor, CardLayout gestor, String current) {
-        String[] names = { "account", "main", "login", "register" };
-        List<Class<? extends JPanel>> classes = List.of(Account.class, MainScreen.class, LoginFrame.class,
-                RegisterFrame.class);
+        String[] names = { "account", "main", "login", "register", "product", "sectionView" };
+        List<Class<? extends JPanel>> classes = List.of(
+                Account.class, MainScreen.class, LoginFrame.class, RegisterFrame.class, Product.class,
+                SectionPanel.class);
+
         contenedor.removeAll();
+
         try {
             for (int i = 0; i < classes.size(); i++) {
                 Object nuevoPanel = classes.get(i).getConstructor(JPanel.class, CardLayout.class)
                         .newInstance(contenedor, gestor);
                 contenedor.add((Component) nuevoPanel, names[i]);
+
+                if (names[i].equals("product")) {
+                    product = (Product) nuevoPanel;
+                } else if (names[i].equals("sectionView")) {
+                    sectionPanel = (SectionPanel) nuevoPanel;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
