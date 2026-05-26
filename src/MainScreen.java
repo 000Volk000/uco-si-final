@@ -194,6 +194,8 @@ public class MainScreen extends JPanel {
                     dataToLoad = ProductDatabase.getFishLinesData();
                 else if (cardName.equals("fish")) 
                     dataToLoad = ProductDatabase.getFishData();
+                else if (cardName.equals("stool")) 
+                        dataToLoad = ProductDatabase.getStoolData();
                 else
                     dataToLoad = new String[0][0];
                 

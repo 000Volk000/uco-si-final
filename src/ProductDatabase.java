@@ -175,4 +175,21 @@ public class ProductDatabase {
                         App.getBundle().getString("tilapiaDesc") }
         };
     }
+  
+  public static String[][] getStoolData() {
+        return new String[][] {
+                { App.getBundle().getString("commonStool"), "3.25", "src/assets/stool/commonStool.png",
+                        App.getBundle().getString("commonStoolDesc") },
+                { App.getBundle().getString("flamingoStool"), "14.90", "src/assets/stool/flamingo.png",
+                        App.getBundle().getString("flamingoStoolDesc") },
+                { App.getBundle().getString("fridgeStool"), "29.99", "src/assets/stool/fridge.png",
+                        App.getBundle().getString("fridgeStoolDesc") },
+                { App.getBundle().getString("furStool"), "49.50", "src/assets/stool/fur.png",
+                        App.getBundle().getString("furStoolDesc") },
+                { App.getBundle().getString("parkStool"), "11.00", "src/assets/stool/park.png",
+                        App.getBundle().getString("parkStoolDesc") },
+                { App.getBundle().getString("turtleStool"), "19.75", "src/assets/stool/turtle.png",
+                        App.getBundle().getString("turtleStoolDesc") }
+        };
+    }
 }
