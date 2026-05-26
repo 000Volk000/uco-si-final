@@ -30,10 +30,10 @@ public class ProductDatabase {
         return coincidencias.toArray(new String[0][0]);
     }
 
-    public static JPanel createItemCard(String name, String price, String imagePath) {
-        return createItemCard(name, price, imagePath,null);
+    public static JPanel createItemCard(String name, String price, String desc, String imagePath) {
+        return createItemCard(name, price, imagePath,desc,null);
     }
-    public static JPanel createItemCard(String name, String price, String imagePath, MouseAdapter dragScrollListener) {
+    public static JPanel createItemCard(String name, String price, String imagePath,String desc, MouseAdapter dragScrollListener) {
         JPanel contenedorPrincipal = App.getContenedor();
         CardLayout gestorCartas= App.getCardsGestor();
 
@@ -113,10 +113,10 @@ public class ProductDatabase {
             public void mouseClicked(MouseEvent e) {
                 App.product.setProductData(
                         name,
-                        "Descripción detallada pendiente de implementar en properties.",
+                        desc,
                         price,
                         imagePath,
-                        "src/assets/bottomBar/cart.png");
+                        "src/assets/Products/cart.png");
                 gestorCartas.show(contenedorPrincipal, "product");
             }
         });

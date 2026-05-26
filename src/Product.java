@@ -84,6 +84,8 @@ public class Product extends JPanel {
     private JLabel priceLabel;
     private RoundedPanel cartButtonPanel;
 
+    private JScrollPane scrollPane;
+
     public Product() {
 
         setOpaque(false);
@@ -218,7 +220,50 @@ public class Product extends JPanel {
                                                                                                  // horizontal
 
         scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false); 
+        scrollPane.setBorder(null); 
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16); 
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
 
+        MouseAdapter dragScrollListener = new MouseAdapter() {
+            private Point origin;
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                origin = e.getLocationOnScreen();
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (origin != null) {
+                    Point current = e.getLocationOnScreen();
+                    int deltaY = origin.y - current.y;
+                    JScrollBar vBar = scrollPane.getVerticalScrollBar();
+                    vBar.setValue(vBar.getValue() + deltaY);
+                    origin = current;
+                }
+            }
+        };
+
+        // Propagamos el detector por las diferentes capas para asegurar la fluidez
+        scrollPane.getViewport().addMouseListener(dragScrollListener);
+        scrollPane.getViewport().addMouseMotionListener(dragScrollListener);
+        contentPanel.addMouseListener(dragScrollListener);
+        contentPanel.addMouseMotionListener(dragScrollListener);
+        
+        // Asignamos a los sub-contenedores clave
+        imageContainer.addMouseListener(dragScrollListener);
+        imageContainer.addMouseMotionListener(dragScrollListener);
+        infoPanel.addMouseListener(dragScrollListener);
+        infoPanel.addMouseMotionListener(dragScrollListener);
+        descPanel.addMouseListener(dragScrollListener);
+        descPanel.addMouseMotionListener(dragScrollListener);
+        descriptionContainer.addMouseListener(dragScrollListener);
+        descriptionContainer.addMouseMotionListener(dragScrollListener);
+        pricePanel.addMouseListener(dragScrollListener);
+        pricePanel.addMouseMotionListener(dragScrollListener);
         add(scrollPane, BorderLayout.CENTER);
     }
 

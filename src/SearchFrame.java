@@ -99,9 +99,10 @@ public class SearchFrame extends JPanel {
             String nombre = producto[0];
             String precio = producto[1]; 
             String rutaImagen = producto[2]; 
+            String desc= producto[3];
             
             // Ya no necesitamos añadir Box.createRigidArea porque GridLayout maneja el espaciado
-            JPanel tarjeta = ProductDatabase.createItemCard(nombre, precio, rutaImagen, dragScrollListener);
+            JPanel tarjeta = ProductDatabase.createItemCard(nombre, precio, rutaImagen, desc, dragScrollListener);
             contenedorResultados.add(tarjeta);
         }
         
