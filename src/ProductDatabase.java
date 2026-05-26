@@ -14,7 +14,11 @@ public class ProductDatabase {
         String[][] hooks = ProductDatabase.getFishHookData();
         String[][] lines = ProductDatabase.getFishLinesData();
         String[][] fish = ProductDatabase.getFishData();
-        String[][] products = java.util.stream.Stream.of(hooks, lines, fish)
+        String[][] stool = ProductDatabase.getStoolData();
+        String[][] rods = ProductDatabase.getFishRodsData();
+
+
+        String[][] products = java.util.stream.Stream.of(hooks, lines, fish, stool, rods)
                             .flatMap(java.util.stream.Stream::of)
                             .toArray(String[][]::new);
         if (text == null || text.trim().isEmpty()) {
@@ -190,6 +194,19 @@ public class ProductDatabase {
                         App.getBundle().getString("parkStoolDesc") },
                 { App.getBundle().getString("turtleStool"), "19.75", "src/assets/stool/turtle.png",
                         App.getBundle().getString("turtleStoolDesc") }
+        };
+    }
+
+    public static String[][] getFishRodsData() {
+        return new String[][] {
+                { App.getBundle().getString("vwRod"), "149.99", "src/assets/fishingRod/vwRod.png",
+                        App.getBundle().getString("vwRodDesc") },
+                { App.getBundle().getString("minecraftRod"), "45.00", "src/assets/fishingRod/minecraftRod.png",
+                        App.getBundle().getString("minecraftRodDesc") },
+                { App.getBundle().getString("sugarRod"), "0.50", "src/assets/fishingRod/sugarRod.png",
+                        App.getBundle().getString("sugarRodDesc") },
+                { App.getBundle().getString("oldRod"), "0.00", "src/assets/fishingRod/oldRod.png",
+                        App.getBundle().getString("oldRodDesc") }
         };
     }
 }

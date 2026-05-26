@@ -188,14 +188,16 @@ public class MainScreen extends JPanel {
                 String[][] dataToLoad;
                 String translatedTitle = App.getBundle().getString(cardName);
 
-                if (cardName.equals("fishHook")) 
+                if (cardName.equals("fishHook"))
                     dataToLoad = ProductDatabase.getFishHookData();
-                else if (cardName.equals("fishingLine")) 
+                else if (cardName.equals("fishingLine"))
                     dataToLoad = ProductDatabase.getFishLinesData();
-                else if (cardName.equals("fish")) 
+                else if (cardName.equals("fish"))
                     dataToLoad = ProductDatabase.getFishData();
-                else if (cardName.equals("stool")) 
-                        dataToLoad = ProductDatabase.getStoolData();
+                else if (cardName.equals("stool"))
+                    dataToLoad = ProductDatabase.getStoolData();
+                else if (cardName.equals("fishingRod"))
+                    dataToLoad = ProductDatabase.getFishRodsData();
                 else
                     dataToLoad = new String[0][0];
                 
