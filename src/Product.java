@@ -79,7 +79,7 @@ class RoundedPanel extends JPanel {
 public class Product extends JPanel {
 
     private JLabel imageLabel;
-    private JLabel titleLabel;
+    private JTextPane titleLabel;
     private JTextPane descriptionArea;
     private JLabel priceLabel;
     private RoundedPanel cartButtonPanel;
@@ -117,11 +117,24 @@ public class Product extends JPanel {
         contentPanel.add(imageContainer);
 
         contentPanel.add(Box.createVerticalStrut(20));
-        titleLabel = new JLabel("Cargando...");
+        
+        titleLabel = new JTextPane();
+        titleLabel.setText("Cargando...");
+        titleLabel.setEditable(false);
+        titleLabel.setOpaque(false);
         titleLabel.setFont(App.font().deriveFont(Font.PLAIN, 36f));
         titleLabel.setForeground(textColor);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        // Centramos el texto internamente para cuando ocupe varias líneas
+        StyledDocument titleDoc = titleLabel.getStyledDocument();
+        SimpleAttributeSet titleCenter = new SimpleAttributeSet();
+        StyleConstants.setAlignment(titleCenter, StyleConstants.ALIGN_CENTER);
+        titleDoc.setParagraphAttributes(0, titleDoc.getLength(), titleCenter, false);
+        
         contentPanel.add(titleLabel);
+        
+        
 
         contentPanel.add(Box.createVerticalStrut(20));
 
