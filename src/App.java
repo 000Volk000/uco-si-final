@@ -164,7 +164,7 @@ public class App {
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
 
         // Producto
-        product = new Product(contenedorPantallas, gestorCartas);
+        product = new Product();
         contenedorPantallas.add(product, "product");
 
         sectionPanel = new SectionPanel(contenedorPantallas, gestorCartas);

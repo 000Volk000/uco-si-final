@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -78,8 +77,6 @@ class RoundedPanel extends JPanel {
 }
 
 public class Product extends JPanel {
-    private final JPanel contenedorPantallas;
-    private final CardLayout gestorCartas;
 
     private JLabel imageLabel;
     private JLabel titleLabel;
@@ -87,9 +84,7 @@ public class Product extends JPanel {
     private JLabel priceLabel;
     private RoundedPanel cartButtonPanel;
 
-    public Product(JPanel contenedorPantallas, CardLayout gestorCartas) {
-        this.contenedorPantallas = contenedorPantallas;
-        this.gestorCartas = gestorCartas;
+    public Product() {
 
         setOpaque(false);
         setLayout(new BorderLayout());
@@ -106,7 +101,6 @@ public class Product extends JPanel {
         contentPanel.setOpaque(false);
 
         contentPanel.add(Box.createVerticalStrut(150));
-
 
         RoundedPanel imageContainer = new RoundedPanel(40, Color.WHITE, lightBlue, 15);
         imageContainer.setLayout(new BorderLayout());
@@ -129,7 +123,6 @@ public class Product extends JPanel {
 
         contentPanel.add(Box.createVerticalStrut(20));
 
-
         JPanel infoPanel = new JPanel(new GridLayout(1, 2, 20, 0));
         infoPanel.setOpaque(false);
         infoPanel.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 15));
@@ -145,7 +138,7 @@ public class Product extends JPanel {
         descTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         descPanel.add(descTitle);
         descPanel.add(Box.createVerticalStrut(10));
-        
+
         RoundedPanel descriptionContainer = new RoundedPanel(20, Color.decode("#DEECFF"), lightBlue, 5);
         descriptionContainer.setLayout(new BorderLayout());
         descriptionContainer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -167,7 +160,6 @@ public class Product extends JPanel {
         descPanel.add(descriptionContainer);
         infoPanel.add(descPanel);
 
-
         Color green = Color.decode("#85BB65");
         // Columna Derecha: Precio y Carrito
         JPanel pricePanel = new JPanel();
@@ -179,7 +171,7 @@ public class Product extends JPanel {
         priceTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         pricePanel.add(priceTitle);
         pricePanel.add(Box.createVerticalStrut(10));
-        
+
         priceLabel = new JLabel();
         priceLabel.setFont(App.font().deriveFont(Font.PLAIN, 24f));
         priceLabel.setForeground(green);
@@ -200,16 +192,16 @@ public class Product extends JPanel {
                 System.out.println("Añadido al carrito: " + titleLabel.getText());
             }
         });
-        
+
         JLabel plusIcon = new JLabel("\u002B"); // Icono + Unicode
         plusIcon.setFont(new Font("Arial", Font.PLAIN, 24));
         plusIcon.setForeground(Color.WHITE);
         cartButtonPanel.add(plusIcon);
-        
+
         // Icono Carrito (JLabel vacío, se actualizará en setData)
         JLabel cartIconLabel = new JLabel();
         cartButtonPanel.add(cartIconLabel);
-        
+
         pricePanel.add(cartButtonPanel);
         infoPanel.add(pricePanel);
 
@@ -217,13 +209,13 @@ public class Product extends JPanel {
 
         contentPanel.add(Box.createVerticalStrut(30)); // Espaciado final para permitir la superposición del koi
 
-
         JScrollPane scrollPane = new JScrollPane(contentPanel);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false); // Hace el fondo del scroll invisible
         scrollPane.setBorder(null); // Quita el borde gris por defecto
         scrollPane.getVerticalScrollBar().setUnitIncrement(16); // Hace que la rueda del ratón baje suavemente
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); // Bloquea el scroll horizontal
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); // Bloquea el scroll
+                                                                                                 // horizontal
 
         scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
 
