@@ -53,6 +53,9 @@ public class App {
 
     private static Font inikaFont;
 
+    private static CardLayout gestorCartas;
+    private static JPanel contenedorPantallas;
+
     public static Font font() {
         return inikaFont;
     }
@@ -81,6 +84,13 @@ public class App {
         bundle = ResourceBundle.getBundle("assets.bundle.Bundle", newLocale);
     }
 
+    public static CardLayout getCardsGestor(){
+        return gestorCartas;
+    }
+
+    public static JPanel getContenedor(){
+        return contenedorPantallas;
+    }
     public static void main(String[] args) {
         // Canva creation
         bundle = Deflanguage();
@@ -96,8 +106,8 @@ public class App {
 
         bgPanel.setLayout(new BorderLayout());
 
-        CardLayout gestorCartas = new CardLayout();
-        JPanel contenedorPantallas = new JPanel(gestorCartas);
+        gestorCartas = new CardLayout();
+        contenedorPantallas = new JPanel(gestorCartas);
         contenedorPantallas.setOpaque(false);
 
         // Navbar
@@ -170,6 +180,10 @@ public class App {
         sectionPanel = new SectionPanel(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(sectionPanel, "sectionView");
 
+        SearchFrame search = new SearchFrame(contenedorPantallas,gestorCartas);
+        contenedorPantallas.add(search, "search");
+
+
         bgPanel.add(bottomBar, BorderLayout.SOUTH);
         setNavBarVisibility(false);
         jf.setContentPane(bgPanel);
@@ -215,10 +229,10 @@ public class App {
     }
 
     public static void refresh(JPanel contenedor, CardLayout gestor, String current) {
-        String[] names = { "account", "main", "login", "register", "product", "sectionView" };
+        String[] names = { "account", "main", "login", "register", "product", "sectionView", "search" };
         List<Class<? extends JPanel>> classes = List.of(
                 Account.class, MainScreen.class, LoginFrame.class, RegisterFrame.class, Product.class,
-                SectionPanel.class);
+                SectionPanel.class, SearchFrame.class);
 
         contenedor.removeAll();
 
