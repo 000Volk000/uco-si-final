@@ -83,22 +83,35 @@ public class MainScreen extends JPanel {
         carouselContainer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         MouseAdapter dragAdapter = new MouseAdapter() {
+            private boolean isDragging = false;
+
             @Override
             public void mousePressed(MouseEvent e) {
                 if (snapTimer != null && snapTimer.isRunning()) {
                     snapTimer.stop();
                 }
                 startX = e.getX();
+                isDragging = false;
             }
 
             @Override
             public void mouseDragged(MouseEvent e) {
                 dragOffsetX = e.getX() - startX;
+                
+                if (Math.abs(dragOffsetX) > 5) {
+                    isDragging = true;
+                }
                 carouselContainer.repaint();
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                if (!isDragging) {
+                    openProduct(carouselIndex, gestorCartas, contenedorPrincipal);
+                    dragOffsetX = 0;
+                    return;
+                }
+
                 int threshold = carouselContainer.getWidth() / 3;
                 int targetOffset = 0;
 
@@ -313,4 +326,41 @@ public class MainScreen extends JPanel {
         });
         snapTimer.start();
     }
+
+
+    private void openProduct(int index, CardLayout gestorCartas, JPanel contenedorPrincipal) {
+        
+        String precio = "";
+        String descripcion = "";
+        String image="";
+        switch (index) {
+            case 0:
+                precio = "149.99";
+                descripcion = App.getBundle().getString("vwRodDesc");
+                image = "src/assets/rod/volkswagen.png";
+                break;
+            case 1:
+                precio = "2.50";
+                descripcion = App.getBundle().getString("assholeDesc");
+                image = "src/assets/fish/asshole.png";
+                break;
+            case 2:
+                precio = "9.50";
+                descripcion = App.getBundle().getString("gamingHookDesc");
+                image = "src/assets/fishHook/gamingHook.png";
+                break;
+        }
+
+        
+        App.product.setProductData(
+                carouselTitles[index], 
+                descripcion, 
+                precio, 
+                image,
+                "src/assets/bottomBar/cart.png"
+        );
+        
+        gestorCartas.show(contenedorPrincipal, "product"); 
+    }
+    
 }

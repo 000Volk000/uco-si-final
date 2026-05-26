@@ -176,7 +176,9 @@ public class ProductDatabase {
                 { App.getBundle().getString("feo"), "0.99", "src/assets/fish/feo.png",
                         App.getBundle().getString("feoDesc") },
                 { App.getBundle().getString("tilapia"), "2.50", "src/assets/fish/tilapia.png",
-                        App.getBundle().getString("tilapiaDesc") }
+                        App.getBundle().getString("tilapiaDesc") },
+                { App.getBundle().getString("asshole"), "20.50", "src/assets/fish/asshole.png",
+                        App.getBundle().getString("assholeDesc") }
         };
     }
   
@@ -199,7 +201,7 @@ public class ProductDatabase {
 
     public static String[][] getFishRodsData() {
         return new String[][] {
-                { App.getBundle().getString("vwRod"), "149.99", "src/assets/fishingRod/vwRod.png",
+                { App.getBundle().getString("vwRod"), "149.99", "src/assets/rod/volkswagen.png",
                         App.getBundle().getString("vwRodDesc") },
                 { App.getBundle().getString("minecraftRod"), "45.00", "src/assets/fishingRod/minecraftRod.png",
                         App.getBundle().getString("minecraftRodDesc") },
