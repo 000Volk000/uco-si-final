@@ -93,15 +93,16 @@ public class SectionPanel extends JPanel {
             String name = item[0];
             String price = item[1];
             String imagePath = item[2];
+            String desc = item[3];
 
-            gridPanel.add(createItemCard(name, price, imagePath));
+            gridPanel.add(createItemCard(name, price, imagePath, desc));
         }
 
         gridPanel.revalidate();
         gridPanel.repaint();
     }
 
-    private JPanel createItemCard(String name, String price, String imagePath) {
+    private JPanel createItemCard(String name, String price, String imagePath, String desc) {
         RoundedPanel card = new RoundedPanel(40, Color.decode("#E1EFFF"), null, 0);
         card.setLayout(new GridBagLayout());
 
@@ -174,10 +175,10 @@ public class SectionPanel extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 App.product.setProductData(
                         name,
-                        "Descripción detallada pendiente de implementar en properties.",
+                        desc,
                         price,
                         imagePath,
-                        "src/assets/bottomBar/cart.png");
+                        "src/assets/Products/cart.png");
                 gestorCartas.show(contenedorPrincipal, "product");
             }
         });
