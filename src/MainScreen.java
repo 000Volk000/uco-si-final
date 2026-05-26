@@ -188,11 +188,15 @@ public class MainScreen extends JPanel {
                 String[][] dataToLoad;
                 String translatedTitle = App.getBundle().getString(cardName);
 
-                if (cardName.equals("fishHook")) {
+                if (cardName.equals("fishHook")) 
                     dataToLoad = ProductDatabase.getFishHookData();
-                } else {
+                else if (cardName.equals("fishingLine")) 
+                    dataToLoad = ProductDatabase.getFishLinesData();
+                else if (cardName.equals("fish")) 
+                    dataToLoad = ProductDatabase.getFishData();
+                else
                     dataToLoad = new String[0][0];
-                }
+                
 
                 App.sectionPanel.loadSectionData(translatedTitle, dataToLoad);
                 gestorCartas.show(contenedorPrincipal, "sectionView");
