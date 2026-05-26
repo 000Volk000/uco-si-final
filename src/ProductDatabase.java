@@ -10,7 +10,13 @@ public class ProductDatabase {
 
     public static String[][] searchProduct(String text) {
         
-        String[][] products = ProductDatabase.getFishHookData();
+
+        String[][] hooks = ProductDatabase.getFishHookData();
+        String[][] lines = ProductDatabase.getFishLinesData();
+        String[][] fish = ProductDatabase.getFishData();
+        String[][] products = java.util.stream.Stream.of(hooks, lines, fish)
+                            .flatMap(java.util.stream.Stream::of)
+                            .toArray(String[][]::new);
         if (text == null || text.trim().isEmpty()) {
             return products;
         }
@@ -143,7 +149,34 @@ public class ProductDatabase {
         };
     }
 
-    public static String[][] getStoolData() {
+
+    public static String[][] getFishLinesData() {
+        return new String[][] {
+                { App.getBundle().getString("dentalFloss"), "1.50", "src/assets/fishingLine/dentalFloss.png",
+                        App.getBundle().getString("dentalFlossDesc") },
+                { App.getBundle().getString("rj45"), "12.99", "src/assets/fishingLine/rj45.png",
+                        App.getBundle().getString("rj45Desc") },
+                { App.getBundle().getString("wool"), "3.25", "src/assets/fishingLine/wool.png",
+                        App.getBundle().getString("woolDesc") },
+                { App.getBundle().getString("regularLine"), "6.50", "src/assets/fishingLine/regularLine.png",
+                        App.getBundle().getString("regularLineDesc") }
+        };
+    }
+
+    public static String[][] getFishData() {
+        return new String[][] {
+                { App.getBundle().getString("espetos"), "5.50", "src/assets/fish/espetos.png",
+                        App.getBundle().getString("espetosDesc") },
+                { App.getBundle().getString("pezBalon"), "25.00", "src/assets/fish/pezBalon.png",
+                        App.getBundle().getString("pezBalonDesc") },
+                { App.getBundle().getString("feo"), "0.99", "src/assets/fish/feo.png",
+                        App.getBundle().getString("feoDesc") },
+                { App.getBundle().getString("tilapia"), "2.50", "src/assets/fish/tilapia.png",
+                        App.getBundle().getString("tilapiaDesc") }
+        };
+    }
+  
+  public static String[][] getStoolData() {
         return new String[][] {
                 { App.getBundle().getString("commonStool"), "3.25", "src/assets/stool/commonStool.png",
                         App.getBundle().getString("commonStoolDesc") },
@@ -159,5 +192,4 @@ public class ProductDatabase {
                         App.getBundle().getString("turtleStoolDesc") }
         };
     }
-
 }

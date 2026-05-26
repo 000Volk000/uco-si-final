@@ -183,23 +183,27 @@ public class MainScreen extends JPanel {
             sectionCard.addMouseMotionListener(verticalSwipeAdapter);
 
             sectionCard.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    String[][] dataToLoad;
-                    String translatedTitle = App.getBundle().getString(cardName);
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                String[][] dataToLoad;
+                String translatedTitle = App.getBundle().getString(cardName);
 
-                    if (cardName.equals("fishHook")) {
-                        dataToLoad = ProductDatabase.getFishHookData();
-                    } else if (cardName.equals("stool")) {
+                if (cardName.equals("fishHook")) 
+                    dataToLoad = ProductDatabase.getFishHookData();
+                else if (cardName.equals("fishingLine")) 
+                    dataToLoad = ProductDatabase.getFishLinesData();
+                else if (cardName.equals("fish")) 
+                    dataToLoad = ProductDatabase.getFishData();
+                else if (cardName.equals("stool")) 
                         dataToLoad = ProductDatabase.getStoolData();
-                    } else {
-                        dataToLoad = new String[0][0];
-                    }
+                else
+                    dataToLoad = new String[0][0];
+                
 
-                    App.sectionPanel.loadSectionData(translatedTitle, dataToLoad);
-                    gestorCartas.show(contenedorPrincipal, "sectionView");
-                }
-            });
+                App.sectionPanel.loadSectionData(translatedTitle, dataToLoad);
+                gestorCartas.show(contenedorPrincipal, "sectionView");
+            }
+        });
 
             JLabel imgLabel = new JLabel();
             imgLabel.setHorizontalAlignment(SwingConstants.CENTER);
