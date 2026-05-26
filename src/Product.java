@@ -211,15 +211,8 @@ public class Product extends JPanel {
 
         contentPanel.add(Box.createVerticalStrut(30)); // Espaciado final para permitir la superposición del koi
 
-        JScrollPane scrollPane = new JScrollPane(contentPanel);
-        scrollPane.setOpaque(false);
-        scrollPane.getViewport().setOpaque(false); // Hace el fondo del scroll invisible
-        scrollPane.setBorder(null); // Quita el borde gris por defecto
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16); // Hace que la rueda del ratón baje suavemente
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER); // Bloquea el scroll
-                                                                                                 // horizontal
-
-        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+        scrollPane = new JScrollPane(contentPanel);
+        scrollPane = new JScrollPane(contentPanel);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false); 
         scrollPane.setBorder(null); 
@@ -247,13 +240,11 @@ public class Product extends JPanel {
             }
         };
 
-        // Propagamos el detector por las diferentes capas para asegurar la fluidez
         scrollPane.getViewport().addMouseListener(dragScrollListener);
         scrollPane.getViewport().addMouseMotionListener(dragScrollListener);
         contentPanel.addMouseListener(dragScrollListener);
         contentPanel.addMouseMotionListener(dragScrollListener);
         
-        // Asignamos a los sub-contenedores clave
         imageContainer.addMouseListener(dragScrollListener);
         imageContainer.addMouseMotionListener(dragScrollListener);
         infoPanel.addMouseListener(dragScrollListener);
@@ -264,14 +255,17 @@ public class Product extends JPanel {
         descriptionContainer.addMouseMotionListener(dragScrollListener);
         pricePanel.addMouseListener(dragScrollListener);
         pricePanel.addMouseMotionListener(dragScrollListener);
+
         add(scrollPane, BorderLayout.CENTER);
     }
 
     // --- Método clave para actualizar los datos de la pantalla ---
     public void setProductData(String title, String description, String priceUnit, String productImagePath,
             String cartIconImagePath) {
+        scrollPane.getVerticalScrollBar().setValue(0);
         titleLabel.setText(title);
         descriptionArea.setText(description);
+        descriptionArea.setCaretPosition(0);
         priceLabel.setText(priceUnit + " €/ud");
 
         updateIcon(imageLabel, productImagePath, 250, 150);
@@ -281,6 +275,7 @@ public class Product extends JPanel {
 
         revalidate();
         repaint();
+
     }
 
     private void updateIcon(JLabel label, String imagePath, int width, int height) {
