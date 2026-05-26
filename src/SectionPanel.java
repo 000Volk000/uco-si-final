@@ -91,6 +91,7 @@ public class SectionPanel extends JPanel {
             String name = item[0];
             String price = item[1];
             String imagePath = item[2];
+            String desc = item[3];
 
             gridPanel.add(ProductDatabase.createItemCard(name, price, imagePath, dragScrollListener));
         }
