@@ -62,6 +62,17 @@ public class LoginFrame extends JPanel {
         lblForgot.setFont(App.font().deriveFont(Font.PLAIN, 14f));
         lblForgot.setForeground(new Color(80, 90, 120));
         lblForgot.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        lblForgot.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (txtUser.getText().trim().isEmpty()) {
+                    App.showAppMessage(App.getBundle().getString("EnterEmailFirst"));
+                    return;
+                }
+
+                App.showAppMessage(App.getBundle().getString("PasswordChangeEmailSent"));
+            }
+        });
         gbc.gridy = 5;
         gbc.anchor = GridBagConstraints.EAST;
         add(lblForgot, gbc);

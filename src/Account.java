@@ -45,6 +45,7 @@ public class Account extends JPanel {
         GridBagConstraints gbcControl = new GridBagConstraints();
 
         JButton btnPass = createCustomButton(App.getBundle().getString("ChangePassword"), new Color(137, 146, 200));
+        btnPass.addActionListener(e -> App.showAppMessage(App.getBundle().getString("PasswordChangeEmailSent")));
         gbcControl.gridx = 0;
         gbcControl.gridy = 0;
         gbcControl.insets = new Insets(0, 0, 20, 0);
