@@ -356,7 +356,7 @@ public class MainScreen extends JPanel {
                 descripcion,
                 precio,
                 image,
-                "src/assets/bottomBar/cart.png");
+                "src/assets/Products/cart.png");
 
         gestorCartas.show(contenedorPrincipal, "product");
     }
