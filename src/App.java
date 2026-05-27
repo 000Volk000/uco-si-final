@@ -12,6 +12,7 @@ class BackgroundPanel extends JPanel {
     private Image scaleTopRight;
     private Image koi;
 
+    
     public BackgroundPanel() {
         scaleTopLeft = new ImageIcon("src/assets/background/topLeft.png").getImage().getScaledInstance(247, 201,
                 Image.SCALE_SMOOTH);
@@ -55,6 +56,12 @@ public class App {
 
     private static CardLayout gestorCartas;
     private static JPanel contenedorPantallas;
+
+    public static CartFrame cartFrame;
+
+
+    public static java.util.List<CartItem> shoppingCart = new java.util.ArrayList<>();
+
 
     public static Font font() {
         return inikaFont;
@@ -133,6 +140,7 @@ public class App {
         });
 
         btnCart.addActionListener(e -> {
+            App.cartFrame.refreshCart();
             gestorCartas.show(contenedorPantallas, "cart");
             updateNavSelection("cart");
         });
@@ -174,7 +182,7 @@ public class App {
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
 
         // Producto
-        product = new Product();
+        product = new Product(contenedorPantallas,gestorCartas);
         contenedorPantallas.add(product, "product");
 
         sectionPanel = new SectionPanel(contenedorPantallas, gestorCartas);
@@ -183,6 +191,8 @@ public class App {
         SearchFrame search = new SearchFrame(contenedorPantallas,gestorCartas);
         contenedorPantallas.add(search, "search");
 
+        cartFrame = new CartFrame(contenedorPantallas, gestorCartas);
+        contenedorPantallas.add(cartFrame,"cart");
 
         bgPanel.add(bottomBar, BorderLayout.SOUTH);
         setNavBarVisibility(false);
@@ -229,10 +239,10 @@ public class App {
     }
 
     public static void refresh(JPanel contenedor, CardLayout gestor, String current) {
-        String[] names = { "account", "main", "login", "register", "product", "sectionView", "search" };
+        String[] names = { "account", "main", "login", "register", "product", "sectionView", "search", "cart" };
         List<Class<? extends JPanel>> classes = List.of(
                 Account.class, MainScreen.class, LoginFrame.class, RegisterFrame.class, Product.class,
-                SectionPanel.class, SearchFrame.class);
+                SectionPanel.class, SearchFrame.class,CartFrame.class);
 
         contenedor.removeAll();
 
@@ -242,10 +252,12 @@ public class App {
                         .newInstance(contenedor, gestor);
                 contenedor.add((Component) nuevoPanel, names[i]);
 
-                if (names[i].equals("product")) {
+            if (names[i].equals("product")) {
                     product = (Product) nuevoPanel;
                 } else if (names[i].equals("sectionView")) {
                     sectionPanel = (SectionPanel) nuevoPanel;
+                } else if (names[i].equals("cart")) {
+                    cartFrame = (CartFrame) nuevoPanel;
                 }
             }
         } catch (Exception e) {

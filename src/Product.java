@@ -86,7 +86,11 @@ public class Product extends JPanel {
 
     private JScrollPane scrollPane;
 
-    public Product() {
+    private String currentProductName;
+    private double currentProductPrice;
+    private String currentProductImage;
+
+    public Product(JPanel contenedorPrincipal, CardLayout gestorCartas) {
 
         setOpaque(false);
         setLayout(new BorderLayout());
@@ -204,7 +208,21 @@ public class Product extends JPanel {
         cartButtonPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("Añadido al carrito: " + titleLabel.getText());
+                boolean found = false;
+                
+                for (CartItem item : App.shoppingCart) {
+                    if (item.getName().equals(currentProductName)) {
+                        item.setQuantity(item.getQuantity() + 1);
+                        found = true;
+                        break;
+                    }
+                }
+                
+                if (!found) {
+                    App.shoppingCart.add(new CartItem(currentProductName, currentProductPrice, currentProductImage, 1));
+                }
+                
+                System.out.println("Añadido: " + currentProductName + " | Diferentes productos en carrito: " + App.shoppingCart.size());
             }
         });
 
@@ -275,6 +293,16 @@ public class Product extends JPanel {
     // --- Método clave para actualizar los datos de la pantalla ---
     public void setProductData(String title, String description, String priceUnit, String productImagePath,
             String cartIconImagePath) {
+
+        this.currentProductName = title;
+        this.currentProductImage = productImagePath;
+        
+        try {
+            this.currentProductPrice = Double.parseDouble(priceUnit.replace(",", "."));
+        } catch (NumberFormatException e) {
+            this.currentProductPrice = 0.0;
+            System.err.println("Error al procesar el precio: " + priceUnit);
+        }
         scrollPane.getVerticalScrollBar().setValue(0);
         titleLabel.setText(title);
         descriptionArea.setText(description);
