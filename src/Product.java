@@ -121,7 +121,7 @@ public class Product extends JPanel {
         contentPanel.add(imageContainer);
 
         contentPanel.add(Box.createVerticalStrut(20));
-        
+
         titleLabel = new JTextPane();
         titleLabel.setText("Cargando...");
         titleLabel.setEditable(false);
@@ -129,16 +129,14 @@ public class Product extends JPanel {
         titleLabel.setFont(App.font().deriveFont(Font.PLAIN, 36f));
         titleLabel.setForeground(textColor);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
+
         // Centramos el texto internamente para cuando ocupe varias líneas
         StyledDocument titleDoc = titleLabel.getStyledDocument();
         SimpleAttributeSet titleCenter = new SimpleAttributeSet();
         StyleConstants.setAlignment(titleCenter, StyleConstants.ALIGN_CENTER);
         titleDoc.setParagraphAttributes(0, titleDoc.getLength(), titleCenter, false);
-        
+
         contentPanel.add(titleLabel);
-        
-        
 
         contentPanel.add(Box.createVerticalStrut(20));
 
@@ -209,7 +207,7 @@ public class Product extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 boolean found = false;
-                
+
                 for (CartItem item : App.shoppingCart) {
                     if (item.getName().equals(currentProductName)) {
                         item.setQuantity(item.getQuantity() + 1);
@@ -217,12 +215,14 @@ public class Product extends JPanel {
                         break;
                     }
                 }
-                
+
                 if (!found) {
                     App.shoppingCart.add(new CartItem(currentProductName, currentProductPrice, currentProductImage, 1));
                 }
-                
-                System.out.println("Añadido: " + currentProductName + " | Diferentes productos en carrito: " + App.shoppingCart.size());
+
+                showAddedToCartMessage();
+                System.out.println("Añadido: " + currentProductName + " | Diferentes productos en carrito: "
+                        + App.shoppingCart.size());
             }
         });
 
@@ -245,9 +245,9 @@ public class Product extends JPanel {
         scrollPane = new JScrollPane(contentPanel);
         scrollPane = new JScrollPane(contentPanel);
         scrollPane.setOpaque(false);
-        scrollPane.getViewport().setOpaque(false); 
-        scrollPane.setBorder(null); 
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16); 
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
 
@@ -275,7 +275,7 @@ public class Product extends JPanel {
         scrollPane.getViewport().addMouseMotionListener(dragScrollListener);
         contentPanel.addMouseListener(dragScrollListener);
         contentPanel.addMouseMotionListener(dragScrollListener);
-        
+
         imageContainer.addMouseListener(dragScrollListener);
         imageContainer.addMouseMotionListener(dragScrollListener);
         infoPanel.addMouseListener(dragScrollListener);
@@ -296,7 +296,7 @@ public class Product extends JPanel {
 
         this.currentProductName = title;
         this.currentProductImage = productImagePath;
-        
+
         try {
             this.currentProductPrice = Double.parseDouble(priceUnit.replace(",", "."));
         } catch (NumberFormatException e) {
@@ -333,6 +333,52 @@ public class Product extends JPanel {
             label.setIcon(null);
             System.err.println("Error al cargar imagen: " + imagePath);
         }
+    }
+
+    private void showAddedToCartMessage() {
+        Window owner = SwingUtilities.getWindowAncestor(this);
+        JWindow toast = owner != null ? new JWindow(owner) : new JWindow();
+
+        JLabel messageLabel = new JLabel(App.getBundle().getString("AddedToCart"), SwingConstants.CENTER);
+        messageLabel.setFont(App.font().deriveFont(Font.PLAIN, 16f));
+        messageLabel.setForeground(Color.WHITE);
+        messageLabel.setBorder(BorderFactory.createEmptyBorder(10, 18, 10, 18));
+
+        JPanel toastPanel = new JPanel(new BorderLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(new Color(47, 54, 64, 235));
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 24, 24);
+                g2.dispose();
+            }
+        };
+        toastPanel.setOpaque(false);
+        toastPanel.add(messageLabel, BorderLayout.CENTER);
+
+        toast.setBackground(new Color(0, 0, 0, 0));
+        toast.setContentPane(toastPanel);
+        toast.pack();
+        toast.setAlwaysOnTop(true);
+
+        int toastWidth = toast.getWidth();
+        int toastHeight = toast.getHeight();
+        if (owner != null) {
+            Point location = owner.getLocationOnScreen();
+            int x = location.x + (owner.getWidth() - toastWidth) / 2;
+            int y = location.y + owner.getHeight() - toastHeight - 110;
+            toast.setLocation(Math.max(x, location.x + 10), Math.max(y, location.y + 10));
+        } else {
+            Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+            toast.setLocation((screen.width - toastWidth) / 2, (screen.height - toastHeight) / 2);
+        }
+
+        toast.setVisible(true);
+
+        javax.swing.Timer timer = new javax.swing.Timer(1400, e -> toast.dispose());
+        timer.setRepeats(false);
+        timer.start();
     }
 
 }

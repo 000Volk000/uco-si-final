@@ -4,7 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class CartFrame extends JPanel {
-    
+
     private JLabel totalLabel;
     private JPanel listPanel;
 
@@ -21,21 +21,20 @@ public class CartFrame extends JPanel {
         JPanel headerPanel = new JPanel(new BorderLayout());
         headerPanel.setOpaque(false);
 
-
-        JLabel headerText = new JLabel("<html><div style='text-align: center;width: 280px;'>"+App.getBundle().getString("Cart")+"</div></html>");
+        JLabel headerText = new JLabel("<html><div style='text-align: center;width: 280px;'>"
+                + App.getBundle().getString("Cart") + "</div></html>");
         headerText.setFont(App.font().deriveFont(Font.PLAIN, 40));
         headerText.setHorizontalAlignment(SwingConstants.CENTER);
-        
+
         headerText.setBorder(BorderFactory.createEmptyBorder(120, 0, 20, 0));
         headerPanel.add(headerText, BorderLayout.CENTER);
-        
-        
+
         JPanel topSeparator = new JPanel();
-        topSeparator.setBackground(Color.decode("#005596")); 
+        topSeparator.setBackground(Color.decode("#005596"));
         topSeparator.setPreferredSize(new Dimension(401, 4));
-        
+
         headerPanel.add(topSeparator, BorderLayout.SOUTH);
-        
+
         add(headerPanel, BorderLayout.NORTH);
         // --- 2. PANEL CENTRAL (LISTA DE PRODUCTOS) ---
         listPanel = new VerticalScrollPanel();
@@ -43,7 +42,6 @@ public class CartFrame extends JPanel {
         // Usamos BoxLayout en el eje Y para apilar los elementos verticalmente
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
         listPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-
 
         JScrollPane scrollPane = new JScrollPane(listPanel);
         scrollPane.setOpaque(false);
@@ -53,7 +51,7 @@ public class CartFrame extends JPanel {
         // --> NUEVO CÓDIGO: BLOQUEO DEL SCROLL HORIZONTAL <--
         // Forzamos a que nunca aparezca ni se permita el scroll lateral
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        
+
         // Aseguramos que el vertical mantenga su comportamiento natural
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
@@ -85,9 +83,8 @@ public class CartFrame extends JPanel {
         scrollPane.getViewport().addMouseMotionListener(dragScrollListener);
         listPanel.addMouseListener(dragScrollListener);
         listPanel.addMouseMotionListener(dragScrollListener);
-        
-        add(scrollPane, BorderLayout.CENTER);
 
+        add(scrollPane, BorderLayout.CENTER);
 
         // --- 3. PANEL INFERIOR (CHECKOUT) ---
         JPanel bottomPanel = new JPanel();
@@ -103,12 +100,11 @@ public class CartFrame extends JPanel {
 
         totalLabel = new JLabel();
         totalLabel.setFont(App.font().deriveFont(Font.PLAIN, 24));
-        totalLabel.setForeground(Color.decode("#6A8E4E")); 
+        totalLabel.setForeground(Color.decode("#6A8E4E"));
         totalLabel.setBounds(30, 50, 150, 30);
         bottomPanel.add(totalLabel);
 
         updatePrice();
-
 
         // Botón "Pagar" (Panel personalizado para bordes redondeados)
         JPanel payButton = new JPanel(new BorderLayout()) {
@@ -130,7 +126,7 @@ public class CartFrame extends JPanel {
         payLabel.setForeground(Color.WHITE);
         payLabel.setHorizontalAlignment(SwingConstants.CENTER);
         payButton.add(payLabel, BorderLayout.CENTER);
-        
+
         // Evento de pago
         payButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -165,7 +161,7 @@ public class CartFrame extends JPanel {
         // 2. Volvemos a leer la lista actualizada en tiempo real
         for (CartItem item : App.shoppingCart) {
             listPanel.add(createCartItem(item));
-            listPanel.add(Box.createRigidArea(new Dimension(0, 15))); 
+            listPanel.add(Box.createRigidArea(new Dimension(0, 15)));
         }
 
         // 3. Recalculamos el texto del dinero
@@ -179,7 +175,7 @@ public class CartFrame extends JPanel {
     private JPanel createCartItem(CartItem item) {
         RoundedPanel card = new RoundedPanel(40, Color.decode("#DEECFF"), null, 0);
         card.setLayout(new GridBagLayout());
-        
+
         card.setPreferredSize(new Dimension(360, 138));
         card.setMinimumSize(new Dimension(360, 138));
         card.setMaximumSize(new Dimension(360, 138));
@@ -233,7 +229,7 @@ public class CartFrame extends JPanel {
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-        gbc.weightx = 1.0; 
+        gbc.weightx = 1.0;
         gbc.insets = new Insets(0, 0, 0, 10);
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -241,7 +237,7 @@ public class CartFrame extends JPanel {
 
         // --- COLUMNA 2: Selector de Cantidad ---
         RoundedPanel quantityPanel = new RoundedPanel(20, Color.decode("#005596"), null, 0);
-        quantityPanel.setLayout(new GridLayout(1, 3, 0, 0)); 
+        quantityPanel.setLayout(new GridLayout(1, 3, 0, 0));
         quantityPanel.setPreferredSize(new Dimension(85, 35));
         quantityPanel.setMinimumSize(new Dimension(85, 35));
 
@@ -292,7 +288,7 @@ public class CartFrame extends JPanel {
 
         gbc.gridx = 2;
         gbc.gridy = 0;
-        gbc.weightx = 0; 
+        gbc.weightx = 0;
         gbc.insets = new Insets(0, 0, 0, 15);
         gbc.anchor = GridBagConstraints.EAST;
         card.add(quantityPanel, gbc);

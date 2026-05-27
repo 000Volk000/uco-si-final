@@ -12,7 +12,6 @@ class BackgroundPanel extends JPanel {
     private Image scaleTopRight;
     private Image koi;
 
-    
     public BackgroundPanel() {
         scaleTopLeft = new ImageIcon("src/assets/background/topLeft.png").getImage().getScaledInstance(247, 201,
                 Image.SCALE_SMOOTH);
@@ -59,9 +58,7 @@ public class App {
 
     public static CartFrame cartFrame;
 
-
     public static java.util.List<CartItem> shoppingCart = new java.util.ArrayList<>();
-
 
     public static Font font() {
         return inikaFont;
@@ -91,13 +88,14 @@ public class App {
         bundle = ResourceBundle.getBundle("assets.bundle.Bundle", newLocale);
     }
 
-    public static CardLayout getCardsGestor(){
+    public static CardLayout getCardsGestor() {
         return gestorCartas;
     }
 
-    public static JPanel getContenedor(){
+    public static JPanel getContenedor() {
         return contenedorPantallas;
     }
+
     public static void main(String[] args) {
         // Canva creation
         bundle = Deflanguage();
@@ -182,17 +180,17 @@ public class App {
         bgPanel.add(contenedorPantallas, BorderLayout.CENTER);
 
         // Producto
-        product = new Product(contenedorPantallas,gestorCartas);
+        product = new Product(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(product, "product");
 
         sectionPanel = new SectionPanel(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(sectionPanel, "sectionView");
 
-        SearchFrame search = new SearchFrame(contenedorPantallas,gestorCartas);
+        SearchFrame search = new SearchFrame(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(search, "search");
 
         cartFrame = new CartFrame(contenedorPantallas, gestorCartas);
-        contenedorPantallas.add(cartFrame,"cart");
+        contenedorPantallas.add(cartFrame, "cart");
 
         bgPanel.add(bottomBar, BorderLayout.SOUTH);
         setNavBarVisibility(false);
@@ -242,7 +240,7 @@ public class App {
         String[] names = { "account", "main", "login", "register", "product", "sectionView", "search", "cart" };
         List<Class<? extends JPanel>> classes = List.of(
                 Account.class, MainScreen.class, LoginFrame.class, RegisterFrame.class, Product.class,
-                SectionPanel.class, SearchFrame.class,CartFrame.class);
+                SectionPanel.class, SearchFrame.class, CartFrame.class);
 
         contenedor.removeAll();
 
@@ -252,7 +250,7 @@ public class App {
                         .newInstance(contenedor, gestor);
                 contenedor.add((Component) nuevoPanel, names[i]);
 
-            if (names[i].equals("product")) {
+                if (names[i].equals("product")) {
                     product = (Product) nuevoPanel;
                 } else if (names[i].equals("sectionView")) {
                     sectionPanel = (SectionPanel) nuevoPanel;
