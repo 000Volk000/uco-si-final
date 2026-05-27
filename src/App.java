@@ -43,6 +43,10 @@ class BackgroundPanel extends JPanel {
 public class App {
     private static ResourceBundle bundle;
     private static JPanel bottomBar;
+    private static JPanel messageBanner;
+    private static JLabel messageLabel;
+    private static Timer messageTimer;
+    private static JFrame mainFrame;
     private static String username;
 
     private static JButton btnHome;
@@ -57,8 +61,12 @@ public class App {
     private static JPanel contenedorPantallas;
 
     public static CartFrame cartFrame;
+    public static PurchaseHistoryFrame historyFrame;
 
     public static java.util.List<CartItem> shoppingCart = new java.util.ArrayList<>();
+    public static java.util.List<CartItem> purchaseHistory = new java.util.ArrayList<>();
+
+    private static final Color MESSAGE_BACKGROUND = new Color(47, 54, 64, 235);
 
     public static Font font() {
         return inikaFont;
@@ -84,6 +92,37 @@ public class App {
         bottomBar.setVisible(state);
     }
 
+    public static void showAppMessage(String text) {
+        if (messageLabel == null || messageBanner == null) {
+            return;
+        }
+
+        messageLabel.setText(text);
+        updateMessageBannerBounds();
+        messageBanner.setVisible(true);
+        if (mainFrame != null) {
+            mainFrame.getGlassPane().setVisible(true);
+        }
+
+        messageBanner.revalidate();
+        messageBanner.repaint();
+
+        if (messageTimer != null && messageTimer.isRunning()) {
+            messageTimer.stop();
+        }
+
+        messageTimer = new Timer(1400, e -> {
+            messageBanner.setVisible(false);
+            messageBanner.revalidate();
+            messageBanner.repaint();
+            if (mainFrame != null) {
+                mainFrame.getGlassPane().setVisible(false);
+            }
+        });
+        messageTimer.setRepeats(false);
+        messageTimer.start();
+    }
+
     public static void setLocale(Locale newLocale) {
         bundle = ResourceBundle.getBundle("assets.bundle.Bundle", newLocale);
     }
@@ -99,11 +138,12 @@ public class App {
     public static void main(String[] args) {
         // Canva creation
         bundle = Deflanguage();
-        JFrame jf = new JFrame("Pezqueñín");
+        chargeFont();
+        mainFrame = new JFrame("Pezqueñín");
 
-        jf.setSize(402, 874);
-        jf.setResizable(false);
-        jf.setLocationRelativeTo(null);
+        mainFrame.setSize(402, 874);
+        mainFrame.setResizable(false);
+        mainFrame.setLocationRelativeTo(null);
 
         // Background
         BackgroundPanel bgPanel = new BackgroundPanel();
@@ -120,6 +160,35 @@ public class App {
         bottomBar.setBackground(Color.WHITE);
         bottomBar.setPreferredSize(new Dimension(402, 65));
         bottomBar.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(200, 200, 200)));
+
+        messageLabel = new JLabel("", SwingConstants.CENTER);
+        messageLabel.setFont(inikaFont != null ? inikaFont.deriveFont(Font.PLAIN, 16f)
+                : new Font("SansSerif", Font.PLAIN, 16));
+        messageLabel.setForeground(Color.WHITE);
+        messageLabel.setBorder(BorderFactory.createEmptyBorder(10, 18, 10, 18));
+
+        messageBanner = new JPanel(new BorderLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(MESSAGE_BACKGROUND);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 24, 24);
+                g2.dispose();
+            }
+        };
+        messageBanner.setOpaque(false);
+        messageBanner.add(messageLabel, BorderLayout.CENTER);
+        messageBanner.setVisible(false);
+        messageBanner.setBorder(BorderFactory.createEmptyBorder(0, 12, 6, 12));
+        messageBanner.setPreferredSize(new Dimension(320, 44));
+        messageBanner.setMaximumSize(new Dimension(320, 44));
+        messageBanner.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JPanel messageHolder = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        messageHolder.setOpaque(false);
+        messageHolder.setBorder(BorderFactory.createEmptyBorder(0, 12, 6, 12));
+        messageHolder.add(messageBanner);
 
         btnHome = createNavButton("src/assets/bottomBar/home.png");
         btnCart = createNavButton("src/assets/bottomBar/cart.png");
@@ -144,6 +213,7 @@ public class App {
         });
 
         btnHistory.addActionListener(e -> {
+            App.historyFrame.refreshHistory();
             gestorCartas.show(contenedorPantallas, "history");
             updateNavSelection("history");
         });
@@ -192,12 +262,22 @@ public class App {
         cartFrame = new CartFrame(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(cartFrame, "cart");
 
+        historyFrame = new PurchaseHistoryFrame(contenedorPantallas, gestorCartas);
+        contenedorPantallas.add(historyFrame, "history");
+
         bgPanel.add(bottomBar, BorderLayout.SOUTH);
         setNavBarVisibility(false);
-        jf.setContentPane(bgPanel);
+        mainFrame.setContentPane(bgPanel);
 
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.setVisible(true);
+        JPanel glass = new JPanel(null);
+        glass.setOpaque(false);
+        glass.add(messageBanner);
+        mainFrame.setGlassPane(glass);
+        glass.setVisible(false);
+        updateMessageBannerBounds();
+
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setVisible(true);
     }
 
     public static ResourceBundle Deflanguage() {
@@ -236,11 +316,27 @@ public class App {
         return wrapper;
     }
 
+    private static void updateMessageBannerBounds() {
+        if (mainFrame == null || messageBanner == null) {
+            return;
+        }
+
+        int bannerWidth = 320;
+        int bannerHeight = 44;
+        int frameWidth = mainFrame.getWidth();
+        int frameHeight = mainFrame.getHeight();
+        int x = Math.max(12, (frameWidth - bannerWidth) / 2);
+        int y = Math.max(12, frameHeight - bottomBar.getPreferredSize().height - bannerHeight - 14);
+
+        messageBanner.setBounds(x, y, bannerWidth, bannerHeight);
+    }
+
     public static void refresh(JPanel contenedor, CardLayout gestor, String current) {
-        String[] names = { "account", "main", "login", "register", "product", "sectionView", "search", "cart" };
+        String[] names = { "account", "main", "login", "register", "product", "sectionView", "search",
+                "cart", "history" };
         List<Class<? extends JPanel>> classes = List.of(
                 Account.class, MainScreen.class, LoginFrame.class, RegisterFrame.class, Product.class,
-                SectionPanel.class, SearchFrame.class, CartFrame.class);
+                SectionPanel.class, SearchFrame.class, CartFrame.class, PurchaseHistoryFrame.class);
 
         contenedor.removeAll();
 
@@ -256,6 +352,8 @@ public class App {
                     sectionPanel = (SectionPanel) nuevoPanel;
                 } else if (names[i].equals("cart")) {
                     cartFrame = (CartFrame) nuevoPanel;
+                } else if (names[i].equals("history")) {
+                    historyFrame = (PurchaseHistoryFrame) nuevoPanel;
                 }
             }
         } catch (Exception e) {
@@ -315,6 +413,16 @@ public class App {
         } catch (FontFormatException | IOException e) {
             System.err.println(e.getMessage());
             inikaFont = null;
+        }
+    }
+
+    public static void recordPurchase(java.util.List<CartItem> items) {
+        for (CartItem item : items) {
+            purchaseHistory.add(item.copy());
+        }
+
+        if (historyFrame != null) {
+            historyFrame.refreshHistory();
         }
     }
 }

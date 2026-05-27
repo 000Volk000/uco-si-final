@@ -89,6 +89,7 @@ public class Product extends JPanel {
     private String currentProductName;
     private double currentProductPrice;
     private String currentProductImage;
+    private String currentProductDescription;
 
     public Product(JPanel contenedorPrincipal, CardLayout gestorCartas) {
 
@@ -217,12 +218,11 @@ public class Product extends JPanel {
                 }
 
                 if (!found) {
-                    App.shoppingCart.add(new CartItem(currentProductName, currentProductPrice, currentProductImage, 1));
+                    App.shoppingCart.add(new CartItem(currentProductName, currentProductPrice, currentProductImage, 1,
+                            currentProductDescription));
                 }
 
                 showAddedToCartMessage();
-                System.out.println("Añadido: " + currentProductName + " | Diferentes productos en carrito: "
-                        + App.shoppingCart.size());
             }
         });
 
@@ -296,6 +296,7 @@ public class Product extends JPanel {
 
         this.currentProductName = title;
         this.currentProductImage = productImagePath;
+        this.currentProductDescription = description;
 
         try {
             this.currentProductPrice = Double.parseDouble(priceUnit.replace(",", "."));
@@ -336,49 +337,7 @@ public class Product extends JPanel {
     }
 
     private void showAddedToCartMessage() {
-        Window owner = SwingUtilities.getWindowAncestor(this);
-        JWindow toast = owner != null ? new JWindow(owner) : new JWindow();
-
-        JLabel messageLabel = new JLabel(App.getBundle().getString("AddedToCart"), SwingConstants.CENTER);
-        messageLabel.setFont(App.font().deriveFont(Font.PLAIN, 16f));
-        messageLabel.setForeground(Color.WHITE);
-        messageLabel.setBorder(BorderFactory.createEmptyBorder(10, 18, 10, 18));
-
-        JPanel toastPanel = new JPanel(new BorderLayout()) {
-            @Override
-            protected void paintComponent(Graphics g) {
-                Graphics2D g2 = (Graphics2D) g.create();
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(new Color(47, 54, 64, 235));
-                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 24, 24);
-                g2.dispose();
-            }
-        };
-        toastPanel.setOpaque(false);
-        toastPanel.add(messageLabel, BorderLayout.CENTER);
-
-        toast.setBackground(new Color(0, 0, 0, 0));
-        toast.setContentPane(toastPanel);
-        toast.pack();
-        toast.setAlwaysOnTop(true);
-
-        int toastWidth = toast.getWidth();
-        int toastHeight = toast.getHeight();
-        if (owner != null) {
-            Point location = owner.getLocationOnScreen();
-            int x = location.x + (owner.getWidth() - toastWidth) / 2;
-            int y = location.y + owner.getHeight() - toastHeight - 110;
-            toast.setLocation(Math.max(x, location.x + 10), Math.max(y, location.y + 10));
-        } else {
-            Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-            toast.setLocation((screen.width - toastWidth) / 2, (screen.height - toastHeight) / 2);
-        }
-
-        toast.setVisible(true);
-
-        javax.swing.Timer timer = new javax.swing.Timer(1400, e -> toast.dispose());
-        timer.setRepeats(false);
-        timer.start();
+        App.showAppMessage(App.getBundle().getString("AddedToCart"));
     }
 
 }

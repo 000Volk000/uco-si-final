@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class CartFrame extends JPanel {
 
@@ -131,6 +133,7 @@ public class CartFrame extends JPanel {
         payButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                App.recordPurchase(new ArrayList<>(App.shoppingCart));
                 showPaidMessage();
                 App.shoppingCart.clear();
                 refreshCart();
@@ -156,49 +159,7 @@ public class CartFrame extends JPanel {
     }
 
     private void showPaidMessage() {
-        Window owner = SwingUtilities.getWindowAncestor(this);
-        JWindow toast = owner != null ? new JWindow(owner) : new JWindow();
-
-        JLabel messageLabel = new JLabel(App.getBundle().getString("Paid"), SwingConstants.CENTER);
-        messageLabel.setFont(App.font().deriveFont(Font.PLAIN, 16f));
-        messageLabel.setForeground(Color.WHITE);
-        messageLabel.setBorder(BorderFactory.createEmptyBorder(10, 18, 10, 18));
-
-        JPanel toastPanel = new JPanel(new BorderLayout()) {
-            @Override
-            protected void paintComponent(Graphics g) {
-                Graphics2D g2 = (Graphics2D) g.create();
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(new Color(47, 54, 64, 235));
-                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 24, 24);
-                g2.dispose();
-            }
-        };
-        toastPanel.setOpaque(false);
-        toastPanel.add(messageLabel, BorderLayout.CENTER);
-
-        toast.setBackground(new Color(0, 0, 0, 0));
-        toast.setContentPane(toastPanel);
-        toast.pack();
-        toast.setAlwaysOnTop(true);
-
-        int toastWidth = toast.getWidth();
-        int toastHeight = toast.getHeight();
-        if (owner != null) {
-            Point location = owner.getLocationOnScreen();
-            int x = location.x + (owner.getWidth() - toastWidth) / 2;
-            int y = location.y + owner.getHeight() - toastHeight - 110;
-            toast.setLocation(Math.max(x, location.x + 10), Math.max(y, location.y + 10));
-        } else {
-            Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-            toast.setLocation((screen.width - toastWidth) / 2, (screen.height - toastHeight) / 2);
-        }
-
-        toast.setVisible(true);
-
-        javax.swing.Timer timer = new javax.swing.Timer(1400, e -> toast.dispose());
-        timer.setRepeats(false);
-        timer.start();
+        App.showAppMessage(App.getBundle().getString("Paid"));
     }
 
     public void refreshCart() {
@@ -257,12 +218,13 @@ public class CartFrame extends JPanel {
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
         textPanel.setOpaque(false);
+        textPanel.setPreferredSize(new Dimension(105, 85));
+        textPanel.setMinimumSize(new Dimension(105, 85));
+        textPanel.setMaximumSize(new Dimension(105, 85));
 
-        String htmlName = "<html><div style='text-align: center; width: 100px;'>" + item.getName() + "</div></html>";
-        JLabel nameLabel = new JLabel(htmlName);
-        nameLabel.setFont(App.font().deriveFont(Font.PLAIN, 18));
-        nameLabel.setForeground(Color.BLACK);
+        JLabel nameLabel = createCartNameLabel(item.getName(), 105);
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        nameLabel.setAlignmentY(Component.TOP_ALIGNMENT);
 
         JLabel priceLabel = new JLabel(item.getPrice() + " \u20AC");
         priceLabel.setFont(App.font().deriveFont(Font.PLAIN, 20));
@@ -278,7 +240,7 @@ public class CartFrame extends JPanel {
         gbc.weightx = 1.0;
         gbc.insets = new Insets(0, 0, 0, 10);
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.NONE;
         card.add(textPanel, gbc);
 
         // --- COLUMNA 2: Selector de Cantidad ---
@@ -349,5 +311,67 @@ public class CartFrame extends JPanel {
         quantityPanel.addMouseMotionListener(dragScrollListener);
 
         return card;
+    }
+
+    private JLabel createCartNameLabel(String name, int maxWidth) {
+        JLabel nameLabel = new JLabel();
+        nameLabel.setForeground(Color.BLACK);
+        nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        nameLabel.setVerticalAlignment(SwingConstants.TOP);
+        nameLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        Font chosenFont = App.font().deriveFont(Font.PLAIN, 18f);
+        String chosenText = name;
+
+        for (int size = 18; size >= 12; size--) {
+            Font trialFont = App.font().deriveFont(Font.PLAIN, (float) size);
+            String fitted = fitSingleLineText(name, trialFont, maxWidth);
+            chosenFont = trialFont;
+            chosenText = fitted;
+
+            if (!fitted.endsWith("...")) {
+                break;
+            }
+        }
+
+        nameLabel.setFont(chosenFont);
+        nameLabel.setText(chosenText);
+        nameLabel.setPreferredSize(new Dimension(maxWidth, 24));
+        nameLabel.setMinimumSize(new Dimension(maxWidth, 24));
+        nameLabel.setMaximumSize(new Dimension(maxWidth, 24));
+        return nameLabel;
+    }
+
+    private String fitSingleLineText(String text, Font font, int maxWidth) {
+        if (text == null || text.isEmpty()) {
+            return "";
+        }
+
+        BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = image.createGraphics();
+        try {
+            g2.setFont(font);
+            FontMetrics metrics = g2.getFontMetrics();
+
+            if (metrics.stringWidth(text) <= maxWidth) {
+                return text;
+            }
+
+            String ellipsis = "...";
+            int availableWidth = Math.max(0, maxWidth - metrics.stringWidth(ellipsis));
+            StringBuilder builder = new StringBuilder();
+
+            for (int i = 0; i < text.length(); i++) {
+                String candidate = builder.toString() + text.charAt(i);
+                if (metrics.stringWidth(candidate) > availableWidth) {
+                    break;
+                }
+                builder.append(text.charAt(i));
+            }
+
+            return builder.append(ellipsis).toString();
+        } finally {
+            g2.dispose();
+        }
     }
 }
