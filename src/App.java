@@ -417,8 +417,14 @@ public class App {
     }
 
     public static void recordPurchase(java.util.List<CartItem> items) {
+        for (CartItem historyItem : purchaseHistory) {
+            historyItem.setLastPurchase(false);
+        }
+
         for (CartItem item : items) {
-            purchaseHistory.add(item.copy());
+            CartItem historyItem = item.copy();
+            historyItem.setLastPurchase(true);
+            purchaseHistory.add(historyItem);
         }
 
         if (historyFrame != null) {

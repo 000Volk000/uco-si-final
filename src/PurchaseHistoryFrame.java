@@ -78,7 +78,8 @@ public class PurchaseHistoryFrame extends JPanel {
     public void refreshHistory() {
         listPanel.removeAll();
 
-        for (CartItem item : App.purchaseHistory) {
+        for (int index = App.purchaseHistory.size() - 1; index >= 0; index--) {
+            CartItem item = App.purchaseHistory.get(index);
             listPanel.add(createHistoryItem(item));
             listPanel.add(Box.createRigidArea(new Dimension(0, 15)));
         }
@@ -144,13 +145,15 @@ public class PurchaseHistoryFrame extends JPanel {
             App.updateNavSelection("main");
         });
 
-        JButton trackingButton = createActionButton(App.getBundle().getString("Tracking"), Color.decode("#E9BD39"));
-
         textPanel.add(nameLabel);
         textPanel.add(Box.createVerticalStrut(10));
         textPanel.add(reorderButton);
-        textPanel.add(Box.createVerticalStrut(6));
-        textPanel.add(trackingButton);
+
+        if (item.isLastPurchase()) {
+            textPanel.add(Box.createVerticalStrut(6));
+            JButton trackingButton = createActionButton(App.getBundle().getString("Tracking"), Color.decode("#E9BD39"));
+            textPanel.add(trackingButton);
+        }
 
         gbc.gridx = 1;
         gbc.gridy = 0;
