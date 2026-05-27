@@ -97,7 +97,7 @@ public class MainScreen extends JPanel {
             @Override
             public void mouseDragged(MouseEvent e) {
                 dragOffsetX = e.getX() - startX;
-                
+
                 if (Math.abs(dragOffsetX) > 5) {
                     isDragging = true;
                 }
@@ -196,29 +196,30 @@ public class MainScreen extends JPanel {
             sectionCard.addMouseMotionListener(verticalSwipeAdapter);
 
             sectionCard.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                String[][] dataToLoad;
-                String translatedTitle = App.getBundle().getString(cardName);
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    String[][] dataToLoad;
+                    String translatedTitle = App.getBundle().getString(cardName);
 
-                if (cardName.equals("fishHook"))
-                    dataToLoad = ProductDatabase.getFishHookData();
-                else if (cardName.equals("fishingLine"))
-                    dataToLoad = ProductDatabase.getFishLinesData();
-                else if (cardName.equals("fish"))
-                    dataToLoad = ProductDatabase.getFishData();
-                else if (cardName.equals("stool"))
-                    dataToLoad = ProductDatabase.getStoolData();
-                else if (cardName.equals("fishingRod"))
-                    dataToLoad = ProductDatabase.getFishRodsData();
-                else
-                    dataToLoad = new String[0][0];
-                
+                    if (cardName.equals("fishHook"))
+                        dataToLoad = ProductDatabase.getFishHookData();
+                    else if (cardName.equals("fishingLine"))
+                        dataToLoad = ProductDatabase.getFishLinesData();
+                    else if (cardName.equals("livingBait"))
+                        dataToLoad = ProductDatabase.getLivingBaitData();
+                    else if (cardName.equals("fish"))
+                        dataToLoad = ProductDatabase.getFishData();
+                    else if (cardName.equals("stool"))
+                        dataToLoad = ProductDatabase.getStoolData();
+                    else if (cardName.equals("fishingRod"))
+                        dataToLoad = ProductDatabase.getFishRodsData();
+                    else
+                        dataToLoad = new String[0][0];
 
-                App.sectionPanel.loadSectionData(translatedTitle, dataToLoad);
-                gestorCartas.show(contenedorPrincipal, "sectionView");
-            }
-        });
+                    App.sectionPanel.loadSectionData(translatedTitle, dataToLoad);
+                    gestorCartas.show(contenedorPrincipal, "sectionView");
+                }
+            });
 
             JLabel imgLabel = new JLabel();
             imgLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -327,12 +328,11 @@ public class MainScreen extends JPanel {
         snapTimer.start();
     }
 
-
     private void openProduct(int index, CardLayout gestorCartas, JPanel contenedorPrincipal) {
-        
+
         String precio = "";
         String descripcion = "";
-        String image="";
+        String image = "";
         switch (index) {
             case 0:
                 precio = "149.99";
@@ -351,16 +351,14 @@ public class MainScreen extends JPanel {
                 break;
         }
 
-        
         App.product.setProductData(
-                carouselTitles[index], 
-                descripcion, 
-                precio, 
+                carouselTitles[index],
+                descripcion,
+                precio,
                 image,
-                "src/assets/bottomBar/cart.png"
-        );
-        
-        gestorCartas.show(contenedorPrincipal, "product"); 
+                "src/assets/bottomBar/cart.png");
+
+        gestorCartas.show(contenedorPrincipal, "product");
     }
-    
+
 }
