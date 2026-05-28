@@ -68,6 +68,8 @@ public class App {
 
     private static final Color MESSAGE_BACKGROUND = new Color(47, 54, 64, 235);
 
+    public static TrackingFrame tracking;
+
     public static Font font() {
         return inikaFont;
     }
@@ -264,6 +266,11 @@ public class App {
 
         historyFrame = new PurchaseHistoryFrame(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(historyFrame, "history");
+
+
+        tracking = new TrackingFrame(contenedorPantallas, gestorCartas);
+        contenedorPantallas.add(tracking, "tracking");
+
 
         bgPanel.add(bottomBar, BorderLayout.SOUTH);
         setNavBarVisibility(false);

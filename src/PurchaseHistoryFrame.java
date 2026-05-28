@@ -149,9 +149,17 @@ public class PurchaseHistoryFrame extends JPanel {
         textPanel.add(Box.createVerticalStrut(10));
         textPanel.add(reorderButton);
 
-        if (item.isLastPurchase()) {
+if (item.isLastPurchase()) {
             textPanel.add(Box.createVerticalStrut(6));
             JButton trackingButton = createActionButton(App.getBundle().getString("Tracking"), Color.decode("#E9BD39"));
+            
+            trackingButton.addActionListener(e -> {
+                App.tracking.setTrackingData(item.getName(), item.getImagePath());
+                
+                App.getCardsGestor().show(App.getContenedor(), "tracking");
+            });
+            // --------------------
+
             textPanel.add(trackingButton);
         }
 
