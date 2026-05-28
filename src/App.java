@@ -480,12 +480,20 @@ public class App {
     }
 
     public static void recordPurchase(java.util.List<CartItem> items) {
+        String activeEmail = getRegisteredEmail();
+        if (activeEmail == null || activeEmail.trim().isEmpty()) {
+            return;
+        }
+
         for (CartItem historyItem : purchaseHistory) {
-            historyItem.setLastPurchase(false);
+            if (activeEmail.equals(historyItem.getBuyerEmail())) {
+                historyItem.setLastPurchase(false);
+            }
         }
 
         for (CartItem item : items) {
             CartItem historyItem = item.copy();
+            historyItem.setBuyerEmail(activeEmail);
             historyItem.setLastPurchase(true);
             purchaseHistory.add(historyItem);
         }
