@@ -1,0 +1,17 @@
+\contentsline {section}{\numberline {1}Introducción}{2}{section.1}%
+\contentsline {section}{\numberline {2}Implementación de la interfaz}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Organización del código}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Decisiones de diseño}{6}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Internacionalización}{6}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Aspectos destacados de la implementación}{6}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Relación con los conceptos teóricos}{7}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Capturas de la interfaz}{8}{subsection.2.6}%
+\contentsline {section}{\numberline {3}Tutorial o breve manual de usuario}{15}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Requisitos previos}{15}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Compilación}{16}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Ejecución}{16}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Uso de la aplicación}{16}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Vistas y capturas}{16}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Conclusiones}{22}{section.4}%
+\contentsline {section}{\numberline {A}Anexos}{23}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}Referencias de recursos}{23}{subsection.A.1}%
