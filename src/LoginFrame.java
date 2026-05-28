@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 
-
 public class LoginFrame extends JPanel {
 
     public LoginFrame(JPanel contenedorPrincipal, CardLayout gestorCarta) {
@@ -95,8 +94,8 @@ public class LoginFrame extends JPanel {
             }
 
             App.setName(email);
+            App.refresh(contenedorPrincipal, gestorCarta, "main");
             App.setNavBarVisibility(true);
-            gestorCarta.show(contenedorPrincipal, "main");
             App.updateNavSelection("main");
         });
         add(btnLogin, gbc);
@@ -184,6 +183,5 @@ public class LoginFrame extends JPanel {
             g2.dispose();
         }
     }
-
 
 }

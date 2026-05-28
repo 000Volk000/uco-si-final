@@ -83,7 +83,21 @@ public class App {
     public static SectionPanel sectionPanel;
 
     public static String getName() {
-        return username;
+        return getDisplayName(username);
+    }
+
+    public static String getDisplayName(String email) {
+        if (email == null) {
+            return "";
+        }
+
+        String trimmedEmail = email.trim();
+        int atIndex = trimmedEmail.indexOf('@');
+        if (atIndex > 0) {
+            return trimmedEmail.substring(0, atIndex);
+        }
+
+        return trimmedEmail;
     }
 
     static {
@@ -379,10 +393,11 @@ public class App {
 
     public static void refresh(JPanel contenedor, CardLayout gestor, String current) {
         String[] names = { "account", "main", "login", "register", "product", "sectionView", "search",
-                "cart", "history" };
+                "cart", "history", "tracking" };
         List<Class<? extends JPanel>> classes = List.of(
                 Account.class, MainScreen.class, LoginFrame.class, RegisterFrame.class, Product.class,
-                SectionPanel.class, SearchFrame.class, CartFrame.class, PurchaseHistoryFrame.class);
+                SectionPanel.class, SearchFrame.class, CartFrame.class, PurchaseHistoryFrame.class,
+                TrackingFrame.class);
 
         contenedor.removeAll();
 
@@ -400,6 +415,8 @@ public class App {
                     cartFrame = (CartFrame) nuevoPanel;
                 } else if (names[i].equals("history")) {
                     historyFrame = (PurchaseHistoryFrame) nuevoPanel;
+                } else if (names[i].equals("tracking")) {
+                    tracking = (TrackingFrame) nuevoPanel;
                 }
             }
         } catch (Exception e) {

@@ -62,7 +62,7 @@ public class RegisterFrame extends JPanel {
 
         // Confirmar Contraseña
         gbc.insets = new Insets(35, 25, 2, 0);
-        JLabel lblConfirmPass = new JLabel(App.getBundle().getString("ChangePassword"));
+        JLabel lblConfirmPass = new JLabel(App.getBundle().getString("RepeatPassword"));
         lblConfirmPass.setFont(inikaFont.deriveFont(Font.PLAIN, 18f));
         gbc.gridy = 5;
         gbc.anchor = GridBagConstraints.WEST;
@@ -103,8 +103,8 @@ public class RegisterFrame extends JPanel {
             }
 
             App.setName(email);
+            App.refresh(contenedorPrincipal, gestorCartas, "main");
             App.setNavBarVisibility(true);
-            gestorCartas.show(contenedorPrincipal, "main");
             App.updateNavSelection("main");
         });
         gbc.gridy = 7;
