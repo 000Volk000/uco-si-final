@@ -51,7 +51,8 @@ public class App {
     private static JLabel messageLabel;
     private static Timer messageTimer;
     private static JFrame mainFrame;
-    private static String username;
+    public static String username;
+    public static String address = "";
 
     private static JButton btnHome;
     private static JButton btnCart;
