@@ -276,8 +276,6 @@ Se incluyen a continuación las capturas de las pantallas principales. Cada imag
 
 \section{Tutorial o breve manual de usuario}
 
-Esta sección debe ser breve, pero suficiente para que un usuario pueda compilar, ejecutar y recorrer la aplicación sin ayuda adicional.
-
 \subsection{Requisitos previos}
 
 \begin{itemize}
@@ -287,96 +285,42 @@ Esta sección debe ser breve, pero suficiente para que un usuario pueda compilar
 \end{itemize}
 
 \subsection{Compilación}
-
-Indicar aquí el procedimiento real para compilar el proyecto.
+Se incluye un script de construcción que compila las clases, empaqueta los recursos y genera un fichero JAR ejecutable.
 
 \begin{enumerate}
 	\item Abrir una terminal en la raíz del proyecto.
-	\item Compilar las clases Java en la carpeta \texttt{bin/}.
-	\item Verificar que los recursos de \texttt{src/assets/} siguen accesibles desde la ruta usada por la aplicación.
+	\item Hacer ejecutable el script de construcción: \texttt{chmod +x build.sh}.
+	\item Ejecutar el script para compilar y empaquetar: \texttt{./build.sh}.
 \end{enumerate}
 
 \begin{verbatim}
-javac -d bin src/*.java
+./build.sh
 \end{verbatim}
 
 \subsection{Ejecución}
 
-Indicar aquí el comando o el procedimiento real para lanzar la aplicación.
+Para ejecutar la aplicación desde el JAR generado:
 
 \begin{verbatim}
+java -jar uco-si-final.jar
+\end{verbatim}
+
+Si necesita ejecutar sin usar el JAR, puede compilar y ejecutar en el classpath:
+\begin{verbatim}
+javac -d bin src/*.java
 java -cp bin App
 \end{verbatim}
 
 \subsection{Uso de la aplicación}
 
-Describir de forma clara y resumida el recorrido básico del usuario:
+El recorrido del usuario se ha estructurado de manera secuencial para que resulte intuitivo, imitando la dinámica de una tienda virtual tradicional. A continuación, se detalla el flujo principal paso a paso:
 
 \begin{enumerate}
-	\item Iniciar sesión con una cuenta existente o crear una cuenta nueva desde el formulario de registro.
-	\item Usar la barra inferior para ir a inicio, búsqueda, carrito, historial o cuenta.
-	\item Entrar en una sección, pulsar sobre un producto y añadirlo al carrito desde su ficha.
-	\item Revisar el carrito, ajustar cantidades y completar la compra para guardar el pedido en el historial.
-	\item Cambiar el idioma desde el selector superior de la pantalla de acceso o registro.
+	\item \textbf{Autenticación y configuración:} Al arrancar el programa, la vista inicial solicita iniciar sesión con una cuenta existente (correo y contraseña) o crear una cuenta nueva desde el formulario de registro. Por defecto, la aplicación incluye una cuenta de prueba con\newline el correo \textbf{el\_pescador@gmail.com} y la contraseña \textbf{MeGustanLosPeces123}. Antes de acceder, un selector en la esquina superior permite cambiar el idioma entre español e inglés directamente desde la pantalla de acceso o registro.
+	\item \textbf{Navegación principal:} Una vez dentro de la sesión, el usuario dispone de una barra inferior persistente. Esta herramienta sirve para navegar de forma rápida hacia las áreas de inicio, búsqueda, carrito, historial o cuenta, independientemente de la vista actual.
+	\item \textbf{Exploración de productos:} En la pantalla de inicio, se puede entrar en una sección específica (como anzuelos, cañas o cebos) para explorar esa categoría. Al pulsar sobre la tarjeta de un producto, la interfaz muestra su ficha con descripción y precio, permitiendo añadirlo al carrito desde allí. Como alternativa, la sección de búsqueda filtra coincidencias de texto en todo el catálogo.
+	\item \textbf{Gestión y confirmación de compra:} La vista del carrito permite revisar los artículos seleccionados y ajustar cantidades con botones interactivos. Para completar la compra, el botón "Pagar" despliega un panel modal que exige introducir una dirección de envío. Al confirmar los datos, el sistema finaliza el pedido, vacía el carrito actual y guarda la información en el historial para su seguimiento posterior.
 \end{enumerate}
-
-\subsection{Vistas y capturas}
-
-Se muestran aquí las vistas funcionales más relevantes del recorrido de uso, con una explicación sintética de su propósito.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{latex/interface/login.png}
-\caption{Vista de acceso}
-\end{figure}
-
-\noindent
-\textbf{Descripción:} punto de entrada a la aplicación, donde el usuario autentica su cuenta o cambia el idioma antes de continuar.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{latex/interface/mainScreen.png}
-\caption{Vista de catálogo y secciones}
-\end{figure}
-
-\noindent
-\textbf{Descripción:} pantalla principal desde la que se accede a las distintas categorías y se navega por la oferta de productos.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{latex/interface/search.png}
-\caption{Vista de búsqueda}
-\end{figure}
-
-\noindent
-\textbf{Descripción:} vista orientada a localizar artículos de forma rápida mediante búsqueda y filtrado del catálogo.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{latex/interface/shoppingCart.png}
-\caption{Vista del carrito de compra}
-\end{figure}
-
-\noindent
-\textbf{Descripción:} espacio donde se revisan los productos seleccionados y se confirma la compra.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{latex/interface/history.png}
-\caption{Vista de historial de compras}
-\end{figure}
-
-\noindent
-\textbf{Descripción:} registro de pedidos anteriores del usuario con acceso a su contenido y seguimiento asociado.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{latex/interface/tracking.png}
-\caption{Vista de seguimiento}
-\end{figure}
-
-\noindent
-\textbf{Descripción:} pantalla para consultar el estado del último pedido y revisar su progreso.
 
 \section{Conclusiones}
 

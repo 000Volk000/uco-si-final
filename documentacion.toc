@@ -11,7 +11,6 @@
 \contentsline {subsection}{\numberline {3.2}Compilación}{16}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}Ejecución}{16}{subsection.3.3}%
 \contentsline {subsection}{\numberline {3.4}Uso de la aplicación}{16}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}Vistas y capturas}{16}{subsection.3.5}%
-\contentsline {section}{\numberline {4}Conclusiones}{22}{section.4}%
-\contentsline {section}{\numberline {A}Anexos}{23}{appendix.A}%
-\contentsline {subsection}{\numberline {A.1}Referencias de recursos}{23}{subsection.A.1}%
+\contentsline {section}{\numberline {4}Conclusiones}{17}{section.4}%
+\contentsline {section}{\numberline {A}Anexos}{17}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}Referencias de recursos}{17}{subsection.A.1}%

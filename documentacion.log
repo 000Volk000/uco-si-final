@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.5.7)  28 MAY 2026 18:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.5.7)  28 MAY 2026 18:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -557,105 +557,48 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.286 	\item N
-              o se requieren dependencias externas adicionales. <./latex/interf
-ace/account.png (PNG copy)>]
-File: latex/interface/login.png Graphic file (type png)
-<use latex/interface/login.png>
-Package pdftex.def Info: latex/interface/login.png  used on input line 329.
-(pdftex.def)             Requested size: 227.62206pt x 490.0763pt.
- [16]
-File: latex/interface/mainScreen.png Graphic file (type png)
-<use latex/interface/mainScreen.png>
-Package pdftex.def Info: latex/interface/mainScreen.png  used on input line 338
-.
-(pdftex.def)             Requested size: 227.62206pt x 490.0763pt.
- [17
-pdfTeX warning (ext4): destination with the same identifier (name{figure.11}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.341 
-      ]
-File: latex/interface/search.png Graphic file (type png)
-<use latex/interface/search.png>
-Package pdftex.def Info: latex/interface/search.png  used on input line 347.
-(pdftex.def)             Requested size: 227.62206pt x 490.0763pt.
- [18
-pdfTeX warning (ext4): destination with the same identifier (name{figure.12}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.350 
-      ]
-File: latex/interface/shoppingCart.png Graphic file (type png)
-<use latex/interface/shoppingCart.png>
-Package pdftex.def Info: latex/interface/shoppingCart.png  used on input line 3
-56.
-(pdftex.def)             Requested size: 227.62206pt x 490.0763pt.
- [19
-pdfTeX warning (ext4): destination with the same identifier (name{figure.13}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.359 
-      ]
-File: latex/interface/history.png Graphic file (type png)
-<use latex/interface/history.png>
-Package pdftex.def Info: latex/interface/history.png  used on input line 365.
-(pdftex.def)             Requested size: 227.62206pt x 490.0763pt.
- [20
-pdfTeX warning (ext4): destination with the same identifier (name{figure.14}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.368 
-      ]
-File: latex/interface/tracking.png Graphic file (type png)
-<use latex/interface/tracking.png>
-Package pdftex.def Info: latex/interface/tracking.png  used on input line 374.
-(pdftex.def)             Requested size: 227.62206pt x 490.0763pt.
- [21
-pdfTeX warning (ext4): destination with the same identifier (name{figure.15}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.377 
-      ] [22
-pdfTeX warning (ext4): destination with the same identifier (name{figure.16}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.387 
-      ] [23] (./documentacion.aux)
+l.291 	\item A
+              brir una terminal en la raíz del proyecto. <./latex/interface/ac
+count.png (PNG copy)>] [16] [17] (./documentacion.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
-Package rerunfilecheck Info: File `documentacion.out' has not changed.
-(rerunfilecheck)             Checksum: F6430ECDABC5791622909CC5A8098BB4;2798.
+
+
+Package rerunfilecheck Warning: File `documentacion.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `documentacion.out':
+(rerunfilecheck)             Before: F6430ECDABC5791622909CC5A8098BB4;2798
+(rerunfilecheck)             After:  A01A135366C51D5516ABD0A1962F0653;2649.
  ) 
 Here is how much of TeX's memory you used:
- 10081 strings out of 469515
- 153748 string characters out of 5470808
+ 10068 strings out of 469515
+ 153646 string characters out of 5470808
  579120 words of memory out of 5000000
  38553 multiletter control sequences out of 15000+600000
  637969 words of font info for 60 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,6n,79p,710b,631s stack positions out of 10000i,1000n,20000p,200000b,200000s
- </home/dario/.texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.600pk> 
-</home/dario/.texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> </h
-ome/dario/.texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home
-/dario/.texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/da
-rio/.texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk> </home/dario
-/.texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk> </home/dario/.t
-exlive/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/dario/.texl
-ive/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk> </home/dario/.texlive
-/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk>
-Output written on documentacion.pdf (24 pages, 1879448 bytes).
+
+pdfTeX warning (dest): name{subsection.3.5} has been referenced but does not ex
+ist, replaced by a fixed one
+
+ </home/dario/.texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.600pk> </
+home/dario/.texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> </hom
+e/dario/.texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/d
+ario/.texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/dari
+o/.texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk> </home/dario/.
+texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk> </home/dario/.tex
+live/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/dario/.texliv
+e/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk> </home/dario/.texlive/t
+exmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk>
+Output written on documentacion.pdf (18 pages, 1878667 bytes).
 PDF statistics:
- 607 PDF objects out of 1000 (max. 8388607)
- 254 compressed objects within 3 object streams
- 74 named destinations out of 1000 (max. 500000)
+ 578 PDF objects out of 1000 (max. 8388607)
+ 225 compressed objects within 3 object streams
+ 61 named destinations out of 1000 (max. 500000)
  192 words of extra memory for PDF output out of 10000 (max. 10000000)
 
