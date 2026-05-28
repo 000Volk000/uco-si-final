@@ -8,21 +8,21 @@ public class RegisterFrame extends JPanel {
         App.chargeFont();
         setOpaque(false);
 
-        // 1. Cambiamos el diseño principal a BorderLayout para aislar el menú superior
+
         setLayout(new BorderLayout());
 
-        // 2. PANEL SUPERIOR: Desplegable de idioma alineado a la izquierda
+
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 20));
         topPanel.setOpaque(false);
         topPanel.add(createLanguageCombo(contenedorPrincipal, gestorCartas));
         add(topPanel, BorderLayout.NORTH);
 
-        // 3. PANEL CENTRAL: El formulario con GridBagLayout
+
         JPanel formPanel = new JPanel(new GridBagLayout());
         formPanel.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
         
-        // Ajustamos el margen superior porque el topPanel ya ocupa espacio
+
         gbc.insets = new Insets(50, 0, 20, 0);
 
         JLabel title = new JLabel(App.getBundle().getString("Welcome"));
@@ -37,7 +37,7 @@ public class RegisterFrame extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         formPanel.add(title, gbc);
 
-        // Nombre / Correo
+
         gbc.insets = new Insets(30, 25, 2, 0);
         JLabel lblUser = new JLabel(App.getBundle().getString("NameEmail"));
         lblUser.setFont(App.font().deriveFont(Font.PLAIN, 18f));
@@ -45,7 +45,7 @@ public class RegisterFrame extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         formPanel.add(lblUser, gbc);
 
-        // Campo 1
+
         gbc.insets = new Insets(0, 0, 15, 0);
         roundedText txtUser = new roundedText(0);
         txtUser.setPreferredSize(new Dimension(320, 40));
@@ -53,7 +53,7 @@ public class RegisterFrame extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         formPanel.add(txtUser, gbc);
 
-        // Contraseña
+
         gbc.insets = new Insets(30, 25, 2, 0);
         JLabel lblPass = new JLabel(App.getBundle().getString("Password"));
         lblPass.setFont(App.font().deriveFont(Font.PLAIN, 18f));
@@ -61,7 +61,7 @@ public class RegisterFrame extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         formPanel.add(lblPass, gbc);
 
-        // Campo 2
+
         gbc.insets = new Insets(0, 0, 5, 0);
         passwordText txtPass = new passwordText(0);
         txtPass.setPreferredSize(new Dimension(320, 40));
@@ -69,7 +69,7 @@ public class RegisterFrame extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         formPanel.add(txtPass, gbc);
 
-        // Confirmar Contraseña
+
         gbc.insets = new Insets(35, 25, 2, 0);
         JLabel lblConfirmPass = new JLabel(App.getBundle().getString("RepeatPassword"));
         lblConfirmPass.setFont(App.font().deriveFont(Font.PLAIN, 18f));
@@ -77,7 +77,7 @@ public class RegisterFrame extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         formPanel.add(lblConfirmPass, gbc);
 
-        // Campo 3
+
         gbc.insets = new Insets(0, 0, 5, 0);
         passwordText txtConfirmPass = new passwordText(0);
         txtConfirmPass.setPreferredSize(new Dimension(320, 40));
@@ -85,7 +85,7 @@ public class RegisterFrame extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         formPanel.add(txtConfirmPass, gbc);
 
-        // Crear Cuenta
+
         gbc.insets = new Insets(40, 0, 15, 0);
         roundedButton btnRegister = new roundedButton(App.getBundle().getString("CreateAccount"));
         btnRegister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -120,15 +120,15 @@ public class RegisterFrame extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         formPanel.add(btnRegister, gbc);
 
-        // NUEVO: ¿Ya tienes cuenta?
+
         gbc.insets = new Insets(10, 0, 0, 0);
-        // NOTA: Asegúrate de añadir "AlreadyHaveAccount" en tu archivo Bundle, o cámbialo por texto estático
+
         JLabel lblAlreadyAccount = new JLabel(App.getBundle().getString("AlreadyHaveAccount")); 
         lblAlreadyAccount.setFont(App.font().deriveFont(Font.PLAIN, 14f));
         gbc.gridy = 8;
         formPanel.add(lblAlreadyAccount, gbc);
 
-        // NUEVO: Enlace para ir al Login
+
         gbc.insets = new Insets(2, 0, 0, 0);
         JLabel lblLoginLink = new JLabel("<html><u>" + App.getBundle().getString("Login") + "</u></html>");
         lblLoginLink.setFont(App.font().deriveFont(Font.PLAIN, 14f));
@@ -138,22 +138,22 @@ public class RegisterFrame extends JPanel {
         lblLoginLink.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                // Al hacer clic, redirige a la carta "login"
+
                 App.navigateTo("login", false);
             }
         });
         formPanel.add(lblLoginLink, gbc);
 
-        // Elemento elástico para empujar todo hacia arriba
+
         gbc.gridy = 10;
         gbc.weighty = 1.0;
         formPanel.add(Box.createVerticalGlue(), gbc);
 
-        // Añadimos el formulario al centro del BorderLayout
+
         add(formPanel, BorderLayout.CENTER);
     }
 
-    // Método para crear el desplegable de idioma (mismo que en LoginFrame)
+
     private JComboBox<String> createLanguageCombo(JPanel contenedorPrincipal, CardLayout gestorCarta) {
         String[] languages = { "Español", "Ingles" };
         JComboBox<String> langCombo = new JComboBox<>(languages) {
@@ -287,7 +287,7 @@ public class RegisterFrame extends JPanel {
             else if (langCombo.getSelectedIndex() == 1)
                 App.setLocale(new Locale.Builder().setLanguage("en").setRegion("GB").build());
 
-            // Al refrescar, mantenemos al usuario en la vista de registro
+
             App.refresh(contenedorPrincipal, gestorCarta, "register");
         });
 

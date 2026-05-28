@@ -161,7 +161,7 @@ if (item.isLastPurchase()) {
 
                 App.navigateTo("tracking");
             });
-            // --------------------
+
 
             textPanel.add(trackingButton);
         }

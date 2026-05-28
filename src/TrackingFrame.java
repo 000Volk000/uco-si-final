@@ -28,19 +28,19 @@ public class TrackingFrame extends JPanel {
 
         setBorder(BorderFactory.createEmptyBorder(145, 0, 20, 0));
 
-        // 1. Contenedor Maestro: Usa GridBagLayout para forzar un centrado absoluto
+
         JPanel masterContentPanel = new JPanel(new GridBagLayout());
         masterContentPanel.setOpaque(false);
 
-        // 2. Contenedor de Tarjetas: Aquí apilamos los elementos verticalmente
+
         JPanel cardsContainer = new JPanel();
         cardsContainer.setLayout(new BoxLayout(cardsContainer, BoxLayout.Y_AXIS));
         cardsContainer.setOpaque(false);
-        // Forzamos que este bloque mida exactamente 360px de ancho
+
         cardsContainer.setPreferredSize(new Dimension(360, 650));
         cardsContainer.setMaximumSize(new Dimension(360, Integer.MAX_VALUE));
 
-        // Añadimos las tarjetas al contenedor de tarjetas
+
         JPanel productCard = createProductCard();
         cardsContainer.add(productCard);
         cardsContainer.add(Box.createRigidArea(new Dimension(0, 20)));
@@ -48,16 +48,16 @@ public class TrackingFrame extends JPanel {
         cardsContainer.add(trackingCard);
         cardsContainer.add(Box.createVerticalGlue());
 
-        // Centramos el contenedor de tarjetas dentro del panel maestro
+
         GridBagConstraints gbcMaster = new GridBagConstraints();
         gbcMaster.gridx = 0;
         gbcMaster.gridy = 0;
         gbcMaster.weightx = 1.0;
         gbcMaster.weighty = 1.0;
-        gbcMaster.anchor = GridBagConstraints.NORTH; // Que se pegue arriba, pero centrado en X
+        gbcMaster.anchor = GridBagConstraints.NORTH;
         masterContentPanel.add(cardsContainer, gbcMaster);
 
-        // 3. El ScrollPane ahora envuelve al panel maestro
+
         JScrollPane scrollPane = new JScrollPane(masterContentPanel);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
@@ -87,7 +87,7 @@ public class TrackingFrame extends JPanel {
             }
         };
 
-        // Aplicamos los listeners a la nueva estructura
+
         masterContentPanel.addMouseListener(dragScrollListener);
         masterContentPanel.addMouseMotionListener(dragScrollListener);
         cardsContainer.addMouseListener(dragScrollListener);
@@ -99,24 +99,24 @@ public class TrackingFrame extends JPanel {
     }
 
     public void setTrackingData(String productName, String imagePath, String description, double price) {
-        // Guardamos los datos para usarlos luego en el botón "Volver a pedir"
+
         this.trackName = productName;
         this.trackImagePath = imagePath;
         this.trackDesc = description;
         this.trackPrice = price;
 
-        // Actualizamos el nombre del producto
+
         nameLabel.setText("<html><div style='text-align: center; width: 120px;'>" + productName + "</div></html>");
 
-        // REFRESCAMOS LOS DATOS DE ENVÍO
+
         String dirHtml = "<html><div style='width: 280px;'>"
                 + App.getBundle().getString("Address") + ": " + App.address
                 + "</div></html>";
         dirLabel.setText(dirHtml);
 
         String destHtml = "<html><div style='width: 280px;'>"
-                + App.getBundle().getString("Addressee") + ": " + App.getName() // Asegúrate de que esto devuelve el
-                                                                                // usuario real
+                + App.getBundle().getString("Addressee") + ": " + App.getName()
+
                 + "</div></html>";
         destLabel.setText(destHtml);
 
@@ -129,7 +129,7 @@ public class TrackingFrame extends JPanel {
                 + "</div></html>";
         dateLabel.setText(dateHtml);
 
-        // Actualizamos la imagen
+
         try {
             if (new java.io.File(imagePath).exists()) {
                 ImageIcon icon = new ImageIcon(imagePath);
@@ -181,22 +181,22 @@ public class TrackingFrame extends JPanel {
 
         reorderButton = createActionButton(App.getBundle().getString("Reorder"), Color.decode("#85BB65"));
 
-        // --- CÓDIGO NUEVO PARA EL BOTÓN ---
+
         reorderButton.addActionListener(e -> {
-            // Le enviamos a la vista de producto los datos que teníamos guardados
+
             App.product.setProductData(
                     trackName,
                     trackDesc,
                     String.valueOf(trackPrice),
                     trackImagePath,
-                    "src/assets/Products/cart.png" // Asegúrate de que esta ruta al icono sea la tuya
+                    "src/assets/Products/cart.png"
             );
-            // Cambiamos a la vista del producto
+
             App.navigateTo("product");
-            // Opcional: Si quieres que el menú inferior marque otra pestaña
-            // App.updateNavSelection("main");
+
+
         });
-        // ----------------------------------
+
         textPanel.add(nameLabel);
         textPanel.add(Box.createVerticalStrut(10));
         textPanel.add(reorderButton);

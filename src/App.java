@@ -383,7 +383,6 @@ public class App {
         backButton.setBounds(14, 14, 42, 42);
         backButton.setVisible(false);
         mainFrame.getLayeredPane().add(backButton, JLayeredPane.PALETTE_LAYER);
-
         bgPanel.add(bottomBar, BorderLayout.SOUTH);
         setNavBarVisibility(false);
         mainFrame.setContentPane(bgPanel);
@@ -563,24 +562,44 @@ public class App {
     }
 
     private static JButton createBackButton() {
-        JButton button = new JButton("←") {
+        JButton button = new JButton() {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
+                
+
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                
+
                 g2.setColor(new Color(255, 255, 255, 235));
                 g2.fillOval(0, 0, getWidth(), getHeight());
+                
+
+                g2.setColor(new Color(47, 54, 64));
+                g2.setStroke(new BasicStroke(2.5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+                
+
+                int cx = getWidth() / 2;
+                int cy = getHeight() / 2;
+                int arrowSize = 8;
+                
+
+                g2.drawLine(cx + arrowSize + 2, cy, cx - arrowSize, cy);
+                g2.drawLine(cx - arrowSize, cy, cx, cy - arrowSize);
+                g2.drawLine(cx - arrowSize, cy, cx, cy + arrowSize);
+                
                 g2.dispose();
-                super.paintComponent(g);
             }
         };
-        button.setFont(new Font("SansSerif", Font.PLAIN, 10));
+        
+        button.setFont(new Font("SansSerif", Font.PLAIN, 24));
         button.setForeground(new Color(47, 54, 64));
         button.setFocusPainted(false);
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);
         button.setOpaque(false);
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        button.setMargin(new java.awt.Insets(0, 0, 0, 0));
         button.addActionListener(e -> goBack());
         return button;
     }

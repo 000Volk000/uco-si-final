@@ -10,6 +10,7 @@
 \usepackage{longtable}
 \usepackage{float}
 \usepackage{booktabs}
+\usepackage{caption}
 
 \geometry{margin=2.5cm}
 \hypersetup{
@@ -146,7 +147,7 @@ uco-si-final/
 \noindent
 \textbf{Descripción:} `App` concentra el estado compartido, la navegación y la autenticación. `LoginFrame` y `RegisterFrame` gestionan el acceso y el alta de usuarios. `MainScreen` muestra la portada con las secciones y productos destacados. `SectionPanel` carga el catálogo de una categoría concreta y `ProductDatabase` centraliza los arrays de productos y la creación de tarjetas visuales. `Product` presenta el detalle de un artículo y permite añadirlo al carrito. `CartFrame` gestiona el carrito activo, `PurchaseHistoryFrame` muestra el historial de compras y `TrackingFrame` representa el seguimiento del último pedido.
 
-\subsubsection*{Otros diagrama relevante}
+\subsubsection*{Diagrama de navegación entre pantallas}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]{latex/figure/diagrama_flujo.png}
@@ -198,81 +199,31 @@ La interfaz desarrollada no se limita a replicar el aspecto visual del prototipo
 	\item \textbf{Flexibilidad y eficiencia de uso:} la interfaz se adapta dinámicamente al contexto del usuario. En lugar de construir paneles estáticos para cada categoría de productos, la arquitectura utiliza \texttt{ProductDatabase.createItemCard} para generar elementos de interfaz al vuelo basándose en las matrices de datos solicitadas por \texttt{SectionPanel}. Esto optimiza el rendimiento de la aplicación en memoria y reduce la carga cognitiva del usuario al presentar la información estructurada bajo un mismo patrón de interacción, independientemente de la sección consultada.
 \end{itemize}
 
-\subsection{Capturas de la interfaz}
 
-Se incluyen a continuación las capturas de las pantallas principales. Cada imagen va acompañada de una breve explicación del comportamiento mostrado para que la memoria pueda leerse sin depender de las capturas.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{latex/interface/mainScreen.png}
-\caption{Pantalla principal}
-\end{figure}
-
-\noindent
-\textbf{Descripción:} vista de entrada a la aplicación con acceso a las secciones, productos destacados y navegación inferior.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{latex/interface/login.png}
-\caption{Pantalla de inicio de sesión}
-\end{figure}
-
-\noindent
-\textbf{Descripción:} formulario de acceso con selección de idioma, validación de credenciales y enlace al registro.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{latex/interface/register.png}
-\caption{Pantalla de registro}
-\end{figure}
-
-\noindent
-\textbf{Descripción:} formulario para crear una cuenta nueva con los mismos controles de idioma y acceso que la pantalla de inicio.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{latex/interface/search.png}
-\caption{Pantalla de búsqueda o catálogo}
-\end{figure}
-
-\noindent
-\textbf{Descripción:} catálogo filtrable donde el usuario localiza productos por nombre antes de abrir su ficha.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{latex/interface/shoppingCart.png}
-\caption{Pantalla del carrito}
-\end{figure}
-
-\noindent
-\textbf{Descripción:} resumen de los productos añadidos, con ajuste de cantidades, cálculo del total y acceso al proceso de compra.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{latex/interface/history.png}
-\caption{Pantalla de historial de compras}
-\end{figure}
-
-\noindent
-\textbf{Descripción:} listado de pedidos realizados por el usuario con los elementos de cada compra y su información básica.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{latex/interface/tracking.png}
-\caption{Pantalla de seguimiento}
-\end{figure}
-
-\noindent
-\textbf{Descripción:} vista de seguimiento del último pedido para consultar el estado de la compra y sus detalles.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.5\textwidth]{latex/interface/account.png}
-\caption{Pantalla de cuenta}
-\end{figure}
-
-\noindent
-\textbf{Descripción:} panel de cuenta del usuario con información personal y opciones asociadas a su sesión.
+\subsection{Cambios respecto al prototipo}
+A continuación se detalla todos los cambios respecto al prototipo de la primera entrega:
+\begin{itemize}
+    \item \textbf{Uso de pestañas de dialogos:} Se ha decidido el uso de dialogos con un temporizador para avisar al usuario de distintas cosas como que tiene que rellenar algun campo o se ha añadido un elemento al carrito.
+        \begin{center}
+        \includegraphics[width=0.5\linewidth]{latex/figure/Dialogo.png}
+        \captionof{figure}{Ejemplo Dialogo}
+        \end{center}
+    \item \textbf{Desplegable de idioma en el login:} Se ha decidido poner el desplegable de idioma del apartado de \textbf{Cuenta} para que el usuario no tenga que ir por todo el flujo de la aplicación para cambiar de idioma y pueda hacerlo desde la primera pantalla.
+        \begin{center}
+        \includegraphics[width=0.3\linewidth]{latex/figure/Idioma.png}
+        \captionof{figure}{Idioma Login}
+        \end{center}
+    \item \textbf{Modal de dirección:} Se ha introducido un modal a la hora de pagar para tener el campo dirección del usuario.
+        \begin{center}
+        \includegraphics[width=0.5\linewidth]{latex/figure/direccion.png}
+        \captionof{figure}{Modal dirección}
+        \end{center}
+    \item \textbf{Flechita para retroceder:} Se ha añadido una flechita hacia atrás que lleva a la pantalla anterior, esto mejora el flujo de trabajo y la navegación por la aplicación.
+        \begin{center}
+        \includegraphics[width=0.2\linewidth]{latex/figure/back.png}
+        \captionof{figure}{Flechita atrás}
+        \end{center}
+\end{itemize}
 
 \section{Tutorial o breve manual de usuario}
 
@@ -322,6 +273,85 @@ El recorrido del usuario se ha estructurado de manera secuencial para que result
 	\item \textbf{Gestión y confirmación de compra:} La vista del carrito permite revisar los artículos seleccionados y ajustar cantidades con botones interactivos. Para completar la compra, el botón "Pagar" despliega un panel modal que exige introducir una dirección de envío. Al confirmar los datos, el sistema finaliza el pedido, vacía el carrito actual y guarda la información en el historial para su seguimiento posterior.
 \end{enumerate}
 
+\newpage
+\subsection{Manual de usuario}
+
+Se incluyen a continuación las capturas de las pantallas principales. Ademas de una explicación de hacia donde lleva cada boton.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{latex/interface/login.png}
+\caption{Pantalla de inicio de sesión}
+\end{figure}
+
+\noindent
+\textbf{Descripción:} Inicio de sesión, para poder entrar hay que rellenar correctamente los campos y darle al botón de \texttt{Iniciar Sesión}. Además tenemos la opción de darle a \texttt{Registrate} que nos enviará a la pantalla de registro, o \texttt{Cambiar Contraseña} el cual simulará enviar un correo al correo que este en el campo de correo en ese momento. Finalmente con el desplegable de la esquina se podrá cambiar de idiomas.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{latex/interface/register.png}
+\caption{Pantalla de registro}
+\end{figure}
+
+\noindent
+\textbf{Descripción:} Formulario para crear una cuenta nueva con los mismos controles de idioma y acceso que la pantalla de inicio. Funciona de manera similar al anterior añadiendo el campo de \texttt{Repetir Contraseña} y \texttt{Iniciar Sesión}, que volverá a la pestaña anterior.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{latex/interface/mainScreen.png}
+\caption{Pantalla principal}
+\end{figure}
+
+\noindent
+\textbf{Descripción:} Vista de entrada a la aplicación con acceso a las secciones, productos destacados y navegación inferior. Si clickas en los productos destacados nos llevará a la página específica de cada uno. Sin Embargo si clickas en una sección nos listará todos los productos que correspondan a esa sección.
+
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{latex/interface/search.png}
+\caption{Pantalla de búsqueda o catálogo}
+\end{figure}
+
+\noindent
+\textbf{Descripción:} Catálogo filtrable donde el usuario localiza productos por nombre antes de abrir su ficha. Si quiere ver más detalles o comprar el usuario puede clickar en un producto y se verá la página detallada del producto.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{latex/interface/shoppingCart.png}
+\caption{Pantalla del carrito}
+\end{figure}
+
+\noindent
+\textbf{Descripción:} Resumen de los productos añadidos, con ajuste de cantidades, cálculo del total y acceso al proceso de compra. Si le damos a pagar, nos saldŕa un modal preguntando por nuestra dirección de envio antes de darle a aceptar.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{latex/interface/history.png}
+\caption{Pantalla de historial de compras}
+\end{figure}
+
+\noindent
+\textbf{Descripción:} Listado de pedidos realizados por el usuario con los elementos de cada compra y su información básica. Para esta simulación los productos de la última compra son los que no se han entregado, por tanto a parte de la opción de \texttt{Volver a comprar} que estará en todos los productos y llevará a la página de detalles del producto. Y la de seguimiento tendrá un seguimiento del producto hasta llegar al destino.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{latex/interface/tracking.png}
+\caption{Pantalla de seguimiento}
+\end{figure}
+
+\noindent
+\textbf{Descripción:} Vista de seguimiento del último pedido para consultar el estado de la compra y sus detalles. Similar a la anterior, el botón de \texttt{Volver a comprar} lleva a la página del producto.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{latex/interface/account.png}
+\caption{Pantalla de cuenta}
+\end{figure}
+
+\noindent
+\textbf{Descripción:} Panel de cuenta del usuario con información personal y opciones asociadas a su sesión. Tenemos la opción de \texttt{Cerrar Sesión} que nos llevará al login de nuevo, el cambio de contraseña que es similar al del login, y el desplegable del idioma.
+
 \section{Conclusiones}
 
 En esta sección se deben resumir los resultados obtenidos, las dificultades encontradas y una valoración final de la solución desarrollada.
@@ -338,17 +368,15 @@ Se ha cumplido el objetivo principal: la aplicación cuenta con una interfaz fun
 \end{itemize}
 
 \subsection*{Valoración final}
-El trabajo permite practicar diseño de interfaces, modularización y gestión de estado en una aplicación Swing completa. Además, deja una base clara para seguir mejorando la experiencia de usuario y la persistencia de datos.
-
+En conclusión, el diseño de un prototipo ha demostrado ser una herramienta fundamental para la viabilidad y calidad del proyecto (a pesar de que haya cosas que no podemos cumplir). Disponer de una maqueta visual interactiva ha permitido evaluar de forma tangible el flujo de la aplicación e identificar fallos de usabilidad.
 \appendix
 \section{Anexos}
-
-Si se considera oportuno, aquí se pueden añadir tablas, notas adicionales, capturas extra, fragmentos de configuración o referencias técnicas complementarias.
 
 \subsection{Referencias de recursos}
 \begin{itemize}
 	\item Recursos gráficos incluidos en \texttt{src/assets/}.
 	\item Documentación de Java Swing y de \texttt{ResourceBundle}.
+	\item https://gemini.google.com/app
 \end{itemize}
 
 \end{document}

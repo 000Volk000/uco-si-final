@@ -131,7 +131,7 @@ public class Product extends JPanel {
         titleLabel.setForeground(textColor);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Centramos el texto internamente para cuando ocupe varias líneas
+
         StyledDocument titleDoc = titleLabel.getStyledDocument();
         SimpleAttributeSet titleCenter = new SimpleAttributeSet();
         StyleConstants.setAlignment(titleCenter, StyleConstants.ALIGN_CENTER);
@@ -145,7 +145,7 @@ public class Product extends JPanel {
         infoPanel.setOpaque(false);
         infoPanel.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 15));
 
-        // Columna Izquierda: Descripción
+
         JPanel descPanel = new JPanel();
         descPanel.setLayout(new BoxLayout(descPanel, BoxLayout.Y_AXIS));
         descPanel.setOpaque(false);
@@ -179,7 +179,7 @@ public class Product extends JPanel {
         infoPanel.add(descPanel);
 
         Color green = Color.decode("#85BB65");
-        // Columna Derecha: Precio y Carrito
+
         JPanel pricePanel = new JPanel();
         pricePanel.setLayout(new BoxLayout(pricePanel, BoxLayout.Y_AXIS));
         pricePanel.setOpaque(false);
@@ -203,7 +203,7 @@ public class Product extends JPanel {
         cartButtonPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
         cartButtonPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         cartButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        // Acción al hacer clic
+
         cartButtonPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -226,12 +226,12 @@ public class Product extends JPanel {
             }
         });
 
-        JLabel plusIcon = new JLabel("\u002B"); // Icono + Unicode
+        JLabel plusIcon = new JLabel("\u002B");
         plusIcon.setFont(new Font("Arial", Font.PLAIN, 24));
         plusIcon.setForeground(Color.WHITE);
         cartButtonPanel.add(plusIcon);
 
-        // Icono Carrito (JLabel vacío, se actualizará en setData)
+
         JLabel cartIconLabel = new JLabel();
         cartButtonPanel.add(cartIconLabel);
 
@@ -240,7 +240,7 @@ public class Product extends JPanel {
 
         contentPanel.add(infoPanel);
 
-        contentPanel.add(Box.createVerticalStrut(30)); // Espaciado final para permitir la superposición del koi
+        contentPanel.add(Box.createVerticalStrut(30));
 
         scrollPane = new JScrollPane(contentPanel);
         scrollPane = new JScrollPane(contentPanel);
@@ -290,7 +290,7 @@ public class Product extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    // --- Método clave para actualizar los datos de la pantalla ---
+
     public void setProductData(String title, String description, String priceUnit, String productImagePath,
             String cartIconImagePath) {
 
@@ -327,7 +327,7 @@ public class Product extends JPanel {
                 Image img = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
                 label.setIcon(new ImageIcon(img));
             } else {
-                label.setIcon(null); // Borrar icono si no se encuentra imagen
+                label.setIcon(null);
                 System.err.println("Imagen no encontrada: " + imagePath);
             }
         } catch (Exception e) {

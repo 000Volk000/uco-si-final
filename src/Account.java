@@ -163,7 +163,6 @@ public class Account extends JPanel {
 
             @Override
             protected javax.swing.plaf.basic.ComboPopup createPopup() {
-                // 1. Creamos el popup e inyectamos nuestro propio dibujo de fondo redondeado
                 javax.swing.plaf.basic.BasicComboPopup popup = new javax.swing.plaf.basic.BasicComboPopup(comboBox) {
                     @Override
                     protected void paintComponent(Graphics g) {

@@ -13,13 +13,13 @@ public class CartFrame extends JPanel {
     private MouseAdapter dragScrollListener;
 
     public CartFrame(JPanel contenedorPrincipal, CardLayout gestorCartas) {
-        // Aseguramos que la fuente esté cargada
+
         App.chargeFont();
         setOpaque(false);
-        // Color de fondo general (simulando el azul claro de la imagen)
+
         setLayout(new BorderLayout());
 
-        // --- 1. PANEL SUPERIOR (HEADER) ---
+
         JPanel headerPanel = new JPanel(new BorderLayout());
         headerPanel.setOpaque(false);
 
@@ -38,10 +38,10 @@ public class CartFrame extends JPanel {
         headerPanel.add(topSeparator, BorderLayout.SOUTH);
 
         add(headerPanel, BorderLayout.NORTH);
-        // --- 2. PANEL CENTRAL (LISTA DE PRODUCTOS) ---
+
         listPanel = new VerticalScrollPanel();
         listPanel.setOpaque(false);
-        // Usamos BoxLayout en el eje Y para apilar los elementos verticalmente
+
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
         listPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
@@ -50,14 +50,14 @@ public class CartFrame extends JPanel {
         scrollPane.getViewport().setOpaque(false);
         scrollPane.setBorder(null);
 
-        // --> NUEVO CÓDIGO: BLOQUEO DEL SCROLL HORIZONTAL <--
-        // Forzamos a que nunca aparezca ni se permita el scroll lateral
+
+
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        // Aseguramos que el vertical mantenga su comportamiento natural
+
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        // Mantenemos la configuración anterior de la barra vertical
+
         scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
@@ -88,13 +88,13 @@ public class CartFrame extends JPanel {
 
         add(scrollPane, BorderLayout.CENTER);
 
-        // --- 3. PANEL INFERIOR (CHECKOUT) ---
+
         JPanel bottomPanel = new JPanel();
         bottomPanel.setOpaque(false);
         bottomPanel.setPreferredSize(new Dimension(401, 200));
-        bottomPanel.setLayout(null); // Layout nulo para posicionamiento absoluto exacto
+        bottomPanel.setLayout(null);
 
-        // Texto "Total"
+
         JLabel totalTextLabel = new JLabel(App.getBundle().getString("Total"));
         totalTextLabel.setFont(App.font().deriveFont(Font.PLAIN, 24));
         totalTextLabel.setBounds(30, 20, 100, 30);
@@ -108,13 +108,13 @@ public class CartFrame extends JPanel {
 
         updatePrice();
 
-        // Botón "Pagar" (Panel personalizado para bordes redondeados)
+
         JPanel payButton = new JPanel(new BorderLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(Color.decode("#92C16E")); // Color verde del botón
+                g2.setColor(Color.decode("#92C16E"));
                 g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
                 g2.dispose();
             }
@@ -133,12 +133,12 @@ public class CartFrame extends JPanel {
         payButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Prevenir que el usuario pague si el carrito está vacío
+
                 if (App.shoppingCart.isEmpty()) {
                     return; 
                 }
                 
-                // Llamamos a nuestro nuevo método que dibuja el modal personalizado
+
                 showAddressModal();
             }
         });
@@ -165,18 +165,18 @@ public class CartFrame extends JPanel {
     }
 
     public void refreshCart() {
-        listPanel.removeAll(); // 1. Borramos todas las tarjetas anteriores
+        listPanel.removeAll();
 
-        // 2. Volvemos a leer la lista actualizada en tiempo real
+
         for (CartItem item : App.shoppingCart) {
             listPanel.add(createCartItem(item));
             listPanel.add(Box.createRigidArea(new Dimension(0, 15)));
         }
 
-        // 3. Recalculamos el texto del dinero
+
         updatePrice();
 
-        // 4. Forzamos a Swing a que recalcule los tamaños y pinte los nuevos elementos
+
         listPanel.revalidate();
         listPanel.repaint();
     }
@@ -191,7 +191,7 @@ public class CartFrame extends JPanel {
 
         GridBagConstraints gbc = new GridBagConstraints();
 
-        // --- COLUMNA 0: Imagen ---
+
         RoundedPanel imageContainer = new RoundedPanel(30, Color.WHITE, null, 0);
         imageContainer.setLayout(new BorderLayout());
         imageContainer.setPreferredSize(new Dimension(130, 95));
@@ -216,7 +216,7 @@ public class CartFrame extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         card.add(imageContainer, gbc);
 
-        // --- COLUMNA 1: Textos ---
+
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
         textPanel.setOpaque(false);
@@ -245,7 +245,7 @@ public class CartFrame extends JPanel {
         gbc.fill = GridBagConstraints.NONE;
         card.add(textPanel, gbc);
 
-        // --- COLUMNA 2: Selector de Cantidad ---
+
         RoundedPanel quantityPanel = new RoundedPanel(20, Color.decode("#005596"), null, 0);
         quantityPanel.setLayout(new GridLayout(1, 3, 0, 0));
         quantityPanel.setPreferredSize(new Dimension(85, 35));
@@ -268,14 +268,14 @@ public class CartFrame extends JPanel {
         plusLabel.setHorizontalAlignment(SwingConstants.CENTER);
         plusLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        // CAMBIO: Lógica conectada al objeto real y recálculo del total
+
         minusLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (item.getQuantity() > 1) {
-                    item.setQuantity(item.getQuantity() - 1); // Actualiza la memoria global
-                    qtyLabel.setText(String.valueOf(item.getQuantity())); // Actualiza el número de la tarjeta
-                    updatePrice(); // Recalcula el dinero inferior
+                    item.setQuantity(item.getQuantity() - 1);
+                    qtyLabel.setText(String.valueOf(item.getQuantity()));
+                    updatePrice();
                 } else if (item.getQuantity() == 1) {
                     App.shoppingCart.remove(item);
                     refreshCart();
@@ -286,9 +286,9 @@ public class CartFrame extends JPanel {
         plusLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                item.setQuantity(item.getQuantity() + 1); // Actualiza la memoria global
-                qtyLabel.setText(String.valueOf(item.getQuantity())); // Actualiza el número de la tarjeta
-                updatePrice(); // Recalcula el dinero inferior
+                item.setQuantity(item.getQuantity() + 1);
+                qtyLabel.setText(String.valueOf(item.getQuantity()));
+                updatePrice();
             }
         });
 
@@ -378,30 +378,30 @@ public class CartFrame extends JPanel {
     }
 
     private void showAddressModal() {
-        // 1. Accedemos a la capa superior nativa de la ventana principal
+
         JRootPane rootPane = SwingUtilities.getRootPane(this);
         JLayeredPane layeredPane = rootPane.getLayeredPane();
 
-        // 2. CORRECCIÓN: Creamos el fondo dibujando la transparencia a mano
+
         JPanel dimBackground = new JPanel(new GridBagLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 Graphics2D g2 = (Graphics2D) g.create();
-                // 100 es la opacidad. Puedes bajarlo a 80 si lo quieres más claro
+
                 g2.setColor(new Color(0, 0, 0, 100)); 
                 g2.fillRect(0, 0, getWidth(), getHeight());
                 g2.dispose();
             }
         };
-        // CRUCIAL para que Swing permita ver lo que hay debajo
+
         dimBackground.setOpaque(false); 
         dimBackground.setBounds(0, 0, layeredPane.getWidth(), layeredPane.getHeight());
 
-        // 3. Trampa: Consumimos los clics para que el usuario no pueda pulsar los botones de atrás
+
         dimBackground.addMouseListener(new MouseAdapter() {});
 
-        // 4. Creamos la tarjeta del modal
+
         RoundedPanel modalPanel = new RoundedPanel(40, Color.decode("#DEECFF"), null, 0);
         modalPanel.setPreferredSize(new Dimension(320, 220));
         modalPanel.setLayout(new BoxLayout(modalPanel, BoxLayout.Y_AXIS));
@@ -453,13 +453,13 @@ public class CartFrame extends JPanel {
         JButton btnCancel = createModalButton("Cancelar", Color.decode("#E74C3C"));
         JButton btnAccept = createModalButton("Aceptar", Color.decode("#85BB65"));
 
-        // ACCIÓN CANCELAR: Solo borramos el panel oscuro de la capa superior
+
         btnCancel.addActionListener(e -> {
             layeredPane.remove(dimBackground);
             layeredPane.repaint();
         }); 
 
-        // ACCIÓN ACEPTAR
+
         btnAccept.addActionListener(e -> {
             String dir = addressField.getText().trim();
             if (dir.isEmpty()) {
@@ -467,14 +467,14 @@ public class CartFrame extends JPanel {
                 dimBackground.revalidate(); 
                 dimBackground.repaint();
             } else {
-                // Guarda la dirección
+
                 App.address = dir; 
                 
-                // Retiramos el modal de la pantalla al instante
+
                 layeredPane.remove(dimBackground);
                 layeredPane.repaint();
                 
-                // Procesamos el pedido
+
                 App.recordPurchase(new ArrayList<>(App.shoppingCart));
                 showPaidMessage();
                 App.shoppingCart.clear();
@@ -488,11 +488,11 @@ public class CartFrame extends JPanel {
 
         modalPanel.add(buttonPanel);
         
-        // 5. Añadimos todo a la capa MODAL de la aplicación
+
         dimBackground.add(modalPanel);
         layeredPane.add(dimBackground, JLayeredPane.MODAL_LAYER);
         
-        // 6. Ponemos el foco en el campo de texto para que el usuario escriba directamente
+
         SwingUtilities.invokeLater(addressField::requestFocusInWindow);
     }
 

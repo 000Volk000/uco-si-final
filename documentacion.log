@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.5.7)  28 MAY 2026 18:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.5.28)  28 MAY 2026 20:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -278,33 +278,57 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@lastruleclass=\count307
 \@thisrulewidth=\dimen178
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 21.
+(/usr/share/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+
+(/usr/share/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen179
+\captionmargin=\dimen180
+\caption@leftmargin=\dimen181
+\caption@rightmargin=\dimen182
+\caption@width=\dimen183
+\caption@indent=\dimen184
+\caption@parindent=\dimen185
+\caption@hangindent=\dimen186
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count308
+\c@continuedfloat=\count309
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: longtable package is loaded.
+
+(/usr/share/texmf-dist/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
+))
+Package hyperref Info: Option `colorlinks' set `true' on input line 22.
 
 (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count308
+\l__color_backend_stack_int=\count310
 )
 (./documentacion.aux)
 \openout1 = `documentacion.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -342,16 +366,16 @@ LaTeX Font Info:    ... okay on input line 44.
 
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count309
-\scratchdimen=\dimen179
+\scratchcounter=\count311
+\scratchdimen=\dimen187
 \scratchbox=\box62
-\nofMPsegments=\count310
-\nofMParguments=\count311
+\nofMPsegments=\count312
+\nofMParguments=\count313
 \everyMPshowfont=\toks25
-\MPscratchCnt=\count312
-\MPscratchDim=\dimen180
-\MPnumerator=\count313
-\makeMPintoPDFobject=\count314
+\MPscratchCnt=\count314
+\MPscratchDim=\dimen188
+\MPnumerator=\count315
+\makeMPintoPDFobject=\count316
 \everyMPtoPDFconversion=\toks26
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -362,21 +386,24 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring ON on input line 44.
+Package hyperref Info: Link coloring ON on input line 45.
 
 (./documentacion.out) (./documentacion.out)
 \@outlinefile=\write3
 \openout3 = `documentacion.out'.
 
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 <src/assets/background/koi.png, id=72, 167.1846pt x 188.1429pt>
 File: src/assets/background/koi.png Graphic file (type png)
 <use src/assets/background/koi.png>
-Package pdftex.def Info: src/assets/background/koi.png  used on input line 53.
+Package pdftex.def Info: src/assets/background/koi.png  used on input line 54.
 (pdftex.def)             Requested size: 250.38564pt x 281.7945pt.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./src/assets/background/ko
-i.png>] (./documentacion.toc
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf-dist/fonts
+/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf-dist/fonts/enc/dvips/cm-s
+uper/cm-super-ts1.enc} <./src/assets/background/koi.png>] (./documentacion.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 3.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -392,11 +419,11 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.66 \newpage
+l.67 \newpage
               [1
 
 ]
-Overfull \hbox (22.45937pt too wide) in paragraph at lines 92--93
+Overfull \hbox (22.45937pt too wide) in paragraph at lines 93--94
 \T1/cmtt/m/n/12 MainScreen\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 SectionPanel\T1/cmr/
 m/n/12 , \T1/cmtt/m/n/12 Product\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 CartFrame\T1/c
 mr/m/n/12 , \T1/cmtt/m/n/12 PurchaseHistoryFrame \T1/cmr/m/n/12 y \T1/cmtt/m/n/
@@ -408,197 +435,167 @@ mr/m/n/12 , \T1/cmtt/m/n/12 PurchaseHistoryFrame \T1/cmr/m/n/12 y \T1/cmtt/m/n/
 File: latex/figure/diagrama_clases.png Graphic file (type png)
 <use latex/figure/diagrama_clases.png>
 Package pdftex.def Info: latex/figure/diagrama_clases.png  used on input line 1
-42.
+43.
 (pdftex.def)             Requested size: 455.24411pt x 253.02896pt.
  [3]
 <latex/figure/diagrama_flujo.png, id=122, 3033.3325pt x 4898.3pt>
 File: latex/figure/diagrama_flujo.png Graphic file (type png)
 <use latex/figure/diagrama_flujo.png>
 Package pdftex.def Info: latex/figure/diagrama_flujo.png  used on input line 15
-2.
+3.
 (pdftex.def)             Requested size: 318.66948pt x 514.52354pt.
- [4
-pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.155 
-       <./latex/figure/diagrama_clases.png>] [5
-pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.163 	\item \textbf
-                    {ReutilizaciÃ³n de componentes:} se reutilizan paneles r...
- <./latex/figure/diagrama_flujo.png>]
-Overfull \hbox (54.72583pt too wide) in paragraph at lines 186--187
+ [4 <./latex/figure/diagrama_clases.png>] [5 <./latex/figure/diagrama_flujo.png
+>]
+Overfull \hbox (54.72583pt too wide) in paragraph at lines 187--188
 \T1/cmr/m/n/12 gorías del in-ven-tario en tiempo real uti-lizando la API de flu
 -jos de Java (\T1/cmtt/m/n/12 Stream.of().flatMap\T1/cmr/m/n/12 ).
  []
 
 [6]
-Overfull \hbox (18.66864pt too wide) in paragraph at lines 189--190
+Overfull \hbox (18.66864pt too wide) in paragraph at lines 190--191
 \T1/cmr/m/n/12 cación. Al mod-i-ficar la se-lec-ción desde la vista de ac-ceso,
  se ac-tu-al-iza el \T1/cmtt/m/n/12 ResourceBundle
  []
 
 
-Overfull \hbox (46.9582pt too wide) in paragraph at lines 196--197
+Overfull \hbox (46.9582pt too wide) in paragraph at lines 197--198
 \T1/cmr/m/n/12 in-fe-rior (\T1/cmtt/m/n/12 bottomBar\T1/cmr/m/n/12 ) mantiene u
 n com-por-tamiento pre-deci-ble gra-cias a \T1/cmtt/m/n/12 updateNavSelection\T
 1/cmr/m/n/12 ,
  []
 
 
-Overfull \hbox (42.71893pt too wide) in paragraph at lines 197--198
+Overfull \hbox (42.71893pt too wide) in paragraph at lines 198--199
 \T1/cmr/m/n/12 forma li-bre o de-scon-tro-lada, sino me-di-ante una pila aco-ta
 da de his-to-rial (\T1/cmtt/m/n/12 navigationHistory
  []
 
 
-Overfull \hbox (3.35309pt too wide) in paragraph at lines 197--198
+Overfull \hbox (3.35309pt too wide) in paragraph at lines 198--199
 \T1/cmr/m/n/12 fini-tos al usar el botón de retro-ceso. Del mismo modo, el méto
 do \T1/cmtt/m/n/12 isTransientScreen
  []
 
 [7]
-<latex/interface/mainScreen.png, id=147, 393.47pt x 847.165pt>
-File: latex/interface/mainScreen.png Graphic file (type png)
-<use latex/interface/mainScreen.png>
-Package pdftex.def Info: latex/interface/mainScreen.png  used on input line 207
-.
-(pdftex.def)             Requested size: 227.62206pt x 490.0763pt.
-<latex/interface/login.png, id=148, 393.47pt x 847.165pt>
+<latex/figure/Dialogo.png, id=147, 337.26pt x 73.27374pt>
+File: latex/figure/Dialogo.png Graphic file (type png)
+<use latex/figure/Dialogo.png>
+Package pdftex.def Info: latex/figure/Dialogo.png  used on input line 208.
+(pdftex.def)             Requested size: 212.93471pt x 46.2633pt.
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 209.
+See the caption package documentation for explanation.
+
+<latex/figure/Idioma.png, id=148, 112.42pt x 49.18375pt>
+File: latex/figure/Idioma.png Graphic file (type png)
+<use latex/figure/Idioma.png>
+Package pdftex.def Info: latex/figure/Idioma.png  used on input line 213.
+(pdftex.def)             Requested size: 127.76212pt x 55.89816pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 214.
+See the caption package documentation for explanation.
+
+<latex/figure/direccion.png, id=149, 354.32375pt x 262.9825pt>
+File: latex/figure/direccion.png Graphic file (type png)
+<use latex/figure/direccion.png>
+Package pdftex.def Info: latex/figure/direccion.png  used on input line 218.
+(pdftex.def)             Requested size: 212.93471pt x 158.0435pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 219.
+See the caption package documentation for explanation.
+
+<latex/figure/back.png, id=150, 54.2025pt x 56.21pt>
+File: latex/figure/back.png Graphic file (type png)
+<use latex/figure/back.png>
+Package pdftex.def Info: latex/figure/back.png  used on input line 223.
+(pdftex.def)             Requested size: 85.17258pt x 88.33821pt.
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 224.
+See the caption package documentation for explanation.
+
+[8 <./latex/figure/Dialogo.png> <./latex/figure/Idioma.png> <./latex/figure/dir
+eccion.png> <./latex/figure/back.png>] [9] [10]
+<latex/interface/login.png, id=179, 393.47pt x 847.165pt>
 File: latex/interface/login.png Graphic file (type png)
 <use latex/interface/login.png>
-Package pdftex.def Info: latex/interface/login.png  used on input line 216.
+Package pdftex.def Info: latex/interface/login.png  used on input line 282.
 (pdftex.def)             Requested size: 227.62206pt x 490.0763pt.
- [8
-pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.219 
-       <./latex/interface/mainScreen.png (PNG copy)>]
-<latex/interface/register.png, id=154, 393.47pt x 847.165pt>
+<latex/interface/register.png, id=180, 393.47pt x 847.165pt>
 File: latex/interface/register.png Graphic file (type png)
 <use latex/interface/register.png>
-Package pdftex.def Info: latex/interface/register.png  used on input line 225.
+Package pdftex.def Info: latex/interface/register.png  used on input line 291.
 (pdftex.def)             Requested size: 227.62206pt x 490.0763pt.
- [9
-pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.228 
-       <./latex/interface/login.png (PNG copy)>]
-<latex/interface/search.png, id=161, 393.47pt x 847.165pt>
+ [11 <./latex/interface/login.png (PNG copy)>]
+<latex/interface/mainScreen.png, id=186, 393.47pt x 847.165pt>
+File: latex/interface/mainScreen.png Graphic file (type png)
+<use latex/interface/mainScreen.png>
+Package pdftex.def Info: latex/interface/mainScreen.png  used on input line 300
+.
+(pdftex.def)             Requested size: 227.62206pt x 490.0763pt.
+ [12 <./latex/interface/register.png (PNG copy)>]
+<latex/interface/search.png, id=193, 393.47pt x 847.165pt>
 File: latex/interface/search.png Graphic file (type png)
 <use latex/interface/search.png>
-Package pdftex.def Info: latex/interface/search.png  used on input line 234.
+Package pdftex.def Info: latex/interface/search.png  used on input line 312.
 (pdftex.def)             Requested size: 227.62206pt x 490.0763pt.
- [10
-pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.237 
-       <./latex/interface/register.png (PNG copy)>]
-<latex/interface/shoppingCart.png, id=167, 393.47pt x 847.165pt>
+ [13 <./latex/interface/mainScreen.png (PNG copy)>]
+<latex/interface/shoppingCart.png, id=199, 393.47pt x 847.165pt>
 File: latex/interface/shoppingCart.png Graphic file (type png)
 <use latex/interface/shoppingCart.png>
-Package pdftex.def Info: latex/interface/shoppingCart.png  used on input line 2
-43.
+Package pdftex.def Info: latex/interface/shoppingCart.png  used on input line 3
+21.
 (pdftex.def)             Requested size: 227.62206pt x 490.0763pt.
- [11
-pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.246 
-       <./latex/interface/search.png (PNG copy)>]
-<latex/interface/history.png, id=173, 393.47pt x 847.165pt>
+ [14 <./latex/interface/search.png (PNG copy)>]
+<latex/interface/history.png, id=205, 393.47pt x 847.165pt>
 File: latex/interface/history.png Graphic file (type png)
 <use latex/interface/history.png>
-Package pdftex.def Info: latex/interface/history.png  used on input line 252.
+Package pdftex.def Info: latex/interface/history.png  used on input line 330.
 (pdftex.def)             Requested size: 227.62206pt x 490.0763pt.
- [12
-pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.255 
-       <./latex/interface/shoppingCart.png (PNG copy)>]
-<latex/interface/tracking.png, id=180, 393.47pt x 847.165pt>
+ [15 <./latex/interface/shoppingCart.png (PNG copy)>]
+<latex/interface/tracking.png, id=211, 393.47pt x 847.165pt>
 File: latex/interface/tracking.png Graphic file (type png)
 <use latex/interface/tracking.png>
-Package pdftex.def Info: latex/interface/tracking.png  used on input line 261.
+Package pdftex.def Info: latex/interface/tracking.png  used on input line 339.
 (pdftex.def)             Requested size: 227.62206pt x 490.0763pt.
- [13
-pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.264 
-       <./latex/interface/history.png (PNG copy)>]
-<latex/interface/account.png, id=186, 393.47pt x 847.165pt>
+ [16 <./latex/interface/history.png (PNG copy)>]
+<latex/interface/account.png, id=217, 393.47pt x 847.165pt>
 File: latex/interface/account.png Graphic file (type png)
 <use latex/interface/account.png>
-Package pdftex.def Info: latex/interface/account.png  used on input line 270.
+Package pdftex.def Info: latex/interface/account.png  used on input line 348.
 (pdftex.def)             Requested size: 227.62206pt x 490.0763pt.
- [14
-pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.273 
-       <./latex/interface/tracking.png (PNG copy)>] [15
-pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) h
-as been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.291 	\item A
-              brir una terminal en la raÃ­z del proyecto. <./latex/interface/ac
-count.png (PNG copy)>] [16] [17] (./documentacion.aux)
+ [17 <./latex/interface/tracking.png (PNG copy)>]
+[18 <./latex/interface/account.png (PNG copy)>] [19] (./documentacion.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
-
-
-Package rerunfilecheck Warning: File `documentacion.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `documentacion.out':
-(rerunfilecheck)             Before: F6430ECDABC5791622909CC5A8098BB4;2798
-(rerunfilecheck)             After:  A01A135366C51D5516ABD0A1962F0653;2649.
+Package rerunfilecheck Info: File `documentacion.out' has not changed.
+(rerunfilecheck)             Checksum: C8952FB1968B37674981A1122FDFA0B7;2828.
  ) 
 Here is how much of TeX's memory you used:
- 10068 strings out of 469515
- 153646 string characters out of 5470808
- 579120 words of memory out of 5000000
- 38553 multiletter control sequences out of 15000+600000
+ 11463 strings out of 469515
+ 181114 string characters out of 5470807
+ 602502 words of memory out of 5000000
+ 39931 multiletter control sequences out of 15000+600000
  637969 words of font info for 60 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,6n,79p,710b,631s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{subsection.3.5} has been referenced but does not ex
-ist, replaced by a fixed one
-
- </home/dario/.texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1200.600pk> </
-home/dario/.texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1200.600pk> </hom
-e/dario/.texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/d
-ario/.texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/dari
-o/.texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk> </home/dario/.
-texlive/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk> </home/dario/.tex
-live/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/dario/.texliv
-e/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk> </home/dario/.texlive/t
-exmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk>
-Output written on documentacion.pdf (18 pages, 1878667 bytes).
+ 75i,7n,79p,710b,631s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/t
+exmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf-dist/fonts
+/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf-dist/fonts/type1/public/c
+m-super/sfbx2074.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm120
+0.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/sha
+re/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/share/texmf-dist/f
+onts/type1/public/cm-super/sftt1200.pfb>
+Output written on documentacion.pdf (20 pages, 1990401 bytes).
 PDF statistics:
- 578 PDF objects out of 1000 (max. 8388607)
- 225 compressed objects within 3 object streams
- 61 named destinations out of 1000 (max. 500000)
- 192 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 293 PDF objects out of 1000 (max. 8388607)
+ 229 compressed objects within 3 object streams
+ 67 named destinations out of 1000 (max. 500000)
+ 212 words of extra memory for PDF output out of 10000 (max. 10000000)
 
