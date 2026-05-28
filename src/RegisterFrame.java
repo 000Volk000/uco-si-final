@@ -83,6 +83,26 @@ public class RegisterFrame extends JPanel {
         btnLogin.setPreferredSize(new Dimension(220, 45));
         btnLogin.setFont(inikaFont.deriveFont(Font.PLAIN, 20f));
         btnLogin.addActionListener(e -> {
+            String email = txtUser.getText().trim();
+            String password = new String(txtPass.getPassword());
+            String confirmPassword = new String(txtConfirmPass.getPassword());
+
+            if (email.isEmpty() || password.isEmpty()) {
+                App.showAppMessage(App.getBundle().getString("EmptyRegisterFields"));
+                return;
+            }
+
+            if (!password.equals(confirmPassword)) {
+                App.showAppMessage(App.getBundle().getString("PasswordMismatch"));
+                return;
+            }
+
+            if (!App.registerAccount(email, password)) {
+                App.showAppMessage(App.getBundle().getString("InvalidRegister"));
+                return;
+            }
+
+            App.setName(email);
             App.setNavBarVisibility(true);
             gestorCartas.show(contenedorPrincipal, "main");
             App.updateNavSelection("main");

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.List;
+import java.util.Map;
 
 class BackgroundPanel extends JPanel {
     private Image scaleTopLeft;
@@ -42,6 +43,9 @@ class BackgroundPanel extends JPanel {
 
 public class App {
     private static ResourceBundle bundle;
+    private static final String DEFAULT_LOGIN_EMAIL = "el_pescador@gmail.com";
+    private static final String DEFAULT_LOGIN_PASSWORD = "MeGustanLosPeces123";
+    private static final Map<String, String> VALID_ACCOUNTS = new java.util.LinkedHashMap<>();
     private static JPanel bottomBar;
     private static JPanel messageBanner;
     private static JLabel messageLabel;
@@ -82,8 +86,45 @@ public class App {
         return username;
     }
 
+    static {
+        VALID_ACCOUNTS.put(DEFAULT_LOGIN_EMAIL, DEFAULT_LOGIN_PASSWORD);
+    }
+
     public static void setName(String newUsername) {
         username = newUsername;
+    }
+
+    public static boolean authenticate(String email, String password) {
+        if (email == null || password == null) {
+            return false;
+        }
+
+        return password.equals(VALID_ACCOUNTS.get(email.trim()));
+    }
+
+    public static boolean registerAccount(String email, String password) {
+        if (email == null || password == null) {
+            return false;
+        }
+
+        String trimmedEmail = email.trim();
+        if (trimmedEmail.isEmpty() || password.isEmpty()) {
+            return false;
+        }
+
+        username = trimmedEmail;
+        VALID_ACCOUNTS.put(trimmedEmail, password);
+        return true;
+    }
+
+    public static String getRegisteredEmail() {
+        return username;
+    }
+
+    public static void resetDefaultAccount() {
+        VALID_ACCOUNTS.clear();
+        VALID_ACCOUNTS.put(DEFAULT_LOGIN_EMAIL, DEFAULT_LOGIN_PASSWORD);
+        username = null;
     }
 
     public static ResourceBundle getBundle() {
@@ -267,10 +308,8 @@ public class App {
         historyFrame = new PurchaseHistoryFrame(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(historyFrame, "history");
 
-
         tracking = new TrackingFrame(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(tracking, "tracking");
-
 
         bgPanel.add(bottomBar, BorderLayout.SOUTH);
         setNavBarVisibility(false);
