@@ -217,7 +217,7 @@ public class MainScreen extends JPanel {
                         dataToLoad = new String[0][0];
 
                     App.sectionPanel.loadSectionData(translatedTitle, dataToLoad);
-                    gestorCartas.show(contenedorPrincipal, "sectionView");
+                    App.navigateTo("sectionView");
                 }
             });
 
@@ -358,7 +358,7 @@ public class MainScreen extends JPanel {
                 image,
                 "src/assets/Products/cart.png");
 
-        gestorCartas.show(contenedorPrincipal, "product");
+        App.navigateTo("product");
     }
 
 }

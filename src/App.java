@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.List;
@@ -59,6 +61,10 @@ public class App {
     private static JButton btnHistory;
     private static JButton btnAccount;
     private static JButton btnSearch;
+    private static JButton backButton;
+    private static final int MAX_NAV_HISTORY = 5;
+    private static final Deque<String> navigationHistory = new ArrayDeque<>();
+    private static String currentScreen = "login";
 
     private static Font inikaFont;
 
@@ -147,7 +153,54 @@ public class App {
     }
 
     public static void setNavBarVisibility(boolean state) {
-        bottomBar.setVisible(state);
+        if (bottomBar != null) {
+            bottomBar.setVisible(state);
+        }
+    }
+
+    public static void navigateTo(String screenName) {
+        navigateTo(screenName, true);
+    }
+
+    public static void navigateTo(String screenName, boolean recordHistory) {
+        if (gestorCartas == null || contenedorPantallas == null || screenName == null) {
+            return;
+        }
+
+        boolean targetIsTransient = isTransientScreen(screenName);
+
+        if (targetIsTransient) {
+            navigationHistory.clear();
+        } else if (recordHistory && currentScreen != null && !currentScreen.equals(screenName)
+                && !isTransientScreen(currentScreen)) {
+            navigationHistory.addLast(currentScreen);
+            while (navigationHistory.size() > MAX_NAV_HISTORY) {
+                navigationHistory.removeFirst();
+            }
+        }
+
+        gestorCartas.show(contenedorPantallas, screenName);
+        currentScreen = screenName;
+        updateBackButtonVisibility();
+    }
+
+    public static void goBack() {
+        if (navigationHistory.isEmpty()) {
+            return;
+        }
+
+        String previousScreen = navigationHistory.removeLast();
+        if ("cart".equals(previousScreen) && cartFrame != null) {
+            cartFrame.refreshCart();
+        } else if ("history".equals(previousScreen) && historyFrame != null) {
+            historyFrame.refreshHistory();
+        }
+
+        navigateTo(previousScreen, false);
+
+        if (isBottomTab(previousScreen)) {
+            updateNavSelection(previousScreen);
+        }
     }
 
     public static void showAppMessage(String text) {
@@ -255,29 +308,29 @@ public class App {
         btnSearch = createNavButton("src/assets/bottomBar/search.png");
 
         btnHome.addActionListener(e -> {
-            gestorCartas.show(contenedorPantallas, "main");
+            navigateTo("main");
             updateNavSelection("main");
         });
 
         btnSearch.addActionListener(e -> {
-            gestorCartas.show(contenedorPantallas, "search");
+            navigateTo("search");
             updateNavSelection("search");
         });
 
         btnCart.addActionListener(e -> {
             App.cartFrame.refreshCart();
-            gestorCartas.show(contenedorPantallas, "cart");
+            navigateTo("cart");
             updateNavSelection("cart");
         });
 
         btnHistory.addActionListener(e -> {
             App.historyFrame.refreshHistory();
-            gestorCartas.show(contenedorPantallas, "history");
+            navigateTo("history");
             updateNavSelection("history");
         });
 
         btnAccount.addActionListener(e -> {
-            gestorCartas.show(contenedorPantallas, "account");
+            navigateTo("account");
             updateNavSelection("account");
         });
 
@@ -325,6 +378,11 @@ public class App {
 
         tracking = new TrackingFrame(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(tracking, "tracking");
+
+        backButton = createBackButton();
+        backButton.setBounds(14, 14, 42, 42);
+        backButton.setVisible(false);
+        mainFrame.getLayeredPane().add(backButton, JLayeredPane.PALETTE_LAYER);
 
         bgPanel.add(bottomBar, BorderLayout.SOUTH);
         setNavBarVisibility(false);
@@ -424,7 +482,7 @@ public class App {
             e.printStackTrace();
         }
 
-        gestor.show(contenedor, current);
+        navigateTo(current, false);
 
         contenedor.revalidate();
         contenedor.repaint();
@@ -502,5 +560,45 @@ public class App {
         if (historyFrame != null) {
             historyFrame.refreshHistory();
         }
+    }
+
+    private static JButton createBackButton() {
+        JButton button = new JButton("←") {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(new Color(255, 255, 255, 235));
+                g2.fillOval(0, 0, getWidth(), getHeight());
+                g2.dispose();
+                super.paintComponent(g);
+            }
+        };
+        button.setFont(new Font("SansSerif", Font.PLAIN, 10));
+        button.setForeground(new Color(47, 54, 64));
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setOpaque(false);
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        button.addActionListener(e -> goBack());
+        return button;
+    }
+
+    private static void updateBackButtonVisibility() {
+        if (backButton == null) {
+            return;
+        }
+
+        backButton.setVisible(!isTransientScreen(currentScreen) && currentScreen != null);
+    }
+
+    private static boolean isTransientScreen(String screenName) {
+        return "login".equals(screenName) || "register".equals(screenName);
+    }
+
+    private static boolean isBottomTab(String screenName) {
+        return "main".equals(screenName) || "search".equals(screenName) || "cart".equals(screenName)
+                || "history".equals(screenName) || "account".equals(screenName);
     }
 }

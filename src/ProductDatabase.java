@@ -45,9 +45,6 @@ public class ProductDatabase {
 
         public static JPanel createItemCard(String name, String price, String imagePath, String desc,
                         MouseAdapter dragScrollListener) {
-                JPanel contenedorPrincipal = App.getContenedor();
-                CardLayout gestorCartas = App.getCardsGestor();
-
                 RoundedPanel card = new RoundedPanel(40, Color.decode("#E1EFFF"), null, 0);
                 card.setLayout(new GridBagLayout());
 
@@ -128,7 +125,7 @@ public class ProductDatabase {
                                                 price,
                                                 imagePath,
                                                 "src/assets/Products/cart.png");
-                                gestorCartas.show(contenedorPrincipal, "product");
+                                App.navigateTo("product");
                         }
                 });
 

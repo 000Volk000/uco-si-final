@@ -213,7 +213,7 @@ public class Account extends JPanel {
         JButton btnLogout = createCustomButton(App.getBundle().getString("LogOut"), new Color(200, 123, 118));
         btnLogout.addActionListener(e -> {
             App.setNavBarVisibility(false);
-            gestorCartas.show(contenedorPrincipal, "login");
+            App.navigateTo("login", false);
         });
         gbcControl.gridy = 2;
         gbcControl.insets = new Insets(0, 0, 0, 0);

@@ -144,7 +144,7 @@ public class PurchaseHistoryFrame extends JPanel {
                     String.valueOf(item.getPrice()),
                     item.getImagePath(),
                     "src/assets/Products/cart.png");
-            App.getCardsGestor().show(App.getContenedor(), "product");
+            App.navigateTo("product");
             App.updateNavSelection("main");
         });
 
@@ -158,8 +158,8 @@ if (item.isLastPurchase()) {
             
             trackingButton.addActionListener(e -> {
                 App.tracking.setTrackingData(item.getName(), item.getImagePath(), item.getDescription(), item.getPrice());
-                
-                App.getCardsGestor().show(App.getContenedor(), "tracking");
+
+                App.navigateTo("tracking");
             });
             // --------------------
 

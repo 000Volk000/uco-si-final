@@ -107,25 +107,26 @@ public class TrackingFrame extends JPanel {
 
         // Actualizamos el nombre del producto
         nameLabel.setText("<html><div style='text-align: center; width: 120px;'>" + productName + "</div></html>");
-        
+
         // REFRESCAMOS LOS DATOS DE ENVÍO
         String dirHtml = "<html><div style='width: 280px;'>"
-                       + App.getBundle().getString("Address") +": "+ App.address
-                       + "</div></html>";
+                + App.getBundle().getString("Address") + ": " + App.address
+                + "</div></html>";
         dirLabel.setText(dirHtml);
-        
+
         String destHtml = "<html><div style='width: 280px;'>"
-                        + App.getBundle().getString("Addressee") +": " + App.getName() // Asegúrate de que esto devuelve el usuario real
-                        + "</div></html>";
+                + App.getBundle().getString("Addressee") + ": " + App.getName() // Asegúrate de que esto devuelve el
+                                                                                // usuario real
+                + "</div></html>";
         destLabel.setText(destHtml);
-        
+
         LocalDate fechaLlegada = LocalDate.now().plusDays(2);
         DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String fechaFormateada = fechaLlegada.format(formateador);
 
         String dateHtml = "<html><div style='width: 280px;'>"
-                        + App.getBundle().getString("EstimatedDate") +": " + fechaFormateada
-                        + "</div></html>";
+                + App.getBundle().getString("EstimatedDate") + ": " + fechaFormateada
+                + "</div></html>";
         dateLabel.setText(dateHtml);
 
         // Actualizamos la imagen
@@ -179,7 +180,7 @@ public class TrackingFrame extends JPanel {
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         reorderButton = createActionButton(App.getBundle().getString("Reorder"), Color.decode("#85BB65"));
-        
+
         // --- CÓDIGO NUEVO PARA EL BOTÓN ---
         reorderButton.addActionListener(e -> {
             // Le enviamos a la vista de producto los datos que teníamos guardados
@@ -191,9 +192,9 @@ public class TrackingFrame extends JPanel {
                     "src/assets/Products/cart.png" // Asegúrate de que esta ruta al icono sea la tuya
             );
             // Cambiamos a la vista del producto
-            App.getCardsGestor().show(App.getContenedor(), "product");
+            App.navigateTo("product");
             // Opcional: Si quieres que el menú inferior marque otra pestaña
-            // App.updateNavSelection("main"); 
+            // App.updateNavSelection("main");
         });
         // ----------------------------------
         textPanel.add(nameLabel);
@@ -248,9 +249,8 @@ public class TrackingFrame extends JPanel {
 
         textContainer.setMaximumSize(new Dimension(320, Integer.MAX_VALUE));
 
-        
         Font textFont = App.font().deriveFont(Font.PLAIN, 18);
-        
+
         dirLabel = new JLabel();
         dirLabel.setFont(textFont);
         dirLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -258,7 +258,7 @@ public class TrackingFrame extends JPanel {
         destLabel = new JLabel();
         destLabel.setFont(textFont);
         destLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        
+
         dateLabel = new JLabel();
         dateLabel.setFont(textFont);
         dateLabel.setAlignmentX(Component.LEFT_ALIGNMENT);

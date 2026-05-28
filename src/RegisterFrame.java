@@ -139,7 +139,7 @@ public class RegisterFrame extends JPanel {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 // Al hacer clic, redirige a la carta "login"
-                gestorCartas.show(contenedorPrincipal, "login");
+                App.navigateTo("login", false);
             }
         });
         formPanel.add(lblLoginLink, gbc);
