@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class TrackingFrame extends JPanel {
 
@@ -9,6 +11,15 @@ public class TrackingFrame extends JPanel {
     private JLabel nameLabel;
     private JButton reorderButton;
     private MouseAdapter dragScrollListener;
+
+    private String trackName = "";
+    private String trackImagePath = "";
+    private String trackDesc = "";
+    private double trackPrice = 0.0;
+
+    private JLabel dirLabel;
+    private JLabel destLabel;
+    private JLabel dateLabel;
 
     public TrackingFrame(JPanel contenedorPrincipal, CardLayout gestorCartas) {
         App.chargeFont();
@@ -87,9 +98,37 @@ public class TrackingFrame extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    public void setTrackingData(String productName, String imagePath) {
+    public void setTrackingData(String productName, String imagePath, String description, double price) {
+        // Guardamos los datos para usarlos luego en el botón "Volver a pedir"
+        this.trackName = productName;
+        this.trackImagePath = imagePath;
+        this.trackDesc = description;
+        this.trackPrice = price;
+
+        // Actualizamos el nombre del producto
         nameLabel.setText("<html><div style='text-align: center; width: 120px;'>" + productName + "</div></html>");
         
+        // REFRESCAMOS LOS DATOS DE ENVÍO
+        String dirHtml = "<html><div style='width: 280px;'>"
+                       + App.getBundle().getString("Address") +": "+ App.address
+                       + "</div></html>";
+        dirLabel.setText(dirHtml);
+        
+        String destHtml = "<html><div style='width: 280px;'>"
+                        + App.getBundle().getString("Addressee") +": " + App.getName() // Asegúrate de que esto devuelve el usuario real
+                        + "</div></html>";
+        destLabel.setText(destHtml);
+        
+        LocalDate fechaLlegada = LocalDate.now().plusDays(2);
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fechaFormateada = fechaLlegada.format(formateador);
+
+        String dateHtml = "<html><div style='width: 280px;'>"
+                        + App.getBundle().getString("EstimatedDate") +": " + fechaFormateada
+                        + "</div></html>";
+        dateLabel.setText(dateHtml);
+
+        // Actualizamos la imagen
         try {
             if (new java.io.File(imagePath).exists()) {
                 ImageIcon icon = new ImageIcon(imagePath);
@@ -140,7 +179,23 @@ public class TrackingFrame extends JPanel {
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         reorderButton = createActionButton(App.getBundle().getString("Reorder"), Color.decode("#85BB65"));
-
+        
+        // --- CÓDIGO NUEVO PARA EL BOTÓN ---
+        reorderButton.addActionListener(e -> {
+            // Le enviamos a la vista de producto los datos que teníamos guardados
+            App.product.setProductData(
+                    trackName,
+                    trackDesc,
+                    String.valueOf(trackPrice),
+                    trackImagePath,
+                    "src/assets/Products/cart.png" // Asegúrate de que esta ruta al icono sea la tuya
+            );
+            // Cambiamos a la vista del producto
+            App.getCardsGestor().show(App.getContenedor(), "product");
+            // Opcional: Si quieres que el menú inferior marque otra pestaña
+            // App.updateNavSelection("main"); 
+        });
+        // ----------------------------------
         textPanel.add(nameLabel);
         textPanel.add(Box.createVerticalStrut(10));
         textPanel.add(reorderButton);
@@ -193,28 +248,19 @@ public class TrackingFrame extends JPanel {
         
         textContainer.setMaximumSize(new Dimension(320, Integer.MAX_VALUE));
 
+        
         Font textFont = App.font().deriveFont(Font.PLAIN, 18);
         
-        String dirHtml = "<html><div style='width: 280px;'>"
-                       + "Dirección: Av América nº56 2ºH, 14000"
-                       + "</div></html>";
-        JLabel dirLabel = new JLabel(dirHtml);
+        dirLabel = new JLabel();
         dirLabel.setFont(textFont);
-        
-        String destHtml = "<html><div style='width: 280px;'>"
-                        + "Destinatario: Pepe Viyuela"
-                        + "</div></html>";
-        JLabel destLabel = new JLabel(destHtml);
-        destLabel.setFont(textFont);
-        
-        String dateHtml = "<html><div style='width: 280px;'>"
-                        + "Fecha estimada de llegada: 16/04/2026"
-                        + "</div></html>";
-        JLabel dateLabel = new JLabel(dateHtml);
-        dateLabel.setFont(textFont);
-
         dirLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        destLabel = new JLabel();
+        destLabel.setFont(textFont);
         destLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        dateLabel = new JLabel();
+        dateLabel.setFont(textFont);
         dateLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         
         textContainer.add(dirLabel);

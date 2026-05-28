@@ -154,7 +154,7 @@ if (item.isLastPurchase()) {
             JButton trackingButton = createActionButton(App.getBundle().getString("Tracking"), Color.decode("#E9BD39"));
             
             trackingButton.addActionListener(e -> {
-                App.tracking.setTrackingData(item.getName(), item.getImagePath());
+                App.tracking.setTrackingData(item.getName(), item.getImagePath(), item.getDescription(), item.getPrice());
                 
                 App.getCardsGestor().show(App.getContenedor(), "tracking");
             });

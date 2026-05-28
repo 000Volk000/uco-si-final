@@ -47,7 +47,8 @@ public class App {
     private static JLabel messageLabel;
     private static Timer messageTimer;
     private static JFrame mainFrame;
-    private static String username;
+    public static String username;
+    public static String address = "";
 
     private static JButton btnHome;
     private static JButton btnCart;
@@ -340,10 +341,10 @@ public class App {
 
     public static void refresh(JPanel contenedor, CardLayout gestor, String current) {
         String[] names = { "account", "main", "login", "register", "product", "sectionView", "search",
-                "cart", "history" };
+                "cart", "history", "tracking" };
         List<Class<? extends JPanel>> classes = List.of(
                 Account.class, MainScreen.class, LoginFrame.class, RegisterFrame.class, Product.class,
-                SectionPanel.class, SearchFrame.class, CartFrame.class, PurchaseHistoryFrame.class);
+                SectionPanel.class, SearchFrame.class, CartFrame.class, PurchaseHistoryFrame.class, TrackingFrame.class);
 
         contenedor.removeAll();
 
