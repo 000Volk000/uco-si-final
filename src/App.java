@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.List;
+import java.util.Map;
 
 class BackgroundPanel extends JPanel {
     private Image scaleTopLeft;
@@ -42,6 +43,9 @@ class BackgroundPanel extends JPanel {
 
 public class App {
     private static ResourceBundle bundle;
+    private static final String DEFAULT_LOGIN_EMAIL = "el_pescador@gmail.com";
+    private static final String DEFAULT_LOGIN_PASSWORD = "MeGustanLosPeces123";
+    private static final Map<String, String> VALID_ACCOUNTS = new java.util.LinkedHashMap<>();
     private static JPanel bottomBar;
     private static JPanel messageBanner;
     private static JLabel messageLabel;
@@ -80,11 +84,62 @@ public class App {
     public static SectionPanel sectionPanel;
 
     public static String getName() {
-        return username;
+        return getDisplayName(username);
+    }
+
+    public static String getDisplayName(String email) {
+        if (email == null) {
+            return "";
+        }
+
+        String trimmedEmail = email.trim();
+        int atIndex = trimmedEmail.indexOf('@');
+        if (atIndex > 0) {
+            return trimmedEmail.substring(0, atIndex);
+        }
+
+        return trimmedEmail;
+    }
+
+    static {
+        VALID_ACCOUNTS.put(DEFAULT_LOGIN_EMAIL, DEFAULT_LOGIN_PASSWORD);
     }
 
     public static void setName(String newUsername) {
         username = newUsername;
+    }
+
+    public static boolean authenticate(String email, String password) {
+        if (email == null || password == null) {
+            return false;
+        }
+
+        return password.equals(VALID_ACCOUNTS.get(email.trim()));
+    }
+
+    public static boolean registerAccount(String email, String password) {
+        if (email == null || password == null) {
+            return false;
+        }
+
+        String trimmedEmail = email.trim();
+        if (trimmedEmail.isEmpty() || password.isEmpty()) {
+            return false;
+        }
+
+        username = trimmedEmail;
+        VALID_ACCOUNTS.put(trimmedEmail, password);
+        return true;
+    }
+
+    public static String getRegisteredEmail() {
+        return username;
+    }
+
+    public static void resetDefaultAccount() {
+        VALID_ACCOUNTS.clear();
+        VALID_ACCOUNTS.put(DEFAULT_LOGIN_EMAIL, DEFAULT_LOGIN_PASSWORD);
+        username = null;
     }
 
     public static ResourceBundle getBundle() {
@@ -268,10 +323,8 @@ public class App {
         historyFrame = new PurchaseHistoryFrame(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(historyFrame, "history");
 
-
         tracking = new TrackingFrame(contenedorPantallas, gestorCartas);
         contenedorPantallas.add(tracking, "tracking");
-
 
         bgPanel.add(bottomBar, BorderLayout.SOUTH);
         setNavBarVisibility(false);
@@ -344,7 +397,8 @@ public class App {
                 "cart", "history", "tracking" };
         List<Class<? extends JPanel>> classes = List.of(
                 Account.class, MainScreen.class, LoginFrame.class, RegisterFrame.class, Product.class,
-                SectionPanel.class, SearchFrame.class, CartFrame.class, PurchaseHistoryFrame.class, TrackingFrame.class);
+                SectionPanel.class, SearchFrame.class, CartFrame.class, PurchaseHistoryFrame.class,
+                TrackingFrame.class);
 
         contenedor.removeAll();
 
@@ -362,6 +416,8 @@ public class App {
                     cartFrame = (CartFrame) nuevoPanel;
                 } else if (names[i].equals("history")) {
                     historyFrame = (PurchaseHistoryFrame) nuevoPanel;
+                } else if (names[i].equals("tracking")) {
+                    tracking = (TrackingFrame) nuevoPanel;
                 }
             }
         } catch (Exception e) {
@@ -425,12 +481,20 @@ public class App {
     }
 
     public static void recordPurchase(java.util.List<CartItem> items) {
+        String activeEmail = getRegisteredEmail();
+        if (activeEmail == null || activeEmail.trim().isEmpty()) {
+            return;
+        }
+
         for (CartItem historyItem : purchaseHistory) {
-            historyItem.setLastPurchase(false);
+            if (activeEmail.equals(historyItem.getBuyerEmail())) {
+                historyItem.setLastPurchase(false);
+            }
         }
 
         for (CartItem item : items) {
             CartItem historyItem = item.copy();
+            historyItem.setBuyerEmail(activeEmail);
             historyItem.setLastPurchase(true);
             purchaseHistory.add(historyItem);
         }

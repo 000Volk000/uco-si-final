@@ -25,7 +25,7 @@ public class TrackingFrame extends JPanel {
         App.chargeFont();
         setOpaque(false);
         setLayout(new BorderLayout());
-        
+
         setBorder(BorderFactory.createEmptyBorder(145, 0, 20, 0));
 
         // 1. Contenedor Maestro: Usa GridBagLayout para forzar un centrado absoluto
@@ -37,7 +37,7 @@ public class TrackingFrame extends JPanel {
         cardsContainer.setLayout(new BoxLayout(cardsContainer, BoxLayout.Y_AXIS));
         cardsContainer.setOpaque(false);
         // Forzamos que este bloque mida exactamente 360px de ancho
-        cardsContainer.setPreferredSize(new Dimension(360, 650)); 
+        cardsContainer.setPreferredSize(new Dimension(360, 650));
         cardsContainer.setMaximumSize(new Dimension(360, Integer.MAX_VALUE));
 
         // Añadimos las tarjetas al contenedor de tarjetas
@@ -222,16 +222,16 @@ public class TrackingFrame extends JPanel {
         RoundedPanel card = new RoundedPanel(40, Color.decode("#DEECFF"), null, 0);
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
-        
+
         card.setMinimumSize(new Dimension(360, 420));
-        card.setMaximumSize(new Dimension(360, Integer.MAX_VALUE)); 
-        
-        card.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); 
+        card.setMaximumSize(new Dimension(360, Integer.MAX_VALUE));
+
+        card.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JLabel mapLabel = new JLabel();
         mapLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         try {
-            ImageIcon mapIcon = new ImageIcon("src/assets/tracking/tracking.png"); 
+            ImageIcon mapIcon = new ImageIcon("src/assets/tracking/tracking.png");
             Image mapImg = mapIcon.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
             mapLabel.setIcon(new ImageIcon(mapImg));
         } catch (Exception e) {
@@ -245,7 +245,7 @@ public class TrackingFrame extends JPanel {
         textContainer.setLayout(new BoxLayout(textContainer, BoxLayout.Y_AXIS));
         textContainer.setOpaque(false);
         textContainer.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
+
         textContainer.setMaximumSize(new Dimension(320, Integer.MAX_VALUE));
 
         
@@ -262,7 +262,7 @@ public class TrackingFrame extends JPanel {
         dateLabel = new JLabel();
         dateLabel.setFont(textFont);
         dateLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        
+
         textContainer.add(dirLabel);
         textContainer.add(Box.createVerticalStrut(10));
         textContainer.add(destLabel);
@@ -294,9 +294,11 @@ public class TrackingFrame extends JPanel {
                 g2.dispose();
                 super.paintComponent(g);
             }
+
             @Override
-            protected void paintBorder(Graphics g) {}
-            
+            protected void paintBorder(Graphics g) {
+            }
+
             @Override
             public boolean isContentAreaFilled() {
                 return false;

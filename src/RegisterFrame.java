@@ -62,7 +62,7 @@ public class RegisterFrame extends JPanel {
 
         // Confirmar Contraseña
         gbc.insets = new Insets(35, 25, 2, 0);
-        JLabel lblConfirmPass = new JLabel(App.getBundle().getString("ChangePassword"));
+        JLabel lblConfirmPass = new JLabel(App.getBundle().getString("RepeatPassword"));
         lblConfirmPass.setFont(inikaFont.deriveFont(Font.PLAIN, 18f));
         gbc.gridy = 5;
         gbc.anchor = GridBagConstraints.WEST;
@@ -83,8 +83,28 @@ public class RegisterFrame extends JPanel {
         btnLogin.setPreferredSize(new Dimension(220, 45));
         btnLogin.setFont(inikaFont.deriveFont(Font.PLAIN, 20f));
         btnLogin.addActionListener(e -> {
+            String email = txtUser.getText().trim();
+            String password = new String(txtPass.getPassword());
+            String confirmPassword = new String(txtConfirmPass.getPassword());
+
+            if (email.isEmpty() || password.isEmpty()) {
+                App.showAppMessage(App.getBundle().getString("EmptyRegisterFields"));
+                return;
+            }
+
+            if (!password.equals(confirmPassword)) {
+                App.showAppMessage(App.getBundle().getString("PasswordMismatch"));
+                return;
+            }
+
+            if (!App.registerAccount(email, password)) {
+                App.showAppMessage(App.getBundle().getString("InvalidRegister"));
+                return;
+            }
+
+            App.setName(email);
+            App.refresh(contenedorPrincipal, gestorCartas, "main");
             App.setNavBarVisibility(true);
-            gestorCartas.show(contenedorPrincipal, "main");
             App.updateNavSelection("main");
         });
         gbc.gridy = 7;

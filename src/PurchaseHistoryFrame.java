@@ -77,11 +77,14 @@ public class PurchaseHistoryFrame extends JPanel {
 
     public void refreshHistory() {
         listPanel.removeAll();
+        String activeEmail = App.getRegisteredEmail();
 
         for (int index = App.purchaseHistory.size() - 1; index >= 0; index--) {
             CartItem item = App.purchaseHistory.get(index);
-            listPanel.add(createHistoryItem(item));
-            listPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+            if (activeEmail != null && activeEmail.equals(item.getBuyerEmail())) {
+                listPanel.add(createHistoryItem(item));
+                listPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+            }
         }
 
         listPanel.revalidate();

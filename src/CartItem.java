@@ -6,6 +6,7 @@ public class CartItem {
     private int quantity;
     private String description;
     private boolean lastPurchase;
+    private String buyerEmail;
 
     public CartItem(String name, double price, String imagePath, int quantity) {
         this(name, price, imagePath, quantity, "");
@@ -18,6 +19,7 @@ public class CartItem {
         this.quantity = quantity;
         this.description = description != null ? description : "";
         this.lastPurchase = false;
+        this.buyerEmail = "";
     }
 
     public String getName() {
@@ -44,8 +46,16 @@ public class CartItem {
         return lastPurchase;
     }
 
+    public String getBuyerEmail() {
+        return buyerEmail;
+    }
+
     public void setLastPurchase(boolean lastPurchase) {
         this.lastPurchase = lastPurchase;
+    }
+
+    public void setBuyerEmail(String buyerEmail) {
+        this.buyerEmail = buyerEmail != null ? buyerEmail.trim() : "";
     }
 
     public void setQuantity(int quantity) {
@@ -55,6 +65,7 @@ public class CartItem {
     public CartItem copy() {
         CartItem copy = new CartItem(name, price, imagePath, quantity, description);
         copy.setLastPurchase(lastPurchase);
+        copy.setBuyerEmail(buyerEmail);
         return copy;
     }
 }

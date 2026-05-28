@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 
-
 public class LoginFrame extends JPanel {
 
     public LoginFrame(JPanel contenedorPrincipal, CardLayout gestorCarta) {
@@ -86,8 +85,17 @@ public class LoginFrame extends JPanel {
         gbc.gridy = 6;
         gbc.anchor = GridBagConstraints.CENTER;
         btnLogin.addActionListener(e -> {
+            String email = txtUser.getText().trim();
+            String password = new String(txtPass.getPassword());
+
+            if (!App.authenticate(email, password)) {
+                App.showAppMessage(App.getBundle().getString("InvalidLogin"));
+                return;
+            }
+
+            App.setName(email);
+            App.refresh(contenedorPrincipal, gestorCarta, "main");
             App.setNavBarVisibility(true);
-            gestorCarta.show(contenedorPrincipal, "main");
             App.updateNavSelection("main");
         });
         add(btnLogin, gbc);
@@ -175,6 +183,5 @@ public class LoginFrame extends JPanel {
             g2.dispose();
         }
     }
-
 
 }
