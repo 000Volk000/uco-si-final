@@ -8,10 +8,9 @@
 \contentsline {subsection}{\numberline {2.6}Cambios respecto al prototipo}{8}{subsection.2.6}%
 \contentsline {section}{\numberline {3}Tutorial o breve manual de usuario}{9}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Requisitos previos}{9}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Compilación}{9}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Ejecución}{9}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Uso de la aplicación}{9}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}Manual de usuario}{11}{subsection.3.5}%
-\contentsline {section}{\numberline {4}Conclusiones}{18}{section.4}%
-\contentsline {section}{\numberline {A}Anexos}{19}{appendix.A}%
-\contentsline {subsection}{\numberline {A.1}Referencias de recursos}{19}{subsection.A.1}%
+\contentsline {subsection}{\numberline {3.2}Ejecución}{9}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Uso de la aplicación}{9}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Manual de usuario}{10}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Conclusiones}{17}{section.4}%
+\contentsline {section}{\numberline {A}Anexos}{18}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}Referencias de recursos}{18}{subsection.A.1}%
